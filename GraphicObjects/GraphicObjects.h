@@ -31,7 +31,7 @@
 
 
 // ----------- Methods ------------
-void draw_square (float x, float y, float width, float height);
+void draw_square (float vector[3], float x, float y, float width, float height);
 void draw_axes (float vector[3]);
 
 

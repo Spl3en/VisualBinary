@@ -3,7 +3,7 @@
 #pragma once
 
 // ---------- Includes ------------
-
+#include "../GraphicObjects/GraphicObjects.h"
 
 // ---------- Defines -------------
 
@@ -11,7 +11,7 @@
 // ------ Class declaration -------
 typedef struct _Cube3D
 {
-	int a;
+	float *view;
 
 }	Cube3D;
 
@@ -31,7 +31,7 @@ void
 cube3d_init (Cube3D *cube3d);
 
 void
-cube3d_draw (Cube3D *this);
+cube3d_draw (Cube3D *this, float *view);
 
 // --------- Destructors ----------
 

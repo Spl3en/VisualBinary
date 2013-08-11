@@ -1,31 +1,53 @@
 #include "GraphicObjects.h"
 #include <SFML/OpenGL.h>
 
-void draw_square (float x, float y, float width, float height)
+void draw_square (float view[3], float x, float y, float width, float height)
 {
+	glPushMatrix ();
+
+	glTranslatef (0.0, 0.0, view[2]);
+	glRotatef (view[1], 1,0,0);
+	glRotatef (view[0], 0,1,0);
+
 	glBegin (GL_POLYGON);
 		glVertex3f (x, y, 0.0);
 		glVertex3f (x, y + height, 0.0);
 		glVertex3f (x + width, y + height, 0.0);
 		glVertex3f (x + width, y, 0.0);
 	glEnd ();
+
+	glPopMatrix ();
 }
 
-void draw_axes (float vector[3])
+void draw_point (float view[3], float x, float y)
 {
-	float ORG[3] = {0,0,0};
-	float XP[3]  = {1,0,0},
-		  YP[3]  = {0,1,0},
-		  ZP[3]  = {0,0,1};
+	glPushMatrix ();
+
+	glTranslatef (0.0, 0.0, view[2]);
+	glRotatef (view[1], 1,0,0);
+	glRotatef (view[0], 0,1,0);
+
+	glBegin(GL_POINTS);
+		glVertex3f(x, y, 0.0f);
+	glEnd();
+
+	glPopMatrix ();
+}
+
+void draw_axes (float view[3])
+{
+	static float ORG[3] = {0,0,0};
+	static float XP[3]  = {1,0,0},
+				 YP[3]  = {0,1,0},
+				 ZP[3]  = {0,0,1};
 
 	glPushMatrix ();
 
-	glTranslatef (-2.0, -1.5, -5);
-	glRotatef (vector[1], 1,0,0);
-	glRotatef (vector[0], 0,1,0);
-	glScalef (0.25, 0.25, 0.25);
+	glTranslatef (0.0, 0.0, view[2]);
+	glRotatef (view[1], 1,0,0);
+	glRotatef (view[0], 0,1,0);
 
-	glLineWidth (2.0);
+	glLineWidth (5.0);
 
 	glBegin (GL_LINES);
 	glColor3f (1,0,0); // X axis is red.

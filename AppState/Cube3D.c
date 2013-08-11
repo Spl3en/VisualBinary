@@ -1,5 +1,6 @@
 #include "Cube3D.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 Cube3D *
 cube3d_new (void)
@@ -23,12 +24,13 @@ cube3d_alloc (void)
 void
 cube3d_init (Cube3D *this)
 {
+
 }
 
 void
-cube3d_draw (Cube3D *this)
+cube3d_draw (Cube3D *this, float *view)
 {
-
+	draw_square(view, 0.0, 0.0, 1.0, 1.0);
 }
 
 void

@@ -35,13 +35,13 @@ typedef struct _AppWindow
 	sfRenderWindow* obj;
 
 	// Data
-	float rotation[3];
+	float *view;
 
 	// Application states
 	BbQueue *drawing_routines;
 	int app_state;
 	int last_app_state;
-	Function *draw;
+	DrawFunction *draw;
 
 }	AppWindow;
 
@@ -64,10 +64,13 @@ void
 AppWindow_main (AppWindow *window);
 
 int
-AppWindow_add_draw_routine (AppWindow *window, Function *func);
+AppWindow_add_draw_routine (AppWindow *this, DrawFunction *func);
 
 void
 AppWindow_set_state (AppWindow *window, int state);
+
+float *
+AppWindow_get_view (AppWindow *this);
 
 // --------- Destructors ----------
 

@@ -579,19 +579,19 @@
 	"Cube3D.h"
 	<stdlib.h>
 
-1376235916 source:c:\users\spl3en\documents\github\visualbinary\appwindow\appwindow.c
+1376238624 source:c:\users\spl3en\documents\github\visualbinary\appwindow\appwindow.c
 	"AppWindow.h"
 	"../WrapSFML/wrap.h"
 	<stdlib.h>
 	<SFML/OpenGL.h>
 
-1376235763 c:\users\spl3en\documents\github\visualbinary\appwindow\appwindow.h
+1376237293 c:\users\spl3en\documents\github\visualbinary\appwindow\appwindow.h
 	<SFML/Graphics.h>
 	"../GraphicObjects/GraphicObjects.h"
 	"../Function/Function.h"
 	"../dbg/dbg.h"
 
-1376232883 c:\users\spl3en\documents\github\visualbinary\graphicobjects\graphicobjects.h
+1376236774 c:\users\spl3en\documents\github\visualbinary\graphicobjects\graphicobjects.h
 	"../dbg/dbg.h"
 
 1376227780 c:\users\spl3en\documents\github\visualbinary\dbg\dbg.h
@@ -606,19 +606,19 @@
 	<stdio.h>
 	<stdlib.h>
 
-1376235587 c:\users\spl3en\documents\github\visualbinary\function\function.h
+1376237257 c:\users\spl3en\documents\github\visualbinary\function\function.h
 
 1376228212 c:\users\spl3en\documents\github\visualbinary\wrapsfml\wrap.h
 
 1376234892 source:c:\users\spl3en\documents\github\visualbinary\bbqueue\bbqueue.c
 	"BbQueue.h"
 
-1376235569 source:c:\users\spl3en\documents\github\visualbinary\function\function.c
+1376237338 source:c:\users\spl3en\documents\github\visualbinary\function\function.c
 	"Function.h"
 	<stdlib.h>
 	<stdio.h>
 
-1376233231 source:c:\users\spl3en\documents\github\visualbinary\graphicobjects\graphicobjects.c
+1376238470 source:c:\users\spl3en\documents\github\visualbinary\graphicobjects\graphicobjects.c
 	"GraphicObjects.h"
 	<SFML/OpenGL.h>
 
@@ -630,13 +630,15 @@
 	<stdarg.h>
 	<stdio.h>
 
-1376235798 source:c:\users\spl3en\documents\github\visualbinary\main.c
+1376237761 source:c:\users\spl3en\documents\github\visualbinary\main.c
 	"AppWindow/AppWindow.h"
 	"AppState/Cube3D.h"
 
-1376235707 c:\users\spl3en\documents\github\visualbinary\appstate\cube3d.h
+1376237788 c:\users\spl3en\documents\github\visualbinary\appstate\cube3d.h
+	"../GraphicObjects/GraphicObjects.h"
 
-1376235886 source:c:\users\spl3en\documents\github\visualbinary\appstate\cube3d.c
+1376238440 source:c:\users\spl3en\documents\github\visualbinary\appstate\cube3d.c
 	"Cube3D.h"
 	<stdlib.h>
+	<stdio.h>
 

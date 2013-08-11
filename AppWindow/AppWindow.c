@@ -5,7 +5,8 @@
 
 // Private defines
 #define SCREEN_W 800
-#define SCREEN_H 600
+#define SCREEN_H 800
+
 
 AppWindow *
 AppWindow_new (void)
@@ -24,6 +25,12 @@ AppWindow *
 AppWindow_alloc (void)
 {
 	return calloc (1, sizeof(AppWindow));
+}
+
+float *
+AppWindow_get_view (AppWindow *this)
+{
+	return this->view;
 }
 
 void
@@ -69,7 +76,7 @@ AppWindow_init (AppWindow *this)
 		glLoadIdentity();									// Reset The Projection Matrix
 
 		// Calculate the aspect ratio of the window
-		gluPerspective(40.0, (GLfloat) SCREEN_W / (GLfloat) SCREEN_H, 1.0, 10.0);
+		gluPerspective(50.0, 1.0, 1.0, 10.0);
 
 		glMatrixMode(GL_MODELVIEW);							// Select The Modelview Matrix
 		glLoadIdentity();									// Reset The Modelview Matrix
@@ -81,10 +88,14 @@ AppWindow_init (AppWindow *this)
 	this->app_state = -1;
 	this->last_app_state = -1;
 	this->drawing_routines = bb_queue_new();
+	this->view = calloc(sizeof(float), 3);
+	this->view[X_AXIS] = 45.0;
+	this->view[Y_AXIS] = 45.0;
+	this->view[Z_AXIS] = -5.0;
 }
 
 int
-AppWindow_add_draw_routine (AppWindow *this, Function *func)
+AppWindow_add_draw_routine (AppWindow *this, DrawFunction *func)
 {
 	bb_queue_add(this->drawing_routines, func);
 	return bb_queue_get_length(this->drawing_routines) - 1;
@@ -103,7 +114,7 @@ AppWindow_main (AppWindow *this)
 	{
 		glLoadIdentity ();
 
-		draw_axes (this->rotation);
+		draw_axes (this->view);
 
 		if (this->app_state != -1)
 		{
@@ -112,7 +123,7 @@ AppWindow_main (AppWindow *this)
 				this->draw = bb_queue_pick_nth (this->drawing_routines, this->app_state);
 			}
 
-			function_call(this->draw);
+			draw_function_call (this->draw);
 		}
 
 		this->last_app_state = this->app_state;
@@ -145,35 +156,45 @@ AppWindow_main (AppWindow *this)
 		// Keyboard
 		if (sfKeyboard_isKeyPressed(sfKeyUp))
 		{
-			this->rotation[Y_AXIS] += 5.0;
+			this->view[Y_AXIS] += 5.0;
 		}
 
 		if (sfKeyboard_isKeyPressed(sfKeyDown))
 		{
-			this->rotation[Y_AXIS] -= 5.0;
+			this->view[Y_AXIS] -= 5.0;
 		}
 
 		if (sfKeyboard_isKeyPressed(sfKeyLeft))
 		{
-			this->rotation[X_AXIS] -= 5.0;
+			this->view[X_AXIS] -= 5.0;
 		}
 
 		if (sfKeyboard_isKeyPressed(sfKeyRight))
 		{
-			this->rotation[X_AXIS] += 5.0;
+			this->view[X_AXIS] += 5.0;
+		}
+
+		if (sfKeyboard_isKeyPressed(sfKeyPageUp))
+		{
+			this->view[Z_AXIS] += 0.5;
+		}
+
+		if (sfKeyboard_isKeyPressed(sfKeyPageDown))
+		{
+			this->view[Z_AXIS] -= 0.5;
 		}
 
 		if (sfKeyboard_isKeyPressed(sfKeyR))
 		{
-			this->rotation[X_AXIS] = 0.0;
-			this->rotation[Y_AXIS] = 0.0;
+			this->view[X_AXIS] = 0.0;
+			this->view[Y_AXIS] = 0.0;
 		}
 	}
 
 	void AppWindow_clear ()
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clear Screen And Depth Buffer
-		// sfRenderWindow_clear(SFML(this), sfBlack);
+		sfRenderWindow_clear(SFML(this), sfBlack);
 	}
 
 	// Loop
