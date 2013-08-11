@@ -11,6 +11,7 @@
 typedef struct _Analyzer
 {
 	Frame *frames;
+	long int filesize;
 
 }	Analyzer;
 

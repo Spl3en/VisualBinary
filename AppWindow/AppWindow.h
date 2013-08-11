@@ -6,9 +6,9 @@
 
 // ---------- Includes ------------
 #include <SFML/Graphics.h>
-
 #include "../GraphicObjects/GraphicObjects.h"
 #include "../Function/Function.h"
+#include "../WrapSFML/wrap.h"
 
 // ---------- Defines -------------
 #define X_AXIS 0
@@ -37,11 +37,14 @@ typedef struct _AppWindow
 	// Data
 	float *view;
 
-	// Application states
+	// Draw states
 	BbQueue *drawing_routines;
-	int app_state;
-	int last_app_state;
+	int draw_app_state;
+	int last_draw_app_state;
 	DrawFunction *draw;
+
+	// Input states
+	BbQueue *input_routines;
 
 }	AppWindow;
 
@@ -50,7 +53,7 @@ typedef struct _AppWindow
 // --------- Constructors ---------
 
 AppWindow *
-AppWindow_new (void);
+AppWindow_new (char *window_name);
 
 AppWindow *
 AppWindow_alloc (void);
@@ -58,13 +61,16 @@ AppWindow_alloc (void);
 // ----------- Methods ------------
 
 void
-AppWindow_init (AppWindow *window);
+AppWindow_init (AppWindow *this, char *window_name);
 
 void
 AppWindow_main (AppWindow *window);
 
 int
 AppWindow_add_draw_routine (AppWindow *this, DrawFunction *func);
+
+void
+AppWindow_add_input_routine (AppWindow *this, Function *func);
 
 void
 AppWindow_set_state (AppWindow *window, int state);

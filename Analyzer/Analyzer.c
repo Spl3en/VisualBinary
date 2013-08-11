@@ -53,6 +53,7 @@ analyzer_init (Analyzer *this, char *filename)
 
 	// File
 	long int filesize = file_get_size_handler(bin);
+	this->filesize = filesize;
 
 	// File Offsets
 	long int cur_offset   = 1;

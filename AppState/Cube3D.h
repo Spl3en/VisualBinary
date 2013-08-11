@@ -5,7 +5,9 @@
 // ---------- Includes ------------
 #include "../GraphicObjects/GraphicObjects.h"
 #include "../Randomizer/Randomizer.h"
-#include "../Frame/Frame.h"
+#include "../Analyzer/Analyzer.h"
+#include <SFML/OpenGL.h>
+#include <SFML/Graphics.h>
 
 // ---------- Defines -------------
 
@@ -13,7 +15,15 @@
 // ------ Class declaration -------
 typedef struct _Cube3D
 {
-	Frame *frames;
+	sfRenderWindow* render;
+
+	Analyzer *analyzer;
+	GLuint index;
+
+	float start_limit;
+	float end_limit;
+
+	sfFont *font;
 
 }	Cube3D;
 
@@ -22,7 +32,7 @@ typedef struct _Cube3D
 // --------- Constructors ---------
 
 Cube3D *
-cube3d_new (Frame *frames);
+cube3d_new (sfRenderWindow* render, Analyzer *analyzer);
 
 Cube3D *
 cube3d_alloc (void);
@@ -30,10 +40,19 @@ cube3d_alloc (void);
 // ----------- Methods ------------
 
 void
-cube3d_init (Cube3D *this, Frame *frames);
+cube3d_init (Cube3D *this, sfRenderWindow* render, Analyzer *analyzer);
 
 void
 cube3d_draw (Cube3D *this, float *view);
+
+void
+cube3d_direct_draw (Cube3D *this, float *view);
+
+void
+cube3d_init_list (Cube3D *this);
+
+void
+cube3d_input (Cube3D *this);
 
 // --------- Destructors ----------
 

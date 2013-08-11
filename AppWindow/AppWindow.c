@@ -1,5 +1,4 @@
 #include "AppWindow.h"
-#include "../WrapSFML/wrap.h"
 #include <stdlib.h>
 #include <SFML/OpenGL.h>
 
@@ -9,14 +8,14 @@
 
 
 AppWindow *
-AppWindow_new (void)
+AppWindow_new (char *window_name)
 {
 	AppWindow *this;
 
 	if ((this = AppWindow_alloc()) == NULL)
 		return NULL;
 
-	AppWindow_init(this);
+	AppWindow_init(this, window_name);
 
 	return this;
 }
@@ -34,7 +33,7 @@ AppWindow_get_view (AppWindow *this)
 }
 
 void
-AppWindow_init (AppWindow *this)
+AppWindow_init (AppWindow *this, char *window_name)
 {
 	/* RenderWindow */
 	sfVideoMode video_mode = {
@@ -53,14 +52,14 @@ AppWindow_init (AppWindow *this)
 
 	SFML(this) = sfRenderWindow_create(
 		video_mode,
-		"VisualBinary",
+		window_name,
 		sfDefaultStyle,
 		&settings
 	);
 
 	sfRenderWindow_setVerticalSyncEnabled(SFML(this), TRUE);
 
-	// OpenGL
+	// OpenGL initialization
 	void appWindow_init_OpenGL ()
 	{
 		glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
@@ -76,7 +75,7 @@ AppWindow_init (AppWindow *this)
 		glLoadIdentity();									// Reset The Projection Matrix
 
 		// Calculate the aspect ratio of the window
-		gluPerspective(50.0, 1.0, 1.0, 10.0);
+		gluPerspective(50.0, 1.0, 0.01, 10.0);
 
 		glMatrixMode(GL_MODELVIEW);							// Select The Modelview Matrix
 		glLoadIdentity();									// Reset The Modelview Matrix
@@ -85,13 +84,16 @@ AppWindow_init (AppWindow *this)
 
 
 	// Initialize App Window state
-	this->app_state = -1;
-	this->last_app_state = -1;
+	this->draw_app_state = -1;
+	this->last_draw_app_state  = -1;
 	this->drawing_routines = bb_queue_new();
+	this->input_routines = bb_queue_new();
 	this->view = calloc(sizeof(float), 3);
 	this->view[X_AXIS] = 45.0;
 	this->view[Y_AXIS] = 45.0;
-	this->view[Z_AXIS] = -5.0;
+	this->view[Z_AXIS] = -2.0;
+
+
 }
 
 int
@@ -102,9 +104,15 @@ AppWindow_add_draw_routine (AppWindow *this, DrawFunction *func)
 }
 
 void
+AppWindow_add_input_routine (AppWindow *this, Function *func)
+{
+	bb_queue_add(this->input_routines, func);
+}
+
+void
 AppWindow_set_state (AppWindow *window, int state)
 {
-	window->app_state = state;
+	window->draw_app_state  = state;
 }
 
 void
@@ -114,19 +122,18 @@ AppWindow_main (AppWindow *this)
 	{
 		glLoadIdentity ();
 
-		draw_axes (this->view);
-
-		if (this->app_state != -1)
+		// draw_axes (this->view);
+		if (this->draw_app_state != -1)
 		{
-			if (this->last_app_state != this->app_state)
+			if (this->last_draw_app_state != this->draw_app_state )
 			{
-				this->draw = bb_queue_pick_nth (this->drawing_routines, this->app_state);
+				this->draw = bb_queue_pick_nth (this->drawing_routines, this->draw_app_state );
 			}
 
 			draw_function_call (this->draw);
 		}
 
-		this->last_app_state = this->app_state;
+		this->last_draw_app_state  = this->draw_app_state;
 	}
 
 	void AppWindow_input ()
@@ -156,38 +163,43 @@ AppWindow_main (AppWindow *this)
 		// Keyboard
 		if (sfKeyboard_isKeyPressed(sfKeyUp))
 		{
-			this->view[Y_AXIS] += 5.0;
+			this->view[Y_AXIS] += 1.0;
 		}
 
 		if (sfKeyboard_isKeyPressed(sfKeyDown))
 		{
-			this->view[Y_AXIS] -= 5.0;
+			this->view[Y_AXIS] -= 1.0;
 		}
 
 		if (sfKeyboard_isKeyPressed(sfKeyLeft))
 		{
-			this->view[X_AXIS] -= 5.0;
+			this->view[X_AXIS] -= 1.0;
 		}
 
 		if (sfKeyboard_isKeyPressed(sfKeyRight))
 		{
-			this->view[X_AXIS] += 5.0;
+			this->view[X_AXIS] += 1.0;
 		}
 
 		if (sfKeyboard_isKeyPressed(sfKeyPageUp))
 		{
-			this->view[Z_AXIS] += 0.5;
+			this->view[Z_AXIS] += 0.01;
 		}
 
 		if (sfKeyboard_isKeyPressed(sfKeyPageDown))
 		{
-			this->view[Z_AXIS] -= 0.5;
+			this->view[Z_AXIS] -= 0.01;
 		}
 
 		if (sfKeyboard_isKeyPressed(sfKeyR))
 		{
 			this->view[X_AXIS] = 0.0;
 			this->view[Y_AXIS] = 0.0;
+		}
+
+		foreach_bbqueue_item (this->input_routines, Function *function)
+		{
+			function->call (function->arg);
 		}
 	}
 

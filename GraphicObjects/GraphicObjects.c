@@ -21,7 +21,6 @@ void draw_square (float view[3], float x, float y, float z, float width, float h
 
 void draw_point (float view[3], float x, float y, float z)
 {
-
 	glBegin(GL_POINTS);
 		glVertex3f(x, y, z);
 	glEnd();
