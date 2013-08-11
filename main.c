@@ -1,8 +1,11 @@
 #include "AppWindow/AppWindow.h"
 #include "AppState/Cube3D.h"
+#include <time.h>
 
 int main()
 {
+	srand(time(NULL));
+
 	AppWindow *window = AppWindow_new();
 	float *view = AppWindow_get_view(window);
 

@@ -4,6 +4,8 @@
 
 // ---------- Includes ------------
 #include "../GraphicObjects/GraphicObjects.h"
+#include "../Randomizer/Randomizer.h"
+#include "../Frame/Frame.h"
 
 // ---------- Defines -------------
 
@@ -11,7 +13,7 @@
 // ------ Class declaration -------
 typedef struct _Cube3D
 {
-	float *view;
+	Frame frames[256];
 
 }	Cube3D;
 

@@ -1,7 +1,7 @@
 #include "GraphicObjects.h"
 #include <SFML/OpenGL.h>
 
-void draw_square (float view[3], float x, float y, float width, float height)
+void draw_square (float view[3], float x, float y, float z, float width, float height)
 {
 	glPushMatrix ();
 
@@ -10,16 +10,16 @@ void draw_square (float view[3], float x, float y, float width, float height)
 	glRotatef (view[0], 0,1,0);
 
 	glBegin (GL_POLYGON);
-		glVertex3f (x, y, 0.0);
-		glVertex3f (x, y + height, 0.0);
-		glVertex3f (x + width, y + height, 0.0);
-		glVertex3f (x + width, y, 0.0);
+		glVertex3f (x, y, z);
+		glVertex3f (x, y + height, z);
+		glVertex3f (x + width, y + height, z);
+		glVertex3f (x + width, y, z);
 	glEnd ();
 
 	glPopMatrix ();
 }
 
-void draw_point (float view[3], float x, float y)
+void draw_point (float view[3], float x, float y, float z)
 {
 	glPushMatrix ();
 
@@ -28,7 +28,7 @@ void draw_point (float view[3], float x, float y)
 	glRotatef (view[0], 0,1,0);
 
 	glBegin(GL_POINTS);
-		glVertex3f(x, y, 0.0f);
+		glVertex3f(x, y, z);
 	glEnd();
 
 	glPopMatrix ();

@@ -579,7 +579,7 @@
 	"Cube3D.h"
 	<stdlib.h>
 
-1376238624 source:c:\users\spl3en\documents\github\visualbinary\appwindow\appwindow.c
+1376239378 source:c:\users\spl3en\documents\github\visualbinary\appwindow\appwindow.c
 	"AppWindow.h"
 	"../WrapSFML/wrap.h"
 	<stdlib.h>
@@ -591,7 +591,7 @@
 	"../Function/Function.h"
 	"../dbg/dbg.h"
 
-1376236774 c:\users\spl3en\documents\github\visualbinary\graphicobjects\graphicobjects.h
+1376238872 c:\users\spl3en\documents\github\visualbinary\graphicobjects\graphicobjects.h
 	"../dbg/dbg.h"
 
 1376227780 c:\users\spl3en\documents\github\visualbinary\dbg\dbg.h
@@ -618,7 +618,7 @@
 	<stdlib.h>
 	<stdio.h>
 
-1376238470 source:c:\users\spl3en\documents\github\visualbinary\graphicobjects\graphicobjects.c
+1376238762 source:c:\users\spl3en\documents\github\visualbinary\graphicobjects\graphicobjects.c
 	"GraphicObjects.h"
 	<SFML/OpenGL.h>
 
@@ -630,15 +630,35 @@
 	<stdarg.h>
 	<stdio.h>
 
-1376237761 source:c:\users\spl3en\documents\github\visualbinary\main.c
+1376239167 source:c:\users\spl3en\documents\github\visualbinary\main.c
 	"AppWindow/AppWindow.h"
 	"AppState/Cube3D.h"
+	<time.h>
 
-1376237788 c:\users\spl3en\documents\github\visualbinary\appstate\cube3d.h
+1376239933 c:\users\spl3en\documents\github\visualbinary\appstate\cube3d.h
 	"../GraphicObjects/GraphicObjects.h"
+	"../Randomizer/Randomizer.h"
+	"../Frame/Frame.h"
 
-1376238440 source:c:\users\spl3en\documents\github\visualbinary\appstate\cube3d.c
+1376240051 source:c:\users\spl3en\documents\github\visualbinary\appstate\cube3d.c
 	"Cube3D.h"
 	<stdlib.h>
 	<stdio.h>
+
+1376239459 source:c:\users\spl3en\documents\github\visualbinary\randomizer\randomizer.c
+	"Randomizer.h"
+
+1376239481 c:\users\spl3en\documents\github\visualbinary\randomizer\randomizer.h
+	<stdlib.h>
+	<time.h>
+
+1250308680 d:\logiciels\codeblocks\mingw\include\\time.h
+	<_mingw.h>
+	<stddef.h>
+
+1376239892 c:\users\spl3en\documents\github\visualbinary\frame\frame.h
+
+1376239939 source:c:\users\spl3en\documents\github\visualbinary\frame\frame.c
+	"Frame.h"
+	<stdlib.h>
 

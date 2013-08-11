@@ -31,8 +31,10 @@
 
 
 // ----------- Methods ------------
-void draw_square (float vector[3], float x, float y, float width, float height);
 void draw_axes (float vector[3]);
+
+void draw_square (float view[3], float x, float y, float z, float width, float height);
+void draw_point  (float view[3], float x, float y, float z);
 
 
 // --------- Destructors ----------
