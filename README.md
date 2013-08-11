@@ -7,14 +7,17 @@ VisualBinary is a study project for 3D binary visualization
 Hotkeys
 ----
 
-Camera :
-********
+**Camera :**
+*********
 
 PageUp, PageDown : Zoom
+
 Up, Down, Left, Right : Rotate camera
 
-Offsets :
+
+**Offsets :**
 **********
 
 +, - : Change start offset
+
 *, / : Change end offset
