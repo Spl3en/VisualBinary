@@ -21,17 +21,10 @@ void draw_square (float view[3], float x, float y, float z, float width, float h
 
 void draw_point (float view[3], float x, float y, float z)
 {
-	glPushMatrix ();
-
-	glTranslatef (0.0, 0.0, view[2]);
-	glRotatef (view[1], 1,0,0);
-	glRotatef (view[0], 0,1,0);
 
 	glBegin(GL_POINTS);
 		glVertex3f(x, y, z);
 	glEnd();
-
-	glPopMatrix ();
 }
 
 void draw_axes (float view[3])

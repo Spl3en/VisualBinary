@@ -42,6 +42,10 @@
 			<Add library="glu32" />
 			<Add directory="D:\Logiciels\CodeBlocks\MinGW\lib\SFML" />
 		</Linker>
+		<Unit filename="Analyzer\Analyzer.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Analyzer\Analyzer.h" />
 		<Unit filename="AppState\Cube3D.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -54,6 +58,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="BbQueue\BbQueue.h" />
+		<Unit filename="Frame\Frame.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Frame\Frame.h" />
 		<Unit filename="Function\Function.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -62,11 +70,19 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="GraphicObjects\GraphicObjects.h" />
+		<Unit filename="Randomizer\Randomizer.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Randomizer\Randomizer.h" />
 		<Unit filename="WrapSFML\wrap.h" />
 		<Unit filename="Ztring\Ztring.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Ztring\Ztring.h" />
+		<Unit filename="bmpfile\bmpfile.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="bmpfile\bmpfile.h" />
 		<Unit filename="dbg\dbg.c">
 			<Option compilerVar="CC" />
 		</Unit>

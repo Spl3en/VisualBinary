@@ -618,7 +618,7 @@
 	<stdlib.h>
 	<stdio.h>
 
-1376238762 source:c:\users\spl3en\documents\github\visualbinary\graphicobjects\graphicobjects.c
+1376242812 source:c:\users\spl3en\documents\github\visualbinary\graphicobjects\graphicobjects.c
 	"GraphicObjects.h"
 	<SFML/OpenGL.h>
 
@@ -630,20 +630,22 @@
 	<stdarg.h>
 	<stdio.h>
 
-1376239167 source:c:\users\spl3en\documents\github\visualbinary\main.c
+1376244942 source:c:\users\spl3en\documents\github\visualbinary\main.c
 	"AppWindow/AppWindow.h"
 	"AppState/Cube3D.h"
+	"Analyzer/Analyzer.h"
 	<time.h>
 
-1376239933 c:\users\spl3en\documents\github\visualbinary\appstate\cube3d.h
+1376244131 c:\users\spl3en\documents\github\visualbinary\appstate\cube3d.h
 	"../GraphicObjects/GraphicObjects.h"
 	"../Randomizer/Randomizer.h"
 	"../Frame/Frame.h"
 
-1376240051 source:c:\users\spl3en\documents\github\visualbinary\appstate\cube3d.c
+1376245164 source:c:\users\spl3en\documents\github\visualbinary\appstate\cube3d.c
 	"Cube3D.h"
 	<stdlib.h>
 	<stdio.h>
+	<SFML/OpenGL.h>
 
 1376239459 source:c:\users\spl3en\documents\github\visualbinary\randomizer\randomizer.c
 	"Randomizer.h"
@@ -656,9 +658,31 @@
 	<_mingw.h>
 	<stddef.h>
 
-1376239892 c:\users\spl3en\documents\github\visualbinary\frame\frame.h
+1376244872 c:\users\spl3en\documents\github\visualbinary\frame\frame.h
 
-1376239939 source:c:\users\spl3en\documents\github\visualbinary\frame\frame.c
+1376244884 source:c:\users\spl3en\documents\github\visualbinary\frame\frame.c
 	"Frame.h"
 	<stdlib.h>
+	<string.h>
+
+1376244835 source:c:\users\spl3en\documents\github\visualbinary\analyzer\analyzer.c
+	"Analyzer.h"
+	"../Ztring/Ztring.h"
+	<stdlib.h>
+	<stdio.h>
+
+1375896129 source:c:\users\spl3en\documents\github\visualbinary\bmpfile\bmpfile.c
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"bmpfile.h"
+
+1250308678 d:\logiciels\codeblocks\mingw\include\\math.h
+	<_mingw.h>
+
+1264998112 c:\users\spl3en\documents\github\visualbinary\bmpfile\bmpfile.h
+
+1376244206 c:\users\spl3en\documents\github\visualbinary\analyzer\analyzer.h
+	"../Frame/Frame.h"
 

@@ -6,12 +6,15 @@
 
 
 // ---------- Defines -------------
+#define FRAME_SIZE 256
 
+#define frame_local_init() \
+	{.data = {[0 ... 255] = {[0 ... 255] = 0}}}
 
 // ------ Class declaration -------
 typedef struct _Frame
 {
-	int data[256][256];
+	int **data;
 
 }	Frame;
 
@@ -20,7 +23,7 @@ typedef struct _Frame
 // --------- Constructors ---------
 
 Frame *
-frame_new (void);
+frame_new ();
 
 Frame *
 frame_alloc (void);
@@ -28,7 +31,19 @@ frame_alloc (void);
 // ----------- Methods ------------
 
 void
-frame_init (Frame *frame);
+frame_init (Frame *this);
+
+inline int
+frame_get (Frame *this, int x, int y);
+
+void
+frame_inc (Frame *this, int x, int y);
+
+void
+frame_copy (Frame *dest, Frame *src);
+
+void
+frame_reset (Frame *this);
 
 
 // --------- Destructors ----------
