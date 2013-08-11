@@ -33,7 +33,7 @@ frame_alloc (void);
 void
 frame_init (Frame *this);
 
-inline int
+int
 frame_get (Frame *this, int x, int y);
 
 void

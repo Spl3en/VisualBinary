@@ -5,18 +5,18 @@
 
 int main(int argc, char **argv)
 {
+	char *filename = NULL;
 	srand(time(NULL));
 
 	if (argc < 2)
-	{
-		printf("usage : %s <binary>", argv[0]);
-		exit(EXIT_SUCCESS);
-	}
+		filename = argv[0];
+	else
+		filename = argv[1];
 
 	AppWindow *window = AppWindow_new("VisualBinary");
 	float *view = AppWindow_get_view(window);
 
-	Analyzer *analyzer = analyzer_new(argv[1]);
+	Analyzer *analyzer = analyzer_new(filename);
 
 	/* Cube Visualisation */
 	Cube3D *cube = cube3d_new(SFML(window), analyzer);
