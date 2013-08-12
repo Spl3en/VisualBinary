@@ -2,20 +2,16 @@
 #include <stdlib.h>
 #include <SFML/OpenGL.h>
 
-// Private defines
-#define SCREEN_W 800
-#define SCREEN_H 800
-
 
 AppWindow *
-AppWindow_new (char *window_name)
+AppWindow_new (char *window_name, int width, int height, bool fullscreen)
 {
 	AppWindow *this;
 
 	if ((this = AppWindow_alloc()) == NULL)
 		return NULL;
 
-	AppWindow_init(this, window_name);
+	AppWindow_init(this, window_name, width, height, fullscreen);
 
 	return this;
 }
@@ -33,12 +29,15 @@ AppWindow_get_view (AppWindow *this)
 }
 
 void
-AppWindow_init (AppWindow *this, char *window_name)
+AppWindow_init (AppWindow *this, char *window_name, int width, int height, bool fullscreen)
 {
+	this->width = width;
+	this->height = height;
+
 	/* RenderWindow */
 	sfVideoMode video_mode = {
-		.width  = SCREEN_W,
-		.height = SCREEN_H,
+		.width  = width,
+		.height = height,
 		.bitsPerPixel = 32
 	};
 
@@ -53,7 +52,7 @@ AppWindow_init (AppWindow *this, char *window_name)
 	SFML(this) = sfRenderWindow_create(
 		video_mode,
 		window_name,
-		sfDefaultStyle,
+		(fullscreen) ? sfFullscreen : sfDefaultStyle,
 		&settings
 	);
 
@@ -68,14 +67,11 @@ AppWindow_init (AppWindow *this, char *window_name)
 		glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
 		glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
 		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
-
-		glViewport(0, 0, SCREEN_W, SCREEN_H);				// Reset The Current Viewport
+		glViewport(0, 0, width, height);					// Reset The Current Viewport
 
 		glMatrixMode(GL_PROJECTION);						// Select The Projection Matrix
 		glLoadIdentity();									// Reset The Projection Matrix
-
-		// Calculate the aspect ratio of the window
-		gluPerspective(50.0, 1.0, 0.01, 10.0);
+		gluPerspective(50.0, (float) width / height, 0.1, 50.0);
 
 		glMatrixMode(GL_MODELVIEW);							// Select The Modelview Matrix
 		glLoadIdentity();									// Reset The Modelview Matrix
@@ -89,11 +85,7 @@ AppWindow_init (AppWindow *this, char *window_name)
 	this->drawing_routines = bb_queue_new();
 	this->input_routines = bb_queue_new();
 	this->view = calloc(sizeof(float), 3);
-	this->view[X_AXIS] = 45.0;
-	this->view[Y_AXIS] = 45.0;
-	this->view[Z_AXIS] = -2.0;
-
-
+	AppWindow_view_reset(this);
 }
 
 int
@@ -116,6 +108,14 @@ AppWindow_set_state (AppWindow *window, int state)
 }
 
 void
+AppWindow_view_reset (AppWindow *this)
+{
+	this->view[X_AXIS] = 0.0;
+	this->view[Y_AXIS] = 0.0;
+	this->view[Z_AXIS] = -2.0;
+}
+
+void
 AppWindow_main (AppWindow *this)
 {
 	void AppWindow_draw ()
@@ -125,9 +125,9 @@ AppWindow_main (AppWindow *this)
 		// draw_axes (this->view);
 		if (this->draw_app_state != -1)
 		{
-			if (this->last_draw_app_state != this->draw_app_state )
+			if (this->last_draw_app_state != this->draw_app_state)
 			{
-				this->draw = bb_queue_pick_nth (this->drawing_routines, this->draw_app_state );
+				this->draw = bb_queue_pick_nth (this->drawing_routines, this->draw_app_state);
 			}
 
 			draw_function_call (this->draw);
@@ -154,13 +154,26 @@ AppWindow_main (AppWindow *this)
 				case sfEvtResized:
 				{
 					// On ajuste le viewport lorsque la fenêtre est redimensionnée
-					glViewport(0, 0, event.size.width, event.size.height);
+					this->width  = event.size.width;
+					this->height = event.size.height;
+					glViewport(0, 0, this->width, this->height);
 				}
+
+				case sfEvtMouseWheelMoved:
+					this->view[Z_AXIS] = this->view[Z_AXIS] + (event.mouseWheel.delta * 0.1);
+				break;
+
+				default:
 				break;
 			}
 		}
 
 		// Keyboard
+		if (sfKeyboard_isKeyPressed(sfKeyEscape))
+		{
+			sfRenderWindow_close(SFML(this));
+		}
+
 		if (sfKeyboard_isKeyPressed(sfKeyUp))
 		{
 			this->view[Y_AXIS] += 1.0;
@@ -183,18 +196,17 @@ AppWindow_main (AppWindow *this)
 
 		if (sfKeyboard_isKeyPressed(sfKeyPageUp))
 		{
-			this->view[Z_AXIS] += 0.01;
+			this->view[Z_AXIS] -= 0.01;
 		}
 
 		if (sfKeyboard_isKeyPressed(sfKeyPageDown))
 		{
-			this->view[Z_AXIS] -= 0.01;
+			this->view[Z_AXIS] += 0.01;
 		}
 
 		if (sfKeyboard_isKeyPressed(sfKeyR))
 		{
-			this->view[X_AXIS] = 0.0;
-			this->view[Y_AXIS] = 0.0;
+			AppWindow_view_reset(this);
 		}
 
 		foreach_bbqueue_item (this->input_routines, Function *function)

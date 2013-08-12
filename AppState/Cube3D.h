@@ -12,10 +12,30 @@
 // ---------- Defines -------------
 typedef enum {
 
-	CUBE3D_SPACE,
-	CUBE3D_TIME
+	CUBE3D_SPACE = 0,
+	CUBE3D_TIME,
+
+
+
+
+	// Always at the end
+	CUBE3D_STATE_SIZE
 
 } CubeState;
+
+typedef enum {
+
+	CUBE3D_ROTATE_AUTO,
+	CUBE3D_ROTATE_STOP
+
+} CubeRotateState;
+
+typedef struct
+{
+	float xrot, yrot;
+	CubeRotateState state;
+
+} 	CubeRotation;
 
 // ------ Class declaration -------
 typedef struct _Cube3D
@@ -23,14 +43,20 @@ typedef struct _Cube3D
 	sfRenderWindow* render;
 
 	Analyzer *analyzer;
-	GLuint index;
 
+	// Display
+	GLuint index[CUBE3D_STATE_SIZE];
+
+	// Bounds
 	float start_limit;
 	float end_limit;
 
+	// Text
 	sfFont *font;
-	
+
+	// States
 	CubeState state;
+	CubeRotation rotation;
 
 }	Cube3D;
 
@@ -53,13 +79,16 @@ void
 cube3d_draw (Cube3D *this, float *view);
 
 void
-cube3d_direct_draw (Cube3D *this, float *view);
+cube3d_direct_draw (Cube3D *this, float *view, CubeState state);
 
 void
 cube3d_init_list (Cube3D *this);
 
 void
 cube3d_input (Cube3D *this);
+
+void
+cube3d_generate_cube (Cube3D *this, CubeState state);
 
 // --------- Destructors ----------
 

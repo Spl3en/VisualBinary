@@ -36,7 +36,7 @@ frame_init (Frame *this);
 int
 frame_get (Frame *this, int x, int y);
 
-void
+int
 frame_inc (Frame *this, int x, int y);
 
 void

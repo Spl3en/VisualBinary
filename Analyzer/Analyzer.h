@@ -13,7 +13,10 @@ typedef struct _Analyzer
 {
 	Frame *frames_time;
 	Frame *frames_space;
-	
+
+	int maxvalue_time;
+	int maxvalue_space;
+
 	FILE *binary;
 	long int filesize;
 

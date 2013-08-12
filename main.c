@@ -13,7 +13,10 @@ int main(int argc, char **argv)
 	else
 		filename = argv[1];
 
-	AppWindow *window = AppWindow_new("VisualBinary");
+	// Get Desktop resolution
+	sfVideoMode desktop = sfVideoMode_getDesktopMode();
+
+	AppWindow *window = AppWindow_new("VisualBinary", desktop.width, desktop.height, true);
 	float *view = AppWindow_get_view(window);
 
 	Analyzer *analyzer = analyzer_new(filename);

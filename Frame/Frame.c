@@ -37,7 +37,7 @@ frame_copy (Frame *dest, Frame *src)
 {
 	for (int i = 0; i < FRAME_SIZE; i++)
 	{
-		memcpy(dest->data[i], src->data[i], sizeof(int) * FRAME_SIZE);
+		memcpy(dest->data[i], src->data[i], sizeof(int *) * FRAME_SIZE);
 	}
 }
 
@@ -45,15 +45,14 @@ void
 frame_reset (Frame *this)
 {
 	for (int i = 0; i < FRAME_SIZE; i++)
-	{
-		memset(this->data[i], 0, sizeof(int) * FRAME_SIZE);
-	}
+		memset(this->data[i], 0, sizeof(int *) * FRAME_SIZE);
 }
 
-void
+int
 frame_inc (Frame *this, int x, int y)
 {
-	this->data[y][x] = this->data[y][x] + 1;
+	this->data[y][x] += 1;
+	return this->data[y][x];
 }
 
 inline int

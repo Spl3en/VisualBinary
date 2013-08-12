@@ -25,7 +25,7 @@ analyzer_alloc (void)
 void
 analyze_time (Analyzer *this)
 {
-	this->frames_time = calloc(sizeof(Frame *), 256);
+	this->frames_time = calloc(sizeof(Frame), 256);
 	for (int i = 0; i < 256; i++)
 		frame_init(&this->frames_time[i]);
 
@@ -51,9 +51,11 @@ analyze_time (Analyzer *this)
 
 		// Frame
 		int progress = ((float) cur_offset / filesize) * 256;
-		
+
 		// Store in data
-		frame_inc (&this->frames_time[progress], pixel_pos[0], pixel_pos[1]);
+		int value = frame_inc (&this->frames_time[progress], pixel_pos[0], pixel_pos[1]);
+		if (this->maxvalue_time < value)
+			this->maxvalue_time = value;
 
 		// Final computation before next iteration
 		pixel_last_pos[0] = pixel_pos[0];
@@ -65,7 +67,7 @@ analyze_time (Analyzer *this)
 void
 analyze_space (Analyzer *this)
 {
-	this->frames_space = calloc(sizeof(Frame *), 256);
+	this->frames_space = calloc(sizeof(Frame), 256);
 	for (int i = 0; i < 256; i++)
 		frame_init(&this->frames_space[i]);
 
@@ -81,7 +83,7 @@ analyze_space (Analyzer *this)
 	// File Offsets
 	long int cur_offset = 1;
 	int c;
-	
+
 	pixel_pos[1] = fgetc (this->binary);
 	pixel_pos[2] = fgetc (this->binary);
 	while ((c = fgetc (this->binary)) != EOF)
@@ -92,7 +94,15 @@ analyze_space (Analyzer *this)
 		pixel_pos[2] = c;
 
 		// Store in data
-		frame_inc (&this->frames_space[pixel_pos[2]], pixel_pos[0], pixel_pos[1]);
+		int value = frame_inc (&this->frames_space[pixel_pos[2]], pixel_pos[0], pixel_pos[1]);
+
+		if (
+			(this->maxvalue_space < value)
+		&& (pixel_pos[0] != 0 && pixel_pos[1] != 0)
+		)
+		{
+			this->maxvalue_space = value;
+		}
 
 		// Final computation before next iteration
 		pixel_last_pos[0] = pixel_pos[0];

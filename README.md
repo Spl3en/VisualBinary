@@ -10,10 +10,13 @@ Hotkeys
 **Camera :**
 *********
 
-PageUp, PageDown : Zoom
+MouseWheel, PageUp, PageDown : Zoom
 
 Up, Down, Left, Right : Rotate camera
 
+X : Stop auto-rotating
+
+C : Enable auto-rotating
 
 **Offsets :**
 **********
@@ -21,3 +24,11 @@ Up, Down, Left, Right : Rotate camera
 +, - : Change start offset
 
 *, / : Change end offset
+
+
+**Mode :**
+************
+
+S : Space view
+
+T : Time view

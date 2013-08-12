@@ -33,6 +33,7 @@ typedef struct _AppWindow
 {
 	// AppWindow hérite de RenderWindow
 	sfRenderWindow* obj;
+	int width, height;
 
 	// Data
 	float *view;
@@ -53,7 +54,7 @@ typedef struct _AppWindow
 // --------- Constructors ---------
 
 AppWindow *
-AppWindow_new (char *window_name);
+AppWindow_new (char *window_name, int width, int height, bool fullscreen);
 
 AppWindow *
 AppWindow_alloc (void);
@@ -61,7 +62,7 @@ AppWindow_alloc (void);
 // ----------- Methods ------------
 
 void
-AppWindow_init (AppWindow *this, char *window_name);
+AppWindow_init (AppWindow *this, char *window_name, int width, int height, bool fullscreen);
 
 void
 AppWindow_main (AppWindow *window);
@@ -77,6 +78,9 @@ AppWindow_set_state (AppWindow *window, int state);
 
 float *
 AppWindow_get_view (AppWindow *this);
+
+void
+AppWindow_view_reset (AppWindow *this);
 
 // --------- Destructors ----------
 

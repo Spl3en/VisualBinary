@@ -579,19 +579,19 @@
 	"Cube3D.h"
 	<stdlib.h>
 
-1376258367 source:c:\users\spl3en\documents\github\visualbinary\appwindow\appwindow.c
+1376345931 source:c:\users\spl3en\documents\github\visualbinary\appwindow\appwindow.c
 	"AppWindow.h"
 	<stdlib.h>
 	<SFML/OpenGL.h>
 
-1376258372 c:\users\spl3en\documents\github\visualbinary\appwindow\appwindow.h
+1376341183 c:\users\spl3en\documents\github\visualbinary\appwindow\appwindow.h
 	<SFML/Graphics.h>
 	"../GraphicObjects/GraphicObjects.h"
 	"../Function/Function.h"
 	"../WrapSFML/wrap.h"
 	"../dbg/dbg.h"
 
-1376238872 c:\users\spl3en\documents\github\visualbinary\graphicobjects\graphicobjects.h
+1376341873 c:\users\spl3en\documents\github\visualbinary\graphicobjects\graphicobjects.h
 	"../dbg/dbg.h"
 
 1376227780 c:\users\spl3en\documents\github\visualbinary\dbg\dbg.h
@@ -608,17 +608,17 @@
 
 1376237257 c:\users\spl3en\documents\github\visualbinary\function\function.h
 
-1376228212 c:\users\spl3en\documents\github\visualbinary\wrapsfml\wrap.h
+1376340601 c:\users\spl3en\documents\github\visualbinary\wrapsfml\wrap.h
 
 1376234892 source:c:\users\spl3en\documents\github\visualbinary\bbqueue\bbqueue.c
 	"BbQueue.h"
 
-1376237338 source:c:\users\spl3en\documents\github\visualbinary\function\function.c
+1376342746 source:c:\users\spl3en\documents\github\visualbinary\function\function.c
 	"Function.h"
 	<stdlib.h>
 	<stdio.h>
 
-1376249599 source:c:\users\spl3en\documents\github\visualbinary\graphicobjects\graphicobjects.c
+1376341858 source:c:\users\spl3en\documents\github\visualbinary\graphicobjects\graphicobjects.c
 	"GraphicObjects.h"
 	<SFML/OpenGL.h>
 
@@ -630,20 +630,20 @@
 	<stdarg.h>
 	<stdio.h>
 
-1376262138 source:c:\users\spl3en\documents\github\visualbinary\main.c
+1376347603 source:c:\users\spl3en\documents\github\visualbinary\main.c
 	"AppWindow/AppWindow.h"
 	"AppState/Cube3D.h"
 	"Analyzer/Analyzer.h"
 	<time.h>
 
-1376258918 c:\users\spl3en\documents\github\visualbinary\appstate\cube3d.h
+1376346077 c:\users\spl3en\documents\github\visualbinary\appstate\cube3d.h
 	"../GraphicObjects/GraphicObjects.h"
 	"../Randomizer/Randomizer.h"
 	"../Analyzer/Analyzer.h"
 	<SFML/OpenGL.h>
 	<SFML/Graphics.h>
 
-1376259382 source:c:\users\spl3en\documents\github\visualbinary\appstate\cube3d.c
+1376348553 source:c:\users\spl3en\documents\github\visualbinary\appstate\cube3d.c
 	"Cube3D.h"
 	<stdlib.h>
 	<stdio.h>
@@ -660,14 +660,14 @@
 	<_mingw.h>
 	<stddef.h>
 
-1376244872 c:\users\spl3en\documents\github\visualbinary\frame\frame.h
+1376343328 c:\users\spl3en\documents\github\visualbinary\frame\frame.h
 
-1376244884 source:c:\users\spl3en\documents\github\visualbinary\frame\frame.c
+1376343333 source:c:\users\spl3en\documents\github\visualbinary\frame\frame.c
 	"Frame.h"
 	<stdlib.h>
 	<string.h>
 
-1376259048 source:c:\users\spl3en\documents\github\visualbinary\analyzer\analyzer.c
+1376343453 source:c:\users\spl3en\documents\github\visualbinary\analyzer\analyzer.c
 	"Analyzer.h"
 	"../Ztring/Ztring.h"
 	<stdlib.h>
@@ -685,6 +685,7 @@
 
 1264998112 c:\users\spl3en\documents\github\visualbinary\bmpfile\bmpfile.h
 
-1376259053 c:\users\spl3en\documents\github\visualbinary\analyzer\analyzer.h
+1376343252 c:\users\spl3en\documents\github\visualbinary\analyzer\analyzer.h
 	"../Frame/Frame.h"
+	<stdio.h>
 

@@ -13,8 +13,21 @@
 #undef FALSE
 #endif
 
+#ifdef true
+#undef true
+#endif
+
+#ifdef false
+#undef false
+#endif
+
 #define TRUE sfTrue
 #define FALSE sfFalse
+#define true TRUE
+#define false FALSE
 
+#ifndef bool
+#define bool char
+#endif
 
 #endif // WRAP_H_INCLUDED

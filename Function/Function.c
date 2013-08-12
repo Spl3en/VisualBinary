@@ -59,7 +59,7 @@ function_call (Function *this)
 {
 	if (this == NULL || this->call == NULL)
 	{
-		printf("%x cannot be called!\n", this);
+		printf("%x cannot be called!\n", (int) this);
 		return NULL;
 	}
 
@@ -72,7 +72,7 @@ draw_function_call (DrawFunction *this)
 {
 	if (this == NULL || this->function == NULL)
 	{
-		printf("%x cannot be called!\n", this);
+		printf("%x cannot be called!\n", (int) this);
 		return NULL;
 	}
 
