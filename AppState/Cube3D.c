@@ -32,6 +32,7 @@ cube3d_init (Cube3D *this, sfRenderWindow* render, Analyzer *analyzer)
 	this->end_limit = 256.0;
 	this->render = render;
 	this->font = sfFont_createFromFile("verdana.ttf");
+	this->state = CUBE3D_TIME;
 }
 
 void
@@ -49,6 +50,7 @@ void
 cube3d_input (Cube3D *this)
 {
 	float speed = 2.5;
+	
 	// Start
 	int last_start_limit = (int) this->start_limit;
 
@@ -94,6 +96,13 @@ cube3d_input (Cube3D *this)
 		cube3d_direct_draw(this, (float[]) {0.0, 0.0, -5.0});
 		glEndList();
 	}
+	
+	// Space
+	if (sfKeyboard_isKeyPressed(sfKeyS))
+		this->state = CUBE3D_SPACE;
+	
+	if (sfKeyboard_isKeyPressed(sfKeyT))
+		this->state = CUBE3D_TIME;
 }
 
 void
@@ -108,8 +117,17 @@ cube3d_direct_draw (Cube3D *this, float *view)
 		{
 			for (x = 0; x < 256; x++)
 			{
-				value = frame_get(&this->analyzer->frames[z], x, y);
-
+				switch (this->state)
+				{
+					case CUBE3D_TIME:
+						value = frame_get(&this->analyzer->frames_time[z], x, y);
+					break;
+					
+					case CUBE3D_SPACE:
+						value = frame_get(&this->analyzer->frames_space[z], x, y);
+					break;
+				}
+				
 				if (value > 0)
 				{
 					float pixel_color = ((float) z / 256.0 + value / 256.0);

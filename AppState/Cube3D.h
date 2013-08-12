@@ -10,7 +10,12 @@
 #include <SFML/Graphics.h>
 
 // ---------- Defines -------------
+typedef enum {
 
+	CUBE3D_SPACE,
+	CUBE3D_TIME
+
+} CubeState;
 
 // ------ Class declaration -------
 typedef struct _Cube3D
@@ -24,6 +29,8 @@ typedef struct _Cube3D
 	float end_limit;
 
 	sfFont *font;
+	
+	CubeState state;
 
 }	Cube3D;
 

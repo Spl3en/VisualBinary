@@ -23,84 +23,98 @@ analyzer_alloc (void)
 }
 
 void
-analyzer_init (Analyzer *this, char *filename)
+analyze_time (Analyzer *this)
 {
-	FILE *bin = fopen(filename, "rb");
-
-	if (!bin)
-	{
-		printf("File %s cannot be opened.\n", filename);
-		return;
-	}
-
-	// Analyzer frames
-	this->frames = calloc(sizeof(Frame *), 256);
+	this->frames_time = calloc(sizeof(Frame *), 256);
 	for (int i = 0; i < 256; i++)
-	{
-		frame_init(&this->frames[i]);
-	}
-
-	// Frame
-	Frame frame;
-	frame_init(&frame);
-
-	unsigned int points_in_frame = 1;
+		frame_init(&this->frames_time[i]);
 
 	// Pixel
 	unsigned char pixel_pos[2];
 	unsigned char pixel_last_pos[2];
-	// unsigned char pixel_color;
 
 	// File
-	long int filesize = file_get_size_handler(bin);
+	rewind(this->binary);
+	long int filesize = file_get_size_handler(this->binary);
 	this->filesize = filesize;
 
 	// File Offsets
 	long int cur_offset   = 1;
-	long int start_offset = 0;
-	int last_progress     = 0;
-
 	int c;
 
-	pixel_pos[1] = fgetc (bin);
-	while ((c = fgetc (bin)) != EOF)
+	pixel_pos[1] = fgetc (this->binary);
+	while ((c = fgetc (this->binary)) != EOF)
 	{
-		// Cortesi algorithm
+		// Cortesi algorithm : shift bytes from the stream
 		pixel_pos[0] = pixel_pos[1];
 		pixel_pos[1] = c;
 
-		// Color computation
-		// pixel_color = ((float) cur_offset / filesize) * 256;
-
-		// Store in data
-		frame_inc (&frame, pixel_pos[0], pixel_pos[1]);
-
-		// Draw in bitmap
-		//rgb_pixel_t pixel = {256 - pixel_color, 128 - (pixel_color/2), pixel_color, 0};
-		//bmp_set_pixel (binary.bmp, pixel_pos[0], pixel_pos[1], pixel);
-
-		// Get the distance from the last point
-		/// float distance = get_euclidian_distance (pixel_pos, pixel_last_pos);
-
+		// Frame
 		int progress = ((float) cur_offset / filesize) * 256;
-		if (progress != last_progress)
-		{
-			// Save
-			frame_copy(&this->frames[last_progress], &frame);
-			frame_reset(&frame);
-			points_in_frame = 0;
-			last_progress = progress;
-		}
+		
+		// Store in data
+		frame_inc (&this->frames_time[progress], pixel_pos[0], pixel_pos[1]);
 
 		// Final computation before next iteration
 		pixel_last_pos[0] = pixel_pos[0];
 		pixel_last_pos[1] = pixel_pos[1];
 		cur_offset++;
-		points_in_frame++;
+	}
+}
+
+void
+analyze_space (Analyzer *this)
+{
+	this->frames_space = calloc(sizeof(Frame *), 256);
+	for (int i = 0; i < 256; i++)
+		frame_init(&this->frames_space[i]);
+
+	// Pixel
+	unsigned char pixel_pos[3];
+	unsigned char pixel_last_pos[3];
+
+	// File
+	rewind(this->binary);
+	long int filesize = file_get_size_handler(this->binary);
+	this->filesize = filesize;
+
+	// File Offsets
+	long int cur_offset = 1;
+	int c;
+	
+	pixel_pos[1] = fgetc (this->binary);
+	pixel_pos[2] = fgetc (this->binary);
+	while ((c = fgetc (this->binary)) != EOF)
+	{
+		// Cortesi algorithm : shift bytes from the stream
+		pixel_pos[0] = pixel_pos[1];
+		pixel_pos[1] = pixel_pos[2];
+		pixel_pos[2] = c;
+
+		// Store in data
+		frame_inc (&this->frames_space[pixel_pos[2]], pixel_pos[0], pixel_pos[1]);
+
+		// Final computation before next iteration
+		pixel_last_pos[0] = pixel_pos[0];
+		pixel_last_pos[1] = pixel_pos[1];
+		pixel_last_pos[2] = pixel_pos[2];
+		cur_offset++;
+	}
+}
+
+void
+analyzer_init (Analyzer *this, char *filename)
+{
+	this->binary = fopen(filename, "rb");
+
+	if (!this->binary)
+	{
+		printf("File %s cannot be opened.\n", filename);
+		return;
 	}
 
-	if (last_progress == 255)
-		frame_copy(&this->frames[255], &frame);
+	analyze_time(this);
+	analyze_space(this);
 }
 
 void

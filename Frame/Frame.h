@@ -23,7 +23,7 @@ typedef struct _Frame
 // --------- Constructors ---------
 
 Frame *
-frame_new ();
+frame_new (void);
 
 Frame *
 frame_alloc (void);

@@ -3,6 +3,7 @@
 
 // ---------- Includes ------------
 #include "../Frame/Frame.h"
+#include <stdio.h>
 
 // ---------- Defines -------------
 
@@ -10,7 +11,10 @@
 // ------ Class declaration -------
 typedef struct _Analyzer
 {
-	Frame *frames;
+	Frame *frames_time;
+	Frame *frames_space;
+	
+	FILE *binary;
 	long int filesize;
 
 }	Analyzer;
