@@ -178,13 +178,22 @@ cube3d_direct_draw (Cube3D *this, float *view, CubeState state)
 
 				if (value > 0)
 				{
-					value += 1;
 
-					float r = ((float) value / maxvalue) * 8.0;
-					float g = ((float) value / maxvalue) * 32.0;
-					float b = ((float) value / maxvalue) * 16.0;
+					if (value == 1)
+					{
+						glColor4f(0.0, 1.0, 0.0, 0.05);
+					}
+					else
+					{
+						if (maxvalue > 512)
+							maxvalue = 512;
 
-					glColor3f(r, g, b);
+						float r = ((float) value / maxvalue) * 8.0;
+						float g = ((float) value / maxvalue) * 32.0;
+						float b = ((float) value / maxvalue) * 16.0;
+
+						glColor3f(r, g, b);
+					}
 					draw_point(x / 256.0 - 0.5, 1.0 - y / 256.0 - 0.5, z / 256. - 0.5);
 				}
 			}

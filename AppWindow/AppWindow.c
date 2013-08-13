@@ -73,6 +73,10 @@ AppWindow_init (AppWindow *this, char *window_name, int width, int height, bool 
 		glLoadIdentity();									// Reset The Projection Matrix
 		gluPerspective(50.0, (float) width / height, 0.1, 50.0);
 
+		// Transparency
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_BLEND);
+
 		glMatrixMode(GL_MODELVIEW);							// Select The Modelview Matrix
 		glLoadIdentity();									// Reset The Modelview Matrix
 	}
