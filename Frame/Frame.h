@@ -15,6 +15,7 @@
 typedef struct _Frame
 {
 	int **data;
+	int size;
 
 }	Frame;
 
@@ -23,7 +24,7 @@ typedef struct _Frame
 // --------- Constructors ---------
 
 Frame *
-frame_new (void);
+frame_new (int size);
 
 Frame *
 frame_alloc (void);
@@ -31,7 +32,7 @@ frame_alloc (void);
 // ----------- Methods ------------
 
 void
-frame_init (Frame *this);
+frame_init (Frame *this, int size);
 
 int
 frame_get (Frame *this, int x, int y);

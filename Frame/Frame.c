@@ -1,16 +1,17 @@
 #include "Frame.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
 Frame *
-frame_new ()
+frame_new (int size)
 {
 	Frame *this;
 
 	if ((this = frame_alloc()) == NULL)
 		return NULL;
 
-	frame_init(this);
+	frame_init(this, size);
 
 	return this;
 }
@@ -22,30 +23,38 @@ frame_alloc (void)
 }
 
 void
-frame_init (Frame *this)
+frame_init (Frame *this, int size)
 {
-	this->data = calloc(sizeof(int *), FRAME_SIZE);
+	this->data = calloc(sizeof(int *), size);
 
-	for (int i = 0; i < FRAME_SIZE; i++)
+	for (int i = 0; i < size; i++)
 	{
-		this->data[i] = calloc(sizeof(int), FRAME_SIZE);
+		this->data[i] = calloc(sizeof(int), size);
 	}
+	
+	this->size = size;
 }
 
 void
 frame_copy (Frame *dest, Frame *src)
 {
-	for (int i = 0; i < FRAME_SIZE; i++)
+	if (dest->size != src->size)
 	{
-		memcpy(dest->data[i], src->data[i], sizeof(int *) * FRAME_SIZE);
+		printf("%s: Frames are not the same size\n", __FUNCTION__);
+		return;
+	}
+	
+	for (int i = 0; i < dest->size; i++)
+	{
+		memcpy(dest->data[i], src->data[i], sizeof(int *) * dest->size);
 	}
 }
 
 void
 frame_reset (Frame *this)
 {
-	for (int i = 0; i < FRAME_SIZE; i++)
-		memset(this->data[i], 0, sizeof(int *) * FRAME_SIZE);
+	for (int i = 0; i < this->size; i++)
+		memset(this->data[i], 0, sizeof(int *) * this->size);
 }
 
 int
