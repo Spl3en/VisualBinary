@@ -2,7 +2,7 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
 	<File name="Analyzer\Analyzer.c" open="1" top="0" tabpos="1">
-		<Cursor position="430" topLine="80" />
+		<Cursor position="364" topLine="0" />
 	</File>
 	<File name="Analyzer\Analyzer.h" open="0" top="0" tabpos="14">
 		<Cursor position="201" topLine="0" />
@@ -37,11 +37,11 @@
 	<File name="GL4\gl4.h" open="0" top="0" tabpos="0">
 		<Cursor position="46296" topLine="1177" />
 	</File>
-	<File name="GLee\GLee.h" open="0" top="0" tabpos="0">
-		<Cursor position="891337" topLine="16464" />
+	<File name="GLee\GLee.h" open="1" top="1" tabpos="12">
+		<Cursor position="2119" topLine="46" />
 	</File>
 	<File name="GraphicObjects\GraphicObjects.c" open="1" top="0" tabpos="6">
-		<Cursor position="265" topLine="55" />
+		<Cursor position="48" topLine="0" />
 	</File>
 	<File name="GraphicObjects\GraphicObjects.h" open="1" top="0" tabpos="5">
 		<Cursor position="734" topLine="5" />
@@ -76,7 +76,7 @@
 	<File name="fft\fft.h" open="0" top="0" tabpos="3">
 		<Cursor position="216" topLine="0" />
 	</File>
-	<File name="main.c" open="1" top="1" tabpos="3">
-		<Cursor position="354" topLine="0" />
+	<File name="main.c" open="1" top="0" tabpos="3">
+		<Cursor position="113" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>
