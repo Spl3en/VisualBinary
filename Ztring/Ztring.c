@@ -8,7 +8,7 @@
 #include "Ztring.h"
 
 /**
-*	Private Methods
+*	Private Functions
 */
 static int
 str_sort_by_alpha_ex (char *str1, char *str2, int n)
@@ -69,7 +69,7 @@ is_base64 (char c)
 }
 
 /**
-*	Public Methods
+*	Public Functions
 */
 Ztring *
 ztring_new (void)
@@ -97,11 +97,11 @@ buffer_new (int size)
 Buffer *
 buffer_dup (Buffer *buf)
 {
-	return buffer_new_ptr(buf->data, buf->size);
+	return buffer_new_from_ptr(buf->data, buf->size);
 }
 
 Buffer *
-buffer_new_ptr (unsigned char *ptr, int size)
+buffer_new_from_ptr (unsigned char *ptr, int size)
 {
 	Buffer *b = buffer_new(size);
 	memcpy(b->data, ptr, size);
@@ -110,7 +110,7 @@ buffer_new_ptr (unsigned char *ptr, int size)
 }
 
 Buffer *
-buffer_new_ptr_noalloc (unsigned char *ptr, int size)
+buffer_new_from_ptr_noalloc (unsigned char *ptr, int size)
 {
 	Buffer *b = NULL;
 
@@ -259,11 +259,13 @@ str_dup_printf (const char *format, ...)
 
 	if (format)
 	{
+		char t[1];
+
 		va_list pa;
 		size_t size = 0;
 
 		va_start (pa, format);
-		size = vsnprintf ((char []){0}, 1, format, pa);
+		size = vsnprintf (t, 1, format, pa);
 		size++;
 		str = malloc (size + 1);
 		memset(str, '\0', size + 1);
@@ -353,7 +355,7 @@ file_getline (FILE *file)
 int
 str_is_empty(char *msg)
 {
-	return (strcmp(msg, "") == 0);
+	return (msg[0] == '\0');
 }
 
 void
@@ -380,9 +382,9 @@ strn_cpy (char *dest, const char *str, int size)
 int
 str_substring (const char *str, int start, int end, char *res)
 {
-	if (start != end && start < end)
+	if (start < end)
 	{
-		int len = end + 1 - start;
+		int len = end - start;
 		res[len] = '\0';
 		memcpy(res, str + start, len);
 
@@ -559,24 +561,33 @@ str_cat (char **dest, const char *cat)
 BbQueue *
 str_explode (char *str, const char *delimiter)
 {
-	BbQueue *q = bb_queue_new();
+	BbQueue *q = NULL;
 	int pos = -1;
 	int len_delimiter = strlen(delimiter);
+	int len = strlen(str);
 
 	char *tmp = NULL;
 
-	while ((pos = str_pos(str, delimiter)) != -1)
+	while (
+        ((pos = str_pos(str, delimiter)) != -1)
+    &&  (pos != 0)
+    &&  (pos <= len)
+    )
 	{
-		if (pos != 0)
-		{
-			tmp = malloc(pos + 1);
-			strncpy(tmp, str, pos);
-			tmp[pos] = '\0';
-			bb_queue_add(q, tmp);
-		}
+        if (q == NULL)
+            q = bb_queue_new();
 
-		str = str + pos + len_delimiter;
+        tmp = malloc(pos);
+        strncpy(tmp, str, pos);
+        tmp[pos-1] = '\0';
+        bb_queue_add(q, tmp);
+
+        str = str + pos + len_delimiter;
+
 	}
+
+    if (tmp == NULL)
+        return NULL;
 
 	str_cpy(&tmp, str);
 	bb_queue_add(q, tmp);
@@ -783,6 +794,9 @@ file_put_contents (const char *filename, const char *text, void *type)
 	f = file_open(filename, open_type);
 
 	fprintf(f, "%s", text);
+	fflush(f);
+
+	fclose(f);
 }
 
 void
@@ -850,10 +864,33 @@ file_save_binary (const char *filename, const char *data, int size)
 	return 1;
 }
 
+char *
+str_pos_ptr (char *str, const char *search)
+{
+    int pos = str_pos(str, search);
+
+    if (pos >= 0)
+        return &str[pos];
+
+    return NULL;
+}
+
+char *
+str_pos_after_ptr (char *str, const char *search)
+{
+    int pos = str_pos_after(str, search);
+
+    if (pos >= 0)
+        return &str[pos];
+
+    return NULL;
+}
+
 int
 str_pos (const char *str, const char *search)
 {
-	int i, len_string = strlen(str), len_search = strlen(search);
+	int i,  len_string = strlen(str),
+            len_search = strlen(search);
 	int count = 0;
 
 
@@ -872,6 +909,18 @@ str_pos (const char *str, const char *search)
 	}
 
 	return -1;
+}
+
+int
+str_pos_after (const char *str, const char *search)
+{
+    int res = str_pos(str, search);
+    if (res != -1)
+    {
+        res += strlen(search);
+    }
+
+    return res;
 }
 
 int
@@ -923,7 +972,7 @@ str_bet (const char *str, const char *start, const char *end)
 	(
 		str,
 		pos_start + start_len,
-		pos_end - 1,
+		pos_end,
 		ret
 	);
 
@@ -933,11 +982,11 @@ str_bet (const char *str, const char *start, const char *end)
 void
 str_bet_buffer (const char *str, const char *start, const char *end, char *buffer)
 {
-	int len;
 	int start_len = strlen(start);
 
 	int pos_end;
 	int pos_start = str_pos(str, start);
+
 
 	if (pos_start == -1)
 		return;
@@ -947,13 +996,11 @@ str_bet_buffer (const char *str, const char *start, const char *end, char *buffe
 	if (pos_end == -1)
 		return;
 
-	len = (pos_end) - (pos_start + start_len);
-
 	str_substring
 	(
 		str,
 		pos_start + start_len,
-		pos_end - 1,
+		pos_end,
 		buffer
 	);
 }

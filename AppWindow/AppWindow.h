@@ -38,14 +38,17 @@ typedef struct _AppWindow
 	// Data
 	float *view;
 
-	// Draw states
+	// Draw
 	BbQueue *drawing_routines;
 	int draw_app_state;
 	int last_draw_app_state;
 	DrawFunction *draw;
 
-	// Input states
+	// Input
 	BbQueue *input_routines;
+
+	// Update
+	BbQueue *update_routines;
 
 }	AppWindow;
 
@@ -72,6 +75,9 @@ AppWindow_add_draw_routine (AppWindow *this, DrawFunction *func);
 
 void
 AppWindow_add_input_routine (AppWindow *this, Function *func);
+
+void
+AppWindow_add_update_routine (AppWindow *this, Function *func);
 
 void
 AppWindow_set_state (AppWindow *window, int state);

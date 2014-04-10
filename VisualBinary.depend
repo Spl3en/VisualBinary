@@ -222,7 +222,7 @@
 1228534332 d:\logiciels\codeblocks\mingw\include\\windef.h
 	<winnt.h>
 
-1228534332 d:\logiciels\codeblocks\mingw\include\\wincon.h
+1388882986 d:\logiciels\codeblocks\mingw\include\\wincon.h
 
 1228534330 d:\logiciels\codeblocks\mingw\include\\winbase.h
 
@@ -272,7 +272,7 @@
 	<_mingw.h>
 	<windef.h>
 
-1228534328 d:\logiciels\codeblocks\mingw\include\\shellapi.h
+1388883231 d:\logiciels\codeblocks\mingw\include\\shellapi.h
 	<pshpack2.h>
 	<poppack.h>
 
@@ -579,12 +579,12 @@
 	"Cube3D.h"
 	<stdlib.h>
 
-1376345931 source:c:\users\spl3en\documents\github\visualbinary\appwindow\appwindow.c
+1386208053 source:c:\users\spl3en\documents\github\visualbinary\appwindow\appwindow.c
 	"AppWindow.h"
 	<stdlib.h>
 	<SFML/OpenGL.h>
 
-1376341183 c:\users\spl3en\documents\github\visualbinary\appwindow\appwindow.h
+1386207417 c:\users\spl3en\documents\github\visualbinary\appwindow\appwindow.h
 	<SFML/Graphics.h>
 	"../GraphicObjects/GraphicObjects.h"
 	"../Function/Function.h"
@@ -618,7 +618,7 @@
 	<stdlib.h>
 	<stdio.h>
 
-1376341858 source:c:\users\spl3en\documents\github\visualbinary\graphicobjects\graphicobjects.c
+1386203165 source:c:\users\spl3en\documents\github\visualbinary\graphicobjects\graphicobjects.c
 	"GraphicObjects.h"
 	<SFML/OpenGL.h>
 
@@ -630,20 +630,22 @@
 	<stdarg.h>
 	<stdio.h>
 
-1376347603 source:c:\users\spl3en\documents\github\visualbinary\main.c
+1387749767 source:c:\users\spl3en\documents\github\visualbinary\main.c
 	"AppWindow/AppWindow.h"
 	"AppState/Cube3D.h"
 	"Analyzer/Analyzer.h"
 	<time.h>
 
-1376346077 c:\users\spl3en\documents\github\visualbinary\appstate\cube3d.h
+1386208633 c:\users\spl3en\documents\github\visualbinary\appstate\cube3d.h
 	"../GraphicObjects/GraphicObjects.h"
 	"../Randomizer/Randomizer.h"
 	"../Analyzer/Analyzer.h"
+	"../Vertex/Vertex.h"
+	"../GLee/GLee.h"
 	<SFML/OpenGL.h>
 	<SFML/Graphics.h>
 
-1376348553 source:c:\users\spl3en\documents\github\visualbinary\appstate\cube3d.c
+1386482346 source:c:\users\spl3en\documents\github\visualbinary\appstate\cube3d.c
 	"Cube3D.h"
 	<stdlib.h>
 	<stdio.h>
@@ -660,16 +662,18 @@
 	<_mingw.h>
 	<stddef.h>
 
-1376343328 c:\users\spl3en\documents\github\visualbinary\frame\frame.h
+1385140650 c:\users\spl3en\documents\github\visualbinary\frame\frame.h
 
-1376343333 source:c:\users\spl3en\documents\github\visualbinary\frame\frame.c
+1377216857 source:c:\users\spl3en\documents\github\visualbinary\frame\frame.c
 	"Frame.h"
 	<stdlib.h>
+	<stdio.h>
 	<string.h>
 
-1376343453 source:c:\users\spl3en\documents\github\visualbinary\analyzer\analyzer.c
+1386212432 source:c:\users\spl3en\documents\github\visualbinary\analyzer\analyzer.c
 	"Analyzer.h"
 	"../Ztring/Ztring.h"
+	"../fft/fft.h"
 	<stdlib.h>
 	<stdio.h>
 
@@ -685,7 +689,188 @@
 
 1264998112 c:\users\spl3en\documents\github\visualbinary\bmpfile\bmpfile.h
 
-1376343252 c:\users\spl3en\documents\github\visualbinary\analyzer\analyzer.h
+1385140549 c:\users\spl3en\documents\github\visualbinary\analyzer\analyzer.h
 	"../Frame/Frame.h"
 	<stdio.h>
+
+1374477200 d:\logiciels\codeblocks\mingw\include\\gl\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1250308676 d:\logiciels\codeblocks\mingw\include\\inttypes.h
+	<_mingw.h>
+	<stdint.h>
+	<stddef.h>
+
+1250308680 d:\logiciels\codeblocks\mingw\include\\stdint.h
+	<stddef.h>
+
+1381426592 c:\users\spl3en\documents\github\visualbinary\glee\glee.h
+	<windows.h>
+	<GL/gl.h>
+	<OpenGL/gl.h>
+	<GL/gl.h>
+	<GL/glx.h>
+	<stddef.h>
+
+1234032382 source:c:\users\spl3en\documents\github\visualbinary\glee\glee.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"GLee.h"
+	<Carbon/Carbon.h>
+
+1381426592 c:\users\spl3en\documents\github\visualbinary\vertex\vertex.h
+
+1381426592 source:c:\users\spl3en\documents\github\visualbinary\vertex\vertex.c
+	"Vertex.h"
+	<stdlib.h>
+	<stdio.h>
+
+1377026434 c:\users\spl3en\documents\github\visualbinary\fft\fft.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<complex.h>
+
+1250308674 d:\logiciels\codeblocks\mingw\include\\complex.h
+	<_mingw.h>
+
+1376664040 source:c:\users\spl3en\documents\github\visualbinary\fft\fft.c
+	"fft.h"
+
+1386212432 source:c:\users\spl3en\documents\github\visualbinary - copie\analyzer\analyzer.c
+	"Analyzer.h"
+	"../Ztring/Ztring.h"
+	"../fft/fft.h"
+	<stdlib.h>
+	<stdio.h>
+
+1385140549 c:\users\spl3en\documents\github\visualbinary - copie\analyzer\analyzer.h
+	"../Frame/Frame.h"
+	<stdio.h>
+
+1385140650 c:\users\spl3en\documents\github\visualbinary - copie\frame\frame.h
+
+1396293652 c:\users\spl3en\documents\github\visualbinary - copie\ztring\ztring.h
+	<stdarg.h>
+	<string.h>
+	"../BbQueue/BbQueue.h"
+
+1396293652 c:\users\spl3en\documents\github\visualbinary - copie\bbqueue\bbqueue.h
+	<stdio.h>
+	<stdlib.h>
+
+1377026434 c:\users\spl3en\documents\github\visualbinary - copie\fft\fft.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<complex.h>
+
+1386482346 source:c:\users\spl3en\documents\github\visualbinary - copie\appstate\cube3d.c
+	"Cube3D.h"
+	<stdlib.h>
+	<stdio.h>
+	<SFML/OpenGL.h>
+
+1386208633 c:\users\spl3en\documents\github\visualbinary - copie\appstate\cube3d.h
+	"../GraphicObjects/GraphicObjects.h"
+	"../Randomizer/Randomizer.h"
+	"../Analyzer/Analyzer.h"
+	"../Vertex/Vertex.h"
+	"../GLee/GLee.h"
+	<SFML/OpenGL.h>
+	<SFML/Graphics.h>
+
+1376341873 c:\users\spl3en\documents\github\visualbinary - copie\graphicobjects\graphicobjects.h
+	"../dbg/dbg.h"
+
+1376227780 c:\users\spl3en\documents\github\visualbinary - copie\dbg\dbg.h
+	"../Ztring/Ztring.h"
+
+1376239481 c:\users\spl3en\documents\github\visualbinary - copie\randomizer\randomizer.h
+	<stdlib.h>
+	<time.h>
+
+1381426592 c:\users\spl3en\documents\github\visualbinary - copie\vertex\vertex.h
+
+1381426592 c:\users\spl3en\documents\github\visualbinary - copie\glee\glee.h
+	<windows.h>
+	<GL/gl.h>
+	<OpenGL/gl.h>
+	<GL/gl.h>
+	<GL/glx.h>
+	<stddef.h>
+
+1386208053 source:c:\users\spl3en\documents\github\visualbinary - copie\appwindow\appwindow.c
+	"AppWindow.h"
+	<stdlib.h>
+	<SFML/OpenGL.h>
+
+1386207417 c:\users\spl3en\documents\github\visualbinary - copie\appwindow\appwindow.h
+	<SFML/Graphics.h>
+	"../GraphicObjects/GraphicObjects.h"
+	"../Function/Function.h"
+	"../WrapSFML/wrap.h"
+	"../dbg/dbg.h"
+
+1376237257 c:\users\spl3en\documents\github\visualbinary - copie\function\function.h
+
+1376340601 c:\users\spl3en\documents\github\visualbinary - copie\wrapsfml\wrap.h
+
+1396293652 source:c:\users\spl3en\documents\github\visualbinary - copie\bbqueue\bbqueue.c
+	"BbQueue.h"
+
+1377216857 source:c:\users\spl3en\documents\github\visualbinary - copie\frame\frame.c
+	"Frame.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+
+1376342746 source:c:\users\spl3en\documents\github\visualbinary - copie\function\function.c
+	"Function.h"
+	<stdlib.h>
+	<stdio.h>
+
+1386203165 source:c:\users\spl3en\documents\github\visualbinary - copie\graphicobjects\graphicobjects.c
+	"GraphicObjects.h"
+	<SFML/OpenGL.h>
+
+1376239459 source:c:\users\spl3en\documents\github\visualbinary - copie\randomizer\randomizer.c
+	"Randomizer.h"
+
+1381426592 source:c:\users\spl3en\documents\github\visualbinary - copie\vertex\vertex.c
+	"Vertex.h"
+	<stdlib.h>
+	<stdio.h>
+
+1396293652 source:c:\users\spl3en\documents\github\visualbinary - copie\ztring\ztring.c
+	"Ztring.h"
+
+1375896129 source:c:\users\spl3en\documents\github\visualbinary - copie\bmpfile\bmpfile.c
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"bmpfile.h"
+
+1264998112 c:\users\spl3en\documents\github\visualbinary - copie\bmpfile\bmpfile.h
+
+1376227754 source:c:\users\spl3en\documents\github\visualbinary - copie\dbg\dbg.c
+	"dbg.h"
+	<stdarg.h>
+	<stdio.h>
+
+1376664040 source:c:\users\spl3en\documents\github\visualbinary - copie\fft\fft.c
+	"fft.h"
+
+1397166883 source:c:\users\spl3en\documents\github\visualbinary - copie\main.c
+	"AppWindow/AppWindow.h"
+	"AppState/Cube3D.h"
+	"Analyzer/Analyzer.h"
+	<time.h>
 

@@ -3,19 +3,15 @@
 
 void draw_square (float x, float y, float z, float width, float height)
 {
-	glBegin (GL_POLYGON);
 		glVertex3f (x, y, z);
 		glVertex3f (x, y + height, z);
 		glVertex3f (x + width, y + height, z);
 		glVertex3f (x + width, y, z);
-	glEnd ();
 }
 
 void draw_point (float x, float y, float z)
 {
-	glBegin(GL_POINTS);
-		glVertex3f(x, y, z);
-	glEnd();
+	glVertex3f(x, y, z);
 }
 
 void draw_axes (float view[3])

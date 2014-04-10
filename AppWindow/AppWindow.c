@@ -64,8 +64,7 @@ AppWindow_init (AppWindow *this, char *window_name, int width, int height, bool 
 		glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
 		glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				// Black Background
 		glClearDepth(1.0f);									// Depth Buffer Setup
-		glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
-		glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
+
 		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
 		glViewport(0, 0, width, height);					// Reset The Current Viewport
 
@@ -88,8 +87,10 @@ AppWindow_init (AppWindow *this, char *window_name, int width, int height, bool 
 	this->last_draw_app_state  = -1;
 	this->drawing_routines = bb_queue_new();
 	this->input_routines = bb_queue_new();
+	this->update_routines = bb_queue_new();
 	this->view = calloc(sizeof(float), 3);
 	AppWindow_view_reset(this);
+	this->view[0] = 45.0;
 }
 
 int
@@ -106,9 +107,15 @@ AppWindow_add_input_routine (AppWindow *this, Function *func)
 }
 
 void
+AppWindow_add_update_routine (AppWindow *this, Function *func)
+{
+	bb_queue_add(this->update_routines, func);
+}
+
+void
 AppWindow_set_state (AppWindow *window, int state)
 {
-	window->draw_app_state  = state;
+	window->draw_app_state = state;
 }
 
 void
@@ -127,6 +134,7 @@ AppWindow_main (AppWindow *this)
 		glLoadIdentity ();
 
 		// draw_axes (this->view);
+
 		if (this->draw_app_state != -1)
 		{
 			if (this->last_draw_app_state != this->draw_app_state)
@@ -225,6 +233,14 @@ AppWindow_main (AppWindow *this)
 		sfRenderWindow_clear(SFML(this), sfBlack);
 	}
 
+	void AppWindow_update ()
+	{
+		foreach_bbqueue_item (this->update_routines, Function *function)
+		{
+			function->call (function->arg);
+		}
+	}
+
 	// Loop
 	while (sfRenderWindow_isOpen(SFML(this)))
 	{
@@ -233,6 +249,9 @@ AppWindow_main (AppWindow *this)
 
 		// Clear
 		AppWindow_clear();
+
+		// Update
+		AppWindow_update();
 
 		// Draw
 		AppWindow_draw();

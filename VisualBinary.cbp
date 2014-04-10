@@ -12,6 +12,7 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-Wall" />
 					<Add option="-g" />
 				</Compiler>
 			</Target>
@@ -21,7 +22,7 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-O2" />
+					<Add option="-O3" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -30,16 +31,18 @@
 		</Build>
 		<Compiler>
 			<Add option="-DSFML_DYNAMIC" />
+			<Add option="-DGLEW_STATIC" />
 			<Add directory="D:\Logiciels\CodeBlocks\MinGW\include\SFML" />
 			<Add directory="D:\Logiciels\CodeBlocks\MinGW\include\" />
 		</Compiler>
 		<Linker>
-			<Add library="csfml-audio" />
-			<Add library="csfml-graphics" />
+			<Add library="GLee\libGLee.a" />
 			<Add library="csfml-window" />
+			<Add library="csfml-graphics" />
 			<Add library="csfml-system" />
-			<Add library="opengl32" />
+			<Add library="csfml-audio" />
 			<Add library="glu32" />
+			<Add library="opengl32" />
 			<Add directory="D:\Logiciels\CodeBlocks\MinGW\lib\SFML" />
 		</Linker>
 		<Unit filename="Analyzer\Analyzer.c">
@@ -66,6 +69,8 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Function\Function.h" />
+		<Unit filename="GL4\gl4.h" />
+		<Unit filename="GLee\GLee.h" />
 		<Unit filename="GraphicObjects\GraphicObjects.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -74,6 +79,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Randomizer\Randomizer.h" />
+		<Unit filename="Vertex\Vertex.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Vertex\Vertex.h" />
 		<Unit filename="WrapSFML\wrap.h" />
 		<Unit filename="Ztring\Ztring.c">
 			<Option compilerVar="CC" />
@@ -87,6 +96,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="dbg\dbg.h" />
+		<Unit filename="fft\fft.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="fft\fft.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

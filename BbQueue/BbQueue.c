@@ -115,21 +115,11 @@ bb_queue_add_nth (BbQueue *q, void *data, int pos)
 	bb_queue_inc_length(q);
 }
 
-/* Starts at 0 */
 EXPORT_FUNCTION void *
 bb_queue_pick_nth (BbQueue *q, int pos)
 {
 	if (pos < 0)
 		pos = bb_queue_get_length(q) + pos + 1;
-
-	if (pos >= 0)
-	{
-		if (bb_queue_get_length(q) < pos + 1)
-		{
-			printf("%s: queue is not long enough\n", __FUNCTION__);
-			return NULL;
-		}
-	}
 
 	BbChild *c = NULL;
 
@@ -179,8 +169,8 @@ bb_queue_put_last (BbQueue *q, void *data)
 
 	if (bb_queue_get_length(q) == 1)
 	{
-		// Il n'y a qu'un seul élément, celui recherché;
-		// Il est donc déjà à la fin
+		// There is only one element, the one we are searching for;
+		// Therefore it is already at the end
 		return 1;
 	}
 
@@ -191,7 +181,7 @@ bb_queue_put_last (BbQueue *q, void *data)
 
 	if (q->last == c)
 	{
-		// Déjà à la fin
+		// Already at the end
 		return 1;
 	}
 
@@ -222,8 +212,8 @@ bb_queue_put_first (BbQueue *q, void *data)
 
 	if (bb_queue_get_length(q) == 1)
 	{
-		// Il n'y a qu'un seul élément, celui recherché;
-		// Il est donc déjà au début
+		// There is only one element, the one we are searching for;
+		// Therefore it is already at the beginning
 		return 1;
 	}
 
@@ -234,7 +224,7 @@ bb_queue_put_first (BbQueue *q, void *data)
 
 	if (q->first == c)
 	{
-		// Déjà au début
+		// DAlready at the beginning
 		return 1;
 	}
 
@@ -699,7 +689,7 @@ bb_queue_free (BbQueue *p)
 
 	for (i = 0; i < len; i++)
 	{
-		// bb_queue_pop s'occupe de free le bbchild
+		// bb_queue_pop handles the freeing of the bbchild
 		bb_queue_pop(p);
 	}
 
@@ -783,6 +773,16 @@ bb_queue_free_all (BbQueue *q, void (* free_func)())
 
 	free(q);
 }
+
+EXPORT_FUNCTION void
+bb_queue_free_elements (BbQueue *q, void (* free_func)())
+{
+	while (bb_queue_get_length(q))
+	{
+		free_func(bb_queue_pop(q));
+	}
+}
+
 
 EXPORT_FUNCTION void
 bb_queue_clear (BbQueue *q)

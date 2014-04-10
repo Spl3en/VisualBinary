@@ -9,12 +9,13 @@
 #define FRAME_SIZE 256
 
 #define frame_local_init() \
-	{.data = {[0 ... 255] = {[0 ... 255] = 0}}}
+	{.data = {[0 ... (FRAME_SIZE - 1)] = {[0 ... (FRAME_SIZE - 1)] = 0}}}
 
 // ------ Class declaration -------
 typedef struct _Frame
 {
 	int **data;
+	int **data_img;
 	int size;
 
 }	Frame;
@@ -24,7 +25,7 @@ typedef struct _Frame
 // --------- Constructors ---------
 
 Frame *
-frame_new (int size);
+frame_new (int size, int is_complex);
 
 Frame *
 frame_alloc (void);
@@ -32,7 +33,7 @@ frame_alloc (void);
 // ----------- Methods ------------
 
 void
-frame_init (Frame *this, int size);
+frame_init (Frame *this, int size, int is_complex);
 
 int
 frame_get (Frame *this, int x, int y);
@@ -46,6 +47,11 @@ frame_copy (Frame *dest, Frame *src);
 void
 frame_reset (Frame *this);
 
+void
+frame_set_complex (Frame *this, int x, int y, int real, int img);
+
+void
+frame_get_complex (Frame *this, int x, int y, int *real, int *imag);
 
 // --------- Destructors ----------
 

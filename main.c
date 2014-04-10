@@ -16,22 +16,27 @@ int main(int argc, char **argv)
 	// Get Desktop resolution
 	sfVideoMode desktop = sfVideoMode_getDesktopMode();
 
-	AppWindow *window = AppWindow_new("VisualBinary", desktop.width, desktop.height, true);
+	AppWindow *window = AppWindow_new("VisualBinary", desktop.width, desktop.height, false);
 	float *view = AppWindow_get_view(window);
 
 	Analyzer *analyzer = analyzer_new(filename);
 
 	/* Cube Visualisation */
 	Cube3D *cube = cube3d_new(SFML(window), analyzer);
+	cube3d_set_rot(cube, 0.0, 0.0);
 
 	// Cube Draw
-	DrawFunction *cube_drawing_function = draw_function_new (cube3d_draw, cube, view);
-	int draw_state = AppWindow_add_draw_routine(window, cube_drawing_function);
+	DrawFunction *cube3d_draw_function = draw_function_new (cube3d_draw, cube, view);
+	int draw_state = AppWindow_add_draw_routine(window, cube3d_draw_function);
 	AppWindow_set_state (window, draw_state);
 
 	// Cube Input
-	Function *cube_input_function = function_new (cube3d_input, cube);
-	AppWindow_add_input_routine(window, cube_input_function);
+	Function *cube3d_input_function = function_new (cube3d_input, cube);
+	AppWindow_add_input_routine(window, cube3d_input_function);
+
+	// Cube Update
+	Function *cube3d_update_function = function_new(cube3d_update, cube);
+	AppWindow_add_update_routine(window, cube3d_update_function);
 
 	AppWindow_main(window);
 

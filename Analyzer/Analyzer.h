@@ -6,6 +6,7 @@
 #include <stdio.h>
 
 // ---------- Defines -------------
+#define NB_FRAMES 256
 
 
 // ------ Class declaration -------
@@ -13,9 +14,11 @@ typedef struct _Analyzer
 {
 	Frame *frames_time;
 	Frame *frames_space;
+	Frame *frames_fft;
 
 	int maxvalue_time;
 	int maxvalue_space;
+	int maxvalue_fft;
 
 	FILE *binary;
 	long int filesize;
