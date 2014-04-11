@@ -1195,7 +1195,7 @@ is_letter (char c)
 void
 ztring_debug (Ztring *z)
 {
-	char *buffer = ztring_get_text(z);
+	unsigned char *buffer = (unsigned char *) ztring_get_text(z);
 	str_debug_len(buffer, ztring_get_len(z));
 	free(buffer);
 }

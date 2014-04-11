@@ -8,6 +8,7 @@
 #include "../Analyzer/Analyzer.h"
 #include "../Vertex/Vertex.h"
 #include "../GLee/GLee.h"
+#include "../Sleep/Sleep.h"
 #include <SFML/OpenGL.h>
 #include <SFML/Graphics.h>
 

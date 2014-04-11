@@ -131,6 +131,7 @@ cube3d_init_list (Cube3D *this)
 	}
 }
 
+
 void
 cube3d_update (Cube3D *this)
 {
@@ -280,8 +281,8 @@ void
 cube3d_direct_draw (Cube3D *this, float view[3], CubeState state)
 {
 	int x, y, z;
-	int value;
-	int maxvalue;
+	int value = 0;
+	int maxvalue = 0;
 	float opacity = 0.5;
 	float r, g, b;
 	int real, imag;

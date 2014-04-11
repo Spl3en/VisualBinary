@@ -874,3 +874,457 @@
 	"Analyzer/Analyzer.h"
 	<time.h>
 
+1397168778 source:/home/cyril/Bureau/VisualBinary/Analyzer/Analyzer.c
+	"Analyzer.h"
+	"../Ztring/Ztring.h"
+	"../fft/fft.h"
+	<stdlib.h>
+	<stdio.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/Analyzer/Analyzer.h
+	"../Frame/Frame.h"
+	<stdio.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/Frame/Frame.h
+
+1397168105 /home/cyril/Bureau/VisualBinary/Ztring/Ztring.h
+	<stdarg.h>
+	<string.h>
+	"../BbQueue/BbQueue.h"
+
+1397168105 /home/cyril/Bureau/VisualBinary/BbQueue/BbQueue.h
+	<stdio.h>
+	<stdlib.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/fft/fft.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<complex.h>
+
+1397174819 source:/home/cyril/Bureau/VisualBinary/AppState/Cube3D.c
+	"Cube3D.h"
+	<stdlib.h>
+	<stdio.h>
+	<SFML/OpenGL.h>
+
+1397171287 /home/cyril/Bureau/VisualBinary/AppState/Cube3D.h
+	"../GraphicObjects/GraphicObjects.h"
+	"../Randomizer/Randomizer.h"
+	"../Analyzer/Analyzer.h"
+	"../Vertex/Vertex.h"
+	"../GLee/GLee.h"
+	"../Sleep/Sleep.h"
+	<SFML/OpenGL.h>
+	<SFML/Graphics.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/GraphicObjects/GraphicObjects.h
+	"../dbg/dbg.h"
+
+1397168105 /home/cyril/Bureau/VisualBinary/dbg/dbg.h
+	"../Ztring/Ztring.h"
+
+1397168105 /home/cyril/Bureau/VisualBinary/Randomizer/Randomizer.h
+	<stdlib.h>
+	<time.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/Vertex/Vertex.h
+
+1397168105 /home/cyril/Bureau/VisualBinary/GLee/GLee.h
+	<windows.h>
+	<GL/gl.h>
+	<OpenGL/gl.h>
+	<GL/gl.h>
+	<GL/glx.h>
+	<stddef.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/GL/gl.h
+
+1370444695 /home/cyril/Bureau/VisualBinary/include/GL/glx.h
+	<GL/vms_x_fix.h>
+	<X11/Xlib.h>
+	<X11/Xutil.h>
+	<GL/gl.h>
+	"glx_mangle.h"
+	<GL/glxext.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/OpenGL.h
+	<SFML/Config.h>
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Config.h
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/GL/glu.h
+	<stddef.h>
+	<GL/gl.h>
+
+1397170757 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics.h
+	<SFML/Window.h>
+	<SFML/Graphics/BlendMode.h>
+	<SFML/Graphics/CircleShape.h>
+	<SFML/Graphics/Color.h>
+	<SFML/Graphics/ConvexShape.h>
+	<SFML/Graphics/Font.h>
+	<SFML/Graphics/Glyph.h>
+	<SFML/Graphics/Image.h>
+	<SFML/Graphics/PrimitiveType.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/RectangleShape.h>
+	<SFML/Graphics/RenderStates.h>
+	<SFML/Graphics/RenderWindow.h>
+	<SFML/Graphics/RenderTexture.h>
+	<SFML/Graphics/Shader.h>
+	<SFML/Graphics/Shape.h>
+	<SFML/Graphics/Sprite.h>
+	<SFML/Graphics/Text.h>
+	<SFML/Graphics/Texture.h>
+	<SFML/Graphics/Transform.h>
+	<SFML/Graphics/Transformable.h>
+	<SFML/Graphics/Vertex.h>
+	<SFML/Graphics/VertexArray.h>
+	<SFML/Graphics/View.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Window.h
+	<SFML/System.h>
+	<SFML/Window/Context.h>
+	<SFML/Window/Event.h>
+	<SFML/Window/Joystick.h>
+	<SFML/Window/Keyboard.h>
+	<SFML/Window/Mouse.h>
+	<SFML/Window/VideoMode.h>
+	<SFML/Window/Window.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/System.h
+	<SFML/Config.h>
+	<SFML/System/Clock.h>
+	<SFML/System/InputStream.h>
+	<SFML/System/Mutex.h>
+	<SFML/System/Sleep.h>
+	<SFML/System/Thread.h>
+	<SFML/System/Vector2.h>
+	<SFML/System/Vector3.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/System/Clock.h
+	<SFML/System/Export.h>
+	<SFML/System/Time.h>
+	<SFML/System/Types.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/System/Export.h
+	<SFML/Config.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/System/Time.h
+	<SFML/System/Export.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/System/Types.h
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/System/InputStream.h
+	<SFML/System/Export.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/System/Mutex.h
+	<SFML/System/Export.h>
+	<SFML/System/Types.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/System/Sleep.h
+	<SFML/System/Export.h>
+	<SFML/System/Time.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/System/Thread.h
+	<SFML/System/Export.h>
+	<SFML/System/Types.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/System/Vector2.h
+	<SFML/System/Export.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/System/Vector3.h
+	<SFML/System/Export.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Window/Context.h
+	<SFML/Window/Export.h>
+	<SFML/Window/Types.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Window/Export.h
+	<SFML/Config.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Window/Types.h
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Window/Event.h
+	<SFML/Window/Export.h>
+	<SFML/Window/Joystick.h>
+	<SFML/Window/Keyboard.h>
+	<SFML/Window/Mouse.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Window/Joystick.h
+	<SFML/Window/Export.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Window/Keyboard.h
+	<SFML/Window/Export.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Window/Mouse.h
+	<SFML/Window/Export.h>
+	<SFML/Window/Types.h>
+	<SFML/System/Vector2.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Window/VideoMode.h
+	<SFML/Window/Export.h>
+	<stddef.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Window/Window.h
+	<SFML/Window/Export.h>
+	<SFML/Window/Event.h>
+	<SFML/Window/VideoMode.h>
+	<SFML/Window/WindowHandle.h>
+	<SFML/Window/Types.h>
+	<SFML/System/Vector2.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Window/WindowHandle.h
+	<SFML/Window/Export.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/BlendMode.h
+	<SFML/Graphics/Export.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/Export.h
+	<SFML/Config.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/CircleShape.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Color.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Transform.h>
+	<SFML/Graphics/Types.h>
+	<SFML/System/Vector2.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/Color.h
+	<SFML/Graphics/Export.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/Rect.h
+	<SFML/Graphics/Export.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/Transform.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Types.h>
+	<SFML/System/Vector2.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/Types.h
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/ConvexShape.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Color.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Transform.h>
+	<SFML/Graphics/Types.h>
+	<SFML/System/Vector2.h>
+
+1397170777 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/Font.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Glyph.h>
+	<SFML/Graphics/Types.h>
+	<SFML/System/InputStream.h>
+	<stddef.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/Glyph.h
+	<SFML/Graphics/Rect.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/Image.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Color.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Types.h>
+	<SFML/System/InputStream.h>
+	<SFML/System/Vector2.h>
+	<stddef.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/PrimitiveType.h
+	<SFML/Graphics/Export.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/RectangleShape.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Color.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Transform.h>
+	<SFML/Graphics/Types.h>
+	<SFML/System/Vector2.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/RenderStates.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/BlendMode.h>
+	<SFML/Graphics/Transform.h>
+	<SFML/Graphics/Types.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/RenderWindow.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Color.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Types.h>
+	<SFML/Graphics/PrimitiveType.h>
+	<SFML/Graphics/RenderStates.h>
+	<SFML/Graphics/Vertex.h>
+	<SFML/Window/Event.h>
+	<SFML/Window/VideoMode.h>
+	<SFML/Window/WindowHandle.h>
+	<SFML/Window/Window.h>
+	<SFML/System/Vector2.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/Vertex.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Color.h>
+	<SFML/System/Vector2.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/RenderTexture.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Color.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Types.h>
+	<SFML/Graphics/PrimitiveType.h>
+	<SFML/Graphics/RenderStates.h>
+	<SFML/Graphics/Vertex.h>
+	<SFML/System/Vector2.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/Shader.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Color.h>
+	<SFML/Graphics/Transform.h>
+	<SFML/Graphics/Types.h>
+	<SFML/System/InputStream.h>
+	<SFML/System/Vector2.h>
+	<SFML/System/Vector3.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/Shape.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Color.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Transform.h>
+	<SFML/Graphics/Types.h>
+	<SFML/System/Vector2.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/Sprite.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/BlendMode.h>
+	<SFML/Graphics/Color.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Transform.h>
+	<SFML/Graphics/Types.h>
+	<SFML/System/Vector2.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/Text.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Color.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Types.h>
+	<SFML/Graphics/Transform.h>
+	<SFML/System/Vector2.h>
+	<stddef.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/Texture.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Types.h>
+	<SFML/Window/Types.h>
+	<SFML/System/InputStream.h>
+	<SFML/System/Vector2.h>
+	<stddef.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/Transformable.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Types.h>
+	<SFML/Graphics/Transform.h>
+	<SFML/System/Vector2.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/VertexArray.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/PrimitiveType.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Types.h>
+	<SFML/Graphics/Vertex.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/include/SFML/Graphics/View.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Types.h>
+	<SFML/System/Vector2.h>
+
+1397179146 source:/home/cyril/Bureau/VisualBinary/AppWindow/AppWindow.c
+	"AppWindow.h"
+	<stdlib.h>
+	<SFML/OpenGL.h>
+
+1397168105 /home/cyril/Bureau/VisualBinary/AppWindow/AppWindow.h
+	<SFML/Graphics.h>
+	"../GraphicObjects/GraphicObjects.h"
+	"../Function/Function.h"
+	"../WrapSFML/wrap.h"
+	"../dbg/dbg.h"
+
+1397168105 /home/cyril/Bureau/VisualBinary/Function/Function.h
+
+1397168105 /home/cyril/Bureau/VisualBinary/WrapSFML/wrap.h
+
+1397168105 source:/home/cyril/Bureau/VisualBinary/BbQueue/BbQueue.c
+	"BbQueue.h"
+
+1397168105 source:/home/cyril/Bureau/VisualBinary/Frame/Frame.c
+	"Frame.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+
+1397168105 source:/home/cyril/Bureau/VisualBinary/Function/Function.c
+	"Function.h"
+	<stdlib.h>
+	<stdio.h>
+
+1397168105 source:/home/cyril/Bureau/VisualBinary/GraphicObjects/GraphicObjects.c
+	"GraphicObjects.h"
+	<SFML/OpenGL.h>
+
+1397168105 source:/home/cyril/Bureau/VisualBinary/Randomizer/Randomizer.c
+	"Randomizer.h"
+
+1397168105 source:/home/cyril/Bureau/VisualBinary/Vertex/Vertex.c
+	"Vertex.h"
+	<stdlib.h>
+	<stdio.h>
+
+1397168817 source:/home/cyril/Bureau/VisualBinary/Ztring/Ztring.c
+	"Ztring.h"
+
+1397168105 source:/home/cyril/Bureau/VisualBinary/bmpfile/bmpfile.c
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"bmpfile.h"
+
+1397168105 /home/cyril/Bureau/VisualBinary/bmpfile/bmpfile.h
+
+1397168105 source:/home/cyril/Bureau/VisualBinary/dbg/dbg.c
+	"dbg.h"
+	<stdarg.h>
+	<stdio.h>
+
+1397168105 source:/home/cyril/Bureau/VisualBinary/fft/fft.c
+	"fft.h"
+
+1397178924 source:/home/cyril/Bureau/VisualBinary/main.c
+	"AppWindow/AppWindow.h"
+	"AppState/Cube3D.h"
+	"Analyzer/Analyzer.h"
+	<time.h>
+
+1397171404 /home/cyril/Bureau/VisualBinary/Sleep/Sleep.h
+	<windows.h>
+	<unistd.h>
+
+1397168105 source:/home/cyril/Bureau/VisualBinary/GLee/GLee.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"GLee.h"
+	<Carbon/Carbon.h>
+

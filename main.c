@@ -11,7 +11,10 @@ int main(int argc, char **argv)
 	if (argc < 2)
 		filename = argv[0];
 	else
-		filename = argv[1];
+    {
+        printf("Loading %s ...\n", argv[1]);
+        filename = argv[1];
+    }
 
 	// Get Desktop resolution
 	sfVideoMode desktop = sfVideoMode_getDesktopMode();
