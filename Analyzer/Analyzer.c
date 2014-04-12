@@ -220,6 +220,8 @@ analyzer_init (Analyzer *this, char *filename)
 		return;
 	}
 
+	this->filename = filename;
+
 	alloc_frame(time, FALSE);
 	alloc_frame(space, FALSE);
 	alloc_frame(fft, TRUE);

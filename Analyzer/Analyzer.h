@@ -21,6 +21,7 @@ typedef struct _Analyzer
 	int maxvalue_fft;
 
 	FILE *binary;
+	char *filename;
 	long int filesize;
 
 }	Analyzer;

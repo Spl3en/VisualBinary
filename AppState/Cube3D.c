@@ -399,24 +399,22 @@ void
 cube3d_draw (Cube3D *this, float *view)
 {
 	glPushMatrix ();
+        switch (this->rotation.state)
+        {
+            case CUBE3D_ROTATE_AUTO:
+                view[0] += this->rotation.xrot;
+                view[1] += this->rotation.yrot;
+            break;
 
-	switch (this->rotation.state)
-	{
-		case CUBE3D_ROTATE_AUTO:
-			view[0] += this->rotation.xrot;
-			view[1] += this->rotation.yrot;
-		break;
+            case CUBE3D_ROTATE_STOP:
+            break;
+        }
 
-		case CUBE3D_ROTATE_STOP:
-		break;
-	}
+        glTranslatef (0.0, 0.0, view[2]);
+        glRotatef (view[1], 1,0,0);
+        glRotatef (view[0], 0,1,0);
 
-	glTranslatef (0.0, 0.0, view[2]);
-	glRotatef (view[1], 1,0,0);
-	glRotatef (view[0], 0,1,0);
-
-	glCallList(this->index[this->state]);
-
+        glCallList(this->index[this->state]);
 	glPopMatrix ();
 
 	char buffer[1024];
@@ -424,7 +422,7 @@ cube3d_draw (Cube3D *this, float *view)
 	sfText_setFont(text, this->font);
 	sfText_setCharacterSize(text, 20);
 	// sprintf(buffer, "Start = 0x%d - End = 0x%d", (int) (this->start_limit * (float) this->analyzer->filesize / NB_FRAMES), (int) (this->end_limit * (float) this->analyzer->filesize / NB_FRAMES));
-	sprintf(buffer, "View : %s", cube3D_get_state_str(this));
+	sprintf(buffer, "View : %s (%s)", cube3D_get_state_str(this), this->analyzer->filename);
 	sfText_setString(text, buffer);
 
 	sfRenderWindow_pushGLStates(this->render);

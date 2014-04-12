@@ -9,7 +9,7 @@ int main(int argc, char **argv)
 	srand(time(NULL));
 
 	if (argc < 2)
-		filename = argv[0];
+		filename = "verdana.ttf";
 	else
     {
         printf("Loading %s ...\n", argv[1]);
