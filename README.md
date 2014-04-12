@@ -32,3 +32,5 @@ C : Enable auto-rotating
 S : Space view
 
 T : Time view
+
+F : FFT view
