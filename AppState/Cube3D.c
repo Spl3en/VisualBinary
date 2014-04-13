@@ -400,8 +400,8 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 							else
 							{
 								r = ((float) value / (maxvalue+1)) * 8.0;
-								g = ((float) value / (maxvalue+1)) * 32.0;
 								b = ((float) value / (maxvalue+1)) * 16.0;
+								g = ((float) value / (maxvalue+1)) * 32.0;
 
 								CloudPoints_add_color(cloud, r, g, b, opacity);
 							}
@@ -418,14 +418,10 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 					{
 						if (real > 0 || imag > 0)
 						{
-							float threshold = 1 + (maxvalue / 3.0);
-							if (threshold > 1.0)
-								threshold = 1.0;
-
-							r = (real > threshold) ? 1.0 : (real / threshold);
-							b = (imag > threshold) ? 1.0 : (imag / threshold);
-							g = (((real / 2.0) + (imag / 2.0)) > threshold) ?
-								1.0 : ((real / 2.0) + (imag / 2.0)) / threshold;
+							r = (real > 1.0) ? 1.0 : real;
+							b = (imag > 1.0) ? 1.0 : imag;
+							g = (((real / 2.0) + (imag / 2.0)) > 1.0) ?
+								1.0 : (real / 2.0) + (imag / 2.0);
 
 							#define SPACE_BETWEEN_FRAMES 3
 							CloudPoints_add_color(cloud, r, g, b, opacity);

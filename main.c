@@ -16,13 +16,13 @@ int main(int argc, char **argv)
         filename = argv[1];
     }
 
-	// Get Desktop resolution
-	sfVideoMode desktop = sfVideoMode_getDesktopMode();
+	// Analyze the file
+	Analyzer *analyzer = analyzer_new(filename);
 
+	// Get Desktop resolution and open the window
+	sfVideoMode desktop = sfVideoMode_getDesktopMode();
 	AppWindow *window = AppWindow_new("VisualBinary", desktop.width, desktop.height, false);
 	float *view = AppWindow_get_view(window);
-
-	Analyzer *analyzer = analyzer_new(filename);
 
 	/* Cube Visualisation */
 	Cube3D *cube = cube3d_new(SFML(window), analyzer);

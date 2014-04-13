@@ -5,6 +5,7 @@
 *.tmp
 *.bak
 *.swp
+*.depend
 bin/
 tmp/
 obj/
