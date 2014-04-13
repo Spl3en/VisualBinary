@@ -38,7 +38,6 @@
 			<Add directory="./include" />
 		</Compiler>
 		<Linker>
-			<Add library="lib/libGLee.a" />
 			<Add library="lib/libcsfml-window.a" />
 			<Add library="lib/libcsfml-graphics.a" />
 			<Add library="lib/libcsfml-system.a" />
@@ -76,6 +75,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="BbQueue/BbQueue.h" />
+		<Unit filename="CloudPoints/CloudPoints.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="CloudPoints/CloudPoints.h" />
 		<Unit filename="Frame/Frame.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -84,11 +87,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Function/Function.h" />
-		<Unit filename="GL4/gl4.h" />
-		<Unit filename="GLee/GLee.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="GLee/GLee.h" />
 		<Unit filename="GraphicObjects/GraphicObjects.c">
 			<Option compilerVar="CC" />
 		</Unit>

@@ -32,6 +32,7 @@ analyze_time (Analyzer *this)
 	// Pixel
 	unsigned char pixel_pos[2];
 	unsigned char pixel_last_pos[2];
+	memset(pixel_last_pos, 0, sizeof(pixel_last_pos));
 
 	// File
 	rewind(this->binary);
@@ -70,6 +71,7 @@ analyze_fft_time (Analyzer *this)
 	// Pixel
 	unsigned char pixel_pos[2];
 	unsigned char pixel_last_pos[2];
+	memset(pixel_last_pos, 0, sizeof(pixel_last_pos));
 
 	// File
 	rewind(this->binary);
@@ -116,6 +118,7 @@ analyze_fft_space (Analyzer *this)
 	// Pixel
 	unsigned char pixel_pos[3];
 	unsigned char pixel_last_pos[3];
+	memset(pixel_last_pos, 0, sizeof(pixel_last_pos));
 
 	// File
 	rewind(this->binary);
@@ -165,6 +168,7 @@ analyze_space (Analyzer *this)
 	// Pixel
 	unsigned char pixel_pos[3];
 	unsigned char pixel_last_pos[3];
+	memset(pixel_last_pos, 0, sizeof(pixel_last_pos));
 
 	// File
 	rewind(this->binary);
