@@ -6,6 +6,7 @@
 *.bak
 *.swp
 *.depend
+*.layout
 bin/
 tmp/
 obj/
