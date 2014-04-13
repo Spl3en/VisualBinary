@@ -474,7 +474,7 @@
 	<OpenGL/glu.h>
 	<GL/glu.h>
 
-1397418033 source:c:\users\spl3en\documents\github\visualbinary\analyzer\analyzer.c
+1397425216 source:c:\users\spl3en\documents\github\visualbinary\analyzer\analyzer.c
 	"Analyzer.h"
 	"../Ztring/Ztring.h"
 	"../fft/fft.h"
@@ -502,7 +502,7 @@
 	<math.h>
 	<complex.h>
 
-1397422399 source:c:\users\spl3en\documents\github\visualbinary\appstate\cube3d.c
+1397424950 source:c:\users\spl3en\documents\github\visualbinary\appstate\cube3d.c
 	"Cube3D.h"
 	<stdlib.h>
 	<stdio.h>

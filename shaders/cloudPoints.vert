@@ -9,7 +9,7 @@ uniform mat4 MPMatrix;
 // We output the ex_Color variable to the next shader in the chain
 out vec4 ex_Color;
 void main(void) {
-
+	gl_PointSize = 2.0;
 	vec4 pos = vec4(in_Position, 1.0);
     gl_Position = MPMatrix * MVMatrix * pos;
     ex_Color = in_Color;

@@ -136,6 +136,7 @@ cube3d_load_cloud (Cube3D *this, CubeState state)
 		return;
     }
 
+	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
     glUseProgram(shaderProgram);
     this->shaderProgram = shaderProgram;
 
@@ -426,7 +427,7 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 							g = (((real / 2.0) + (imag / 2.0)) > threshold) ?
 								1.0 : ((real / 2.0) + (imag / 2.0)) / threshold;
 
-							#define SPACE_BETWEEN_FRAMES 2
+							#define SPACE_BETWEEN_FRAMES 3
 							CloudPoints_add_color(cloud, r, g, b, opacity);
 							CloudPoints_add_vertice (cloud,
 									(float) x / NB_FRAMES - 0.5,
@@ -444,6 +445,14 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 
 			}
 		}
+	}
+
+	switch (state)
+	{
+		case CUBE3D_TIME:  free(this->analyzer->frames_time);  this->analyzer->frames_time  = NULL; break;
+		case CUBE3D_SPACE: free(this->analyzer->frames_space); this->analyzer->frames_space = NULL; break;
+		case CUBE3D_FFT:   free(this->analyzer->frames_fft);   this->analyzer->frames_fft   = NULL; break;
+		default : break;
 	}
 
 	return cloud;
@@ -490,7 +499,6 @@ cube3d_draw (Cube3D *this, float *view)
 	}
 
 	glBindVertexArray(this->vaoID[state][0]);
-	glPointSize(2.0);
 	glDrawArrays(GL_POINTS, 0, this->cloud[state]->verticeCount);
 	glBindVertexArray(0);
 
