@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="Analyzer\Analyzer.c" open="0" top="0" tabpos="2">
-		<Cursor position="5004" topLine="198" />
+	<File name="Analyzer\Analyzer.c" open="1" top="0" tabpos="12">
+		<Cursor position="5218" topLine="207" />
 	</File>
-	<File name="AppState\Cube3D.c" open="1" top="0" tabpos="1">
-		<Cursor position="3716" topLine="98" />
+	<File name="AppState\Cube3D.c" open="1" top="1" tabpos="1">
+		<Cursor position="10211" topLine="222" />
 	</File>
 	<File name="AppState\Cube3D.h" open="1" top="0" tabpos="2">
-		<Cursor position="1040" topLine="52" />
+		<Cursor position="2147" topLine="91" />
 	</File>
-	<File name="AppWindow\AppWindow.c" open="0" top="0" tabpos="0">
-		<Cursor position="3014" topLine="124" />
+	<File name="AppWindow\AppWindow.c" open="1" top="0" tabpos="8">
+		<Cursor position="2314" topLine="93" />
 	</File>
-	<File name="AppWindow\AppWindow.h" open="0" top="0" tabpos="0">
-		<Cursor position="145" topLine="0" />
+	<File name="AppWindow\AppWindow.h" open="1" top="0" tabpos="9">
+		<Cursor position="1690" topLine="58" />
 	</File>
 	<File name="BbQueue\BbQueue.c" open="0" top="0" tabpos="0">
 		<Cursor position="534" topLine="17" />
@@ -22,11 +22,14 @@
 	<File name="BbQueue\BbQueue.h" open="0" top="0" tabpos="0">
 		<Cursor position="9369" topLine="180" />
 	</File>
-	<File name="CloudPoints\CloudPoints.c" open="0" top="0" tabpos="8">
-		<Cursor position="570" topLine="18" />
+	<File name="CloudPoints\CloudPoints.c" open="1" top="0" tabpos="7">
+		<Cursor position="1796" topLine="21" />
 	</File>
 	<File name="CloudPoints\CloudPoints.h" open="1" top="0" tabpos="3">
-		<Cursor position="336" topLine="4" />
+		<Cursor position="282" topLine="4" />
+	</File>
+	<File name="Function\Function.c" open="1" top="0" tabpos="10">
+		<Cursor position="912" topLine="49" />
 	</File>
 	<File name="GraphicObjects\GraphicObjects.c" open="0" top="0" tabpos="5">
 		<Cursor position="924" topLine="28" />
@@ -37,19 +40,22 @@
 	<File name="Randomizer\Randomizer.c" open="0" top="0" tabpos="0">
 		<Cursor position="238" topLine="0" />
 	</File>
-	<File name="Vertex\Vertex.c" open="0" top="0" tabpos="3">
-		<Cursor position="402" topLine="8" />
+	<File name="Vertex\Vertex.c" open="1" top="0" tabpos="13">
+		<Cursor position="1046" topLine="63" />
 	</File>
 	<File name="Vertex\Vertex.h" open="0" top="0" tabpos="4">
 		<Cursor position="885" topLine="26" />
 	</File>
-	<File name="main.c" open="1" top="0" tabpos="4">
-		<Cursor position="1259" topLine="7" />
+	<File name="WrapSFML\wrap.h" open="0" top="0" tabpos="0">
+		<Cursor position="233" topLine="0" />
 	</File>
-	<File name="shaders\cloudPoints.frag" open="1" top="1" tabpos="6">
-		<Cursor position="204" topLine="0" />
+	<File name="main.c" open="1" top="0" tabpos="4">
+		<Cursor position="1168" topLine="8" />
+	</File>
+	<File name="shaders\cloudPoints.frag" open="1" top="0" tabpos="6">
+		<Cursor position="12" topLine="0" />
 	</File>
 	<File name="shaders\cloudPoints.vert" open="1" top="0" tabpos="5">
-		<Cursor position="228" topLine="0" />
+		<Cursor position="421" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

@@ -402,15 +402,20 @@ cube3d_process_cloud (Cube3D *this, CubeState state)
 }
 
 bool
-cube3d_view_changed (float *view)
+cube3d_view_changed (Cube3D *this, float *view)
 {
 	static float last_view[3] = {0.0, 0.0, 0.0};
+	static CubeState last_state = CUBE3D_SPACE;
 
-	if (last_view[0] != view[0] || last_view[1] != view[1] || last_view[2] != view[2])
+	if (last_view[0] != view[0]
+	||  last_view[1] != view[1]
+	||  last_view[2] != view[2]
+	||  last_state   != this->state)
 	{
 		last_view[0] = view[0];
 		last_view[1] = view[1];
 		last_view[2] = view[2];
+		last_state   = this->state;
 
 		return true;
 	}
@@ -429,7 +434,7 @@ cube3d_draw (Cube3D *this, float *view)
 
 	glUseProgram(this->shaderProgram);
 
-	if (cube3d_view_changed(view))
+	if (cube3d_view_changed(this, view))
 	{
 		glGetFloatv(GL_MODELVIEW_MATRIX, this->model_matrix);
 		glUniformMatrix4fv(glGetUniformLocation(this->shaderProgram, "MVMatrix"), 1, GL_FALSE, this->model_matrix);

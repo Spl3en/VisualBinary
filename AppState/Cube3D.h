@@ -125,7 +125,7 @@ void
 cube3d_enable_state (Cube3D *this, CubeState state);
 
 bool
-cube3d_view_changed (float *view);
+cube3d_view_changed (Cube3D *this, float *view);
 
 // --------- Destructors ----------
 

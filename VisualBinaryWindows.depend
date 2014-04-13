@@ -27,13 +27,13 @@
 	<math.h>
 	<complex.h>
 
-1397402696 source:d:\vb\visualbinary\appstate\cube3d.c
+1397403459 source:d:\vb\visualbinary\appstate\cube3d.c
 	"Cube3D.h"
 	<stdlib.h>
 	<stdio.h>
 	<SFML/OpenGL.h>
 
-1397402509 d:\vb\visualbinary\appstate\cube3d.h
+1397403469 d:\vb\visualbinary\appstate\cube3d.h
 	"../GraphicObjects/GraphicObjects.h"
 	"../Randomizer/Randomizer.h"
 	"../Analyzer/Analyzer.h"
