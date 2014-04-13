@@ -83,6 +83,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Randomizer\Randomizer.h" />
+		<Unit filename="Utils\Utils.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Utils\Utils.h" />
 		<Unit filename="Vertex\Vertex.c">
 			<Option compilerVar="CC" />
 		</Unit>

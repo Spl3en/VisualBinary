@@ -10,6 +10,7 @@
 #include "../GraphicObjects/GraphicObjects.h"
 #include "../Function/Function.h"
 #include "../WrapSFML/wrap.h"
+#include "../Utils/Utils.h"
 
 // ---------- Defines -------------
 #define X_AXIS 0

@@ -54,7 +54,7 @@ cube3d_set_rot (Cube3D *this, float xrot, float yrot)
 void
 cube3d_load_cloud (Cube3D *this, CubeState state)
 {
-	this->cloud[state] = cube3d_process_cloud(this, state);
+	this->cloud[state] = cube3d_compute_cloud(this, state);
 
 	float *colors   = this->cloud[state]->colors;
 	float *vertices = this->cloud[state]->vertices;
@@ -69,13 +69,13 @@ cube3d_load_cloud (Cube3D *this, CubeState state)
 
 	// Vertices
 	glBindBuffer(GL_ARRAY_BUFFER, this->vboID[state][0]);
-	glBufferData(GL_ARRAY_BUFFER, vSize * sizeof(GLfloat), vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vSize * sizeof(float), vertices, GL_STATIC_DRAW);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray(0);
 
 	// Colors
 	glBindBuffer(GL_ARRAY_BUFFER, this->vboID[state][1]);
-	glBufferData(GL_ARRAY_BUFFER, cSize * sizeof(GLfloat), colors, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, cSize * sizeof(float), colors, GL_STATIC_DRAW);
     glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray(1);
 
@@ -95,7 +95,7 @@ cube3d_load_cloud (Cube3D *this, CubeState state)
 		glGetShaderiv(vertexShader, GL_INFO_LOG_LENGTH, &length);
 		char *vertexInfoLog = (char *)malloc(length);
 		glGetShaderInfoLog(vertexShader, length, &length, vertexInfoLog);
-		printf("vertexInfoLog = %s\n", vertexInfoLog);
+		printf("Error : vertexInfoLog = %s\n", vertexInfoLog);
 		free(vertexInfoLog);
 		return;
     }
@@ -111,7 +111,7 @@ cube3d_load_cloud (Cube3D *this, CubeState state)
 		glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &length);
 		char *fragmentInfoLog = (char *)malloc(length);
 		glGetShaderInfoLog(fragmentShader, length, &length, fragmentInfoLog);
-		printf("fragmentInfoLog = %s\n", fragmentInfoLog);
+		printf("Error : fragmentInfoLog = %s\n", fragmentInfoLog);
 		free(fragmentInfoLog);
 		return;
     }
@@ -123,6 +123,19 @@ cube3d_load_cloud (Cube3D *this, CubeState state)
     glBindAttribLocation(shaderProgram, 0, "in_Position");
     glBindAttribLocation(shaderProgram, 1, "in_Color");
     glLinkProgram(shaderProgram);
+
+    glGetProgramiv(shaderProgram, GL_LINK_STATUS, (int *)&compiled);
+    if (!compiled)
+    {
+		int length;
+		glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &length);
+		char *shaderProgramInfoLog = (char *)malloc(length);
+		glGetProgramInfoLog(shaderProgram, length, &length, shaderProgramInfoLog);
+		printf("Error : shaderProgramInfoLog = %s\n", shaderProgramInfoLog);
+		free(shaderProgramInfoLog);
+		return;
+    }
+
     glUseProgram(shaderProgram);
     this->shaderProgram = shaderProgram;
 
@@ -278,7 +291,7 @@ cube3d_input (Cube3D *this)
 }
 
 CloudPoints *
-cube3d_process_cloud (Cube3D *this, CubeState state)
+cube3d_compute_cloud (Cube3D *this, CubeState state)
 {
 	int x, y, z;
 	int value = 0;
@@ -287,26 +300,66 @@ cube3d_process_cloud (Cube3D *this, CubeState state)
 	float r, g, b;
 	int real, imag;
 
-	CloudPoints *cloud = CloudPoints_new();
-
 	// Get maxvalue of the cube
 	switch (state)
 	{
-		case CUBE3D_TIME:
-			maxvalue = this->analyzer->maxvalue_time;
-		break;
-
-		case CUBE3D_SPACE:
-			maxvalue = this->analyzer->maxvalue_space;
-		break;
-
-		case CUBE3D_FFT:
-			maxvalue = this->analyzer->maxvalue_fft;
-		break;
-
-		default:
-		break;
+		case CUBE3D_TIME:  maxvalue = this->analyzer->maxvalue_time;  break;
+		case CUBE3D_SPACE: maxvalue = this->analyzer->maxvalue_space; break;
+		case CUBE3D_FFT:   maxvalue = this->analyzer->maxvalue_fft;   break;
+		default: break;
 	}
+
+	// Count points
+	unsigned int pointsCount = 0;
+	for (z = this->start_limit; z < this->end_limit; z++)
+	{
+		for (y = 0; y < NB_FRAMES; y++)
+		{
+			for (x = 0; x < NB_FRAMES; x++)
+			{
+				switch (state)
+				{
+					case CUBE3D_TIME:
+						value = frame_get(&this->analyzer->frames_time[z], x, y);
+					break;
+
+					case CUBE3D_SPACE:
+						value = frame_get(&this->analyzer->frames_space[z], x, y);
+					break;
+
+					case CUBE3D_FFT:
+						frame_get_complex(&this->analyzer->frames_fft[z], x, y, &real, &imag);
+						real = abs(real);
+						imag = abs(imag);
+					break;
+
+					default:
+					break;
+				}
+
+
+				switch (state)
+				{
+					case CUBE3D_TIME:
+					case CUBE3D_SPACE:
+						if (value > 0)
+							pointsCount++;
+					break;
+
+					case CUBE3D_FFT:
+						if (real > 0 || imag > 0)
+							pointsCount++;
+					break;
+
+					default:
+					break;
+				}
+			}
+		}
+	}
+
+	printf("Creating cloud points with %d vertices ...\n", pointsCount);
+	CloudPoints *cloud = CloudPoints_new(pointsCount);
 
 	// Process points
 	for (z = this->start_limit; z < this->end_limit; z++)
@@ -373,17 +426,14 @@ cube3d_process_cloud (Cube3D *this, CubeState state)
 							g = (((real / 2.0) + (imag / 2.0)) > threshold) ?
 								1.0 : ((real / 2.0) + (imag / 2.0)) / threshold;
 
-							if (r > 0.0 || g > 0.0 || b > 0.0)
-							{
-								#define SPACE_BETWEEN_FRAMES 2
-								CloudPoints_add_color(cloud, r, g, b, opacity);
-								CloudPoints_add_vertice (cloud,
-										(float) x / NB_FRAMES - 0.5,
-										1.0 - (float) y / NB_FRAMES - 0.5,
-										(float) (SPACE_BETWEEN_FRAMES * z) / NB_FRAMES - (SPACE_BETWEEN_FRAMES * 0.5)
-								);
-								#undef SPACE_BETWEEN_FRAMES
-							}
+							#define SPACE_BETWEEN_FRAMES 2
+							CloudPoints_add_color(cloud, r, g, b, opacity);
+							CloudPoints_add_vertice (cloud,
+									(float) x / NB_FRAMES - 0.5,
+									1.0 - (float) y / NB_FRAMES - 0.5,
+									(float) (SPACE_BETWEEN_FRAMES * z) / NB_FRAMES - (SPACE_BETWEEN_FRAMES * 0.5)
+							);
+							#undef SPACE_BETWEEN_FRAMES
 						}
 					}
 					break;
@@ -395,8 +445,6 @@ cube3d_process_cloud (Cube3D *this, CubeState state)
 			}
 		}
 	}
-
-	CloudPoints_convert_queue(cloud);
 
 	return cloud;
 }

@@ -264,9 +264,7 @@ AppWindow_main (AppWindow *this)
 		AppWindow_draw();
 
 		// Display
-		sfRenderWindow_pushGLStates(SFML(this));
 		sfRenderWindow_display(SFML(this));
-		sfRenderWindow_popGLStates(SFML(this));
 	}
 }
 

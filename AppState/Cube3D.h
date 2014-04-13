@@ -9,7 +9,7 @@
 #include "../Vertex/Vertex.h"
 #include "../Sleep/Sleep.h"
 #include "../CloudPoints/CloudPoints.h"
-#include "../WrapSFML/wrap.h"
+#include "../Utils/Utils.h"
 #include <GL/glew.h>
 #include <SFML/OpenGL.h>
 #include <SFML/Graphics.h>
@@ -110,7 +110,7 @@ void
 cube3d_update (Cube3D *this, float *view);
 
 CloudPoints *
-cube3d_process_cloud (Cube3D *this, CubeState state);
+cube3d_compute_cloud (Cube3D *this, CubeState state);
 
 void
 cube3d_input (Cube3D *this);

@@ -23,4 +23,5 @@ Desktop.ini
 #########################################################################
 # PROJECT IGNORES
 #########################################################################
-VisualBinary.depend
+VisualBinaryWindows.depend
+VisualBinaryLinux.depend

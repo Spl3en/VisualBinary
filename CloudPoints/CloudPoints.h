@@ -15,11 +15,10 @@ typedef struct _CloudPoints
 	float *colors;
 	int cSize;
 	int vSize;
+	int vIndex;
+	int cIndex;
 
 	int verticeCount;
-
-	BbQueue vertices_queue;
-	BbQueue colors_queue;
 
 }	CloudPoints;
 
@@ -28,7 +27,7 @@ typedef struct _CloudPoints
 // --------- Constructors ---------
 
 CloudPoints *
-CloudPoints_new (void);
+CloudPoints_new (int pointsCount);
 
 CloudPoints *
 CloudPoints_alloc (void);
@@ -36,7 +35,7 @@ CloudPoints_alloc (void);
 // ----------- Methods ------------
 
 void
-CloudPoints_init (CloudPoints *CloudPoints);
+CloudPoints_init (CloudPoints *CloudPoints, int pointsCount);
 
 void
 CloudPoints_add_color (CloudPoints *this, float r, float g, float b, float opacity);
