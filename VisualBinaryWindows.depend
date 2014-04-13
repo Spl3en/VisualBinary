@@ -1,0 +1,476 @@
+# depslib dependency file v1.0
+1397215399 source:d:\vb\visualbinary\analyzer\analyzer.c
+	"Analyzer.h"
+	"../Ztring/Ztring.h"
+	"../fft/fft.h"
+	<stdlib.h>
+	<stdio.h>
+
+1397215386 d:\vb\visualbinary\analyzer\analyzer.h
+	"../Frame/Frame.h"
+	<stdio.h>
+
+1397168105 d:\vb\visualbinary\frame\frame.h
+
+1397168105 d:\vb\visualbinary\ztring\ztring.h
+	<stdarg.h>
+	<string.h>
+	"../BbQueue/BbQueue.h"
+
+1397168105 d:\vb\visualbinary\bbqueue\bbqueue.h
+	<stdio.h>
+	<stdlib.h>
+
+1397168105 d:\vb\visualbinary\fft\fft.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<complex.h>
+
+1397402696 source:d:\vb\visualbinary\appstate\cube3d.c
+	"Cube3D.h"
+	<stdlib.h>
+	<stdio.h>
+	<SFML/OpenGL.h>
+
+1397402509 d:\vb\visualbinary\appstate\cube3d.h
+	"../GraphicObjects/GraphicObjects.h"
+	"../Randomizer/Randomizer.h"
+	"../Analyzer/Analyzer.h"
+	"../Vertex/Vertex.h"
+	"../Sleep/Sleep.h"
+	"../CloudPoints/CloudPoints.h"
+	"../WrapSFML/wrap.h"
+	<GL/glew.h>
+	<SFML/OpenGL.h>
+	<SFML/Graphics.h>
+
+1397335646 d:\vb\visualbinary\graphicobjects\graphicobjects.h
+	"../dbg/dbg.h"
+
+1397168105 d:\vb\visualbinary\dbg\dbg.h
+	"../Ztring/Ztring.h"
+
+1397168105 d:\vb\visualbinary\randomizer\randomizer.h
+	<stdlib.h>
+	<time.h>
+
+1397335339 d:\vb\visualbinary\vertex\vertex.h
+	<math.h>
+
+1397344532 d:\vb\visualbinary\glee\glee.h
+	<windows.h>
+	<GL/gl.h>
+	<OpenGL/gl.h>
+	<GL/gl.h>
+	<GL/glx.h>
+	<stddef.h>
+
+1397168105 d:\vb\visualbinary\include\gl\gl.h
+
+1370444695 d:\vb\visualbinary\include\gl\glx.h
+	<GL/vms_x_fix.h>
+	<X11/Xlib.h>
+	<X11/Xutil.h>
+	<GL/gl.h>
+	"glx_mangle.h"
+	<GL/glxext.h>
+
+1397171404 d:\vb\visualbinary\sleep\sleep.h
+	<windows.h>
+	<unistd.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\opengl.h
+	<SFML/Config.h>
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\config.h
+
+1397168105 d:\vb\visualbinary\include\gl\glu.h
+	<stddef.h>
+	<GL/gl.h>
+
+1397170757 d:\vb\visualbinary\include\sfml\graphics.h
+	<SFML/Window.h>
+	<SFML/Graphics/BlendMode.h>
+	<SFML/Graphics/CircleShape.h>
+	<SFML/Graphics/Color.h>
+	<SFML/Graphics/ConvexShape.h>
+	<SFML/Graphics/Font.h>
+	<SFML/Graphics/Glyph.h>
+	<SFML/Graphics/Image.h>
+	<SFML/Graphics/PrimitiveType.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/RectangleShape.h>
+	<SFML/Graphics/RenderStates.h>
+	<SFML/Graphics/RenderWindow.h>
+	<SFML/Graphics/RenderTexture.h>
+	<SFML/Graphics/Shader.h>
+	<SFML/Graphics/Shape.h>
+	<SFML/Graphics/Sprite.h>
+	<SFML/Graphics/Text.h>
+	<SFML/Graphics/Texture.h>
+	<SFML/Graphics/Transform.h>
+	<SFML/Graphics/Transformable.h>
+	<SFML/Graphics/Vertex.h>
+	<SFML/Graphics/VertexArray.h>
+	<SFML/Graphics/View.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\window.h
+	<SFML/System.h>
+	<SFML/Window/Context.h>
+	<SFML/Window/Event.h>
+	<SFML/Window/Joystick.h>
+	<SFML/Window/Keyboard.h>
+	<SFML/Window/Mouse.h>
+	<SFML/Window/VideoMode.h>
+	<SFML/Window/Window.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\system.h
+	<SFML/Config.h>
+	<SFML/System/Clock.h>
+	<SFML/System/InputStream.h>
+	<SFML/System/Mutex.h>
+	<SFML/System/Sleep.h>
+	<SFML/System/Thread.h>
+	<SFML/System/Vector2.h>
+	<SFML/System/Vector3.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\system\clock.h
+	<SFML/System/Export.h>
+	<SFML/System/Time.h>
+	<SFML/System/Types.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\system\export.h
+	<SFML/Config.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\system\time.h
+	<SFML/System/Export.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\system\types.h
+
+1397168105 d:\vb\visualbinary\include\sfml\system\inputstream.h
+	<SFML/System/Export.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\system\mutex.h
+	<SFML/System/Export.h>
+	<SFML/System/Types.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\system\sleep.h
+	<SFML/System/Export.h>
+	<SFML/System/Time.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\system\thread.h
+	<SFML/System/Export.h>
+	<SFML/System/Types.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\system\vector2.h
+	<SFML/System/Export.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\system\vector3.h
+	<SFML/System/Export.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\window\context.h
+	<SFML/Window/Export.h>
+	<SFML/Window/Types.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\window\export.h
+	<SFML/Config.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\window\types.h
+
+1397168105 d:\vb\visualbinary\include\sfml\window\event.h
+	<SFML/Window/Export.h>
+	<SFML/Window/Joystick.h>
+	<SFML/Window/Keyboard.h>
+	<SFML/Window/Mouse.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\window\joystick.h
+	<SFML/Window/Export.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\window\keyboard.h
+	<SFML/Window/Export.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\window\mouse.h
+	<SFML/Window/Export.h>
+	<SFML/Window/Types.h>
+	<SFML/System/Vector2.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\window\videomode.h
+	<SFML/Window/Export.h>
+	<stddef.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\window\window.h
+	<SFML/Window/Export.h>
+	<SFML/Window/Event.h>
+	<SFML/Window/VideoMode.h>
+	<SFML/Window/WindowHandle.h>
+	<SFML/Window/Types.h>
+	<SFML/System/Vector2.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\window\windowhandle.h
+	<SFML/Window/Export.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\blendmode.h
+	<SFML/Graphics/Export.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\export.h
+	<SFML/Config.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\circleshape.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Color.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Transform.h>
+	<SFML/Graphics/Types.h>
+	<SFML/System/Vector2.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\color.h
+	<SFML/Graphics/Export.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\rect.h
+	<SFML/Graphics/Export.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\transform.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Types.h>
+	<SFML/System/Vector2.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\types.h
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\convexshape.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Color.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Transform.h>
+	<SFML/Graphics/Types.h>
+	<SFML/System/Vector2.h>
+
+1397170777 d:\vb\visualbinary\include\sfml\graphics\font.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Glyph.h>
+	<SFML/Graphics/Types.h>
+	<SFML/System/InputStream.h>
+	<stddef.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\glyph.h
+	<SFML/Graphics/Rect.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\image.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Color.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Types.h>
+	<SFML/System/InputStream.h>
+	<SFML/System/Vector2.h>
+	<stddef.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\primitivetype.h
+	<SFML/Graphics/Export.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\rectangleshape.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Color.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Transform.h>
+	<SFML/Graphics/Types.h>
+	<SFML/System/Vector2.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\renderstates.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/BlendMode.h>
+	<SFML/Graphics/Transform.h>
+	<SFML/Graphics/Types.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\renderwindow.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Color.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Types.h>
+	<SFML/Graphics/PrimitiveType.h>
+	<SFML/Graphics/RenderStates.h>
+	<SFML/Graphics/Vertex.h>
+	<SFML/Window/Event.h>
+	<SFML/Window/VideoMode.h>
+	<SFML/Window/WindowHandle.h>
+	<SFML/Window/Window.h>
+	<SFML/System/Vector2.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\vertex.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Color.h>
+	<SFML/System/Vector2.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\rendertexture.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Color.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Types.h>
+	<SFML/Graphics/PrimitiveType.h>
+	<SFML/Graphics/RenderStates.h>
+	<SFML/Graphics/Vertex.h>
+	<SFML/System/Vector2.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\shader.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Color.h>
+	<SFML/Graphics/Transform.h>
+	<SFML/Graphics/Types.h>
+	<SFML/System/InputStream.h>
+	<SFML/System/Vector2.h>
+	<SFML/System/Vector3.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\shape.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Color.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Transform.h>
+	<SFML/Graphics/Types.h>
+	<SFML/System/Vector2.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\sprite.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/BlendMode.h>
+	<SFML/Graphics/Color.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Transform.h>
+	<SFML/Graphics/Types.h>
+	<SFML/System/Vector2.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\text.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Color.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Types.h>
+	<SFML/Graphics/Transform.h>
+	<SFML/System/Vector2.h>
+	<stddef.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\texture.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Types.h>
+	<SFML/Window/Types.h>
+	<SFML/System/InputStream.h>
+	<SFML/System/Vector2.h>
+	<stddef.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\transformable.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Types.h>
+	<SFML/Graphics/Transform.h>
+	<SFML/System/Vector2.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\vertexarray.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/PrimitiveType.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Types.h>
+	<SFML/Graphics/Vertex.h>
+
+1397168105 d:\vb\visualbinary\include\sfml\graphics\view.h
+	<SFML/Graphics/Export.h>
+	<SFML/Graphics/Rect.h>
+	<SFML/Graphics/Types.h>
+	<SFML/System/Vector2.h>
+
+1397402450 source:d:\vb\visualbinary\appwindow\appwindow.c
+	"AppWindow.h"
+	<stdlib.h>
+	<SFML/OpenGL.h>
+
+1397402454 d:\vb\visualbinary\appwindow\appwindow.h
+	<GL/glew.h>
+	<SFML/Graphics.h>
+	"../GraphicObjects/GraphicObjects.h"
+	"../Function/Function.h"
+	"../WrapSFML/wrap.h"
+	"../dbg/dbg.h"
+
+1397168105 d:\vb\visualbinary\function\function.h
+
+1397168105 d:\vb\visualbinary\wrapsfml\wrap.h
+
+1397168105 source:d:\vb\visualbinary\bbqueue\bbqueue.c
+	"BbQueue.h"
+
+1397168105 source:d:\vb\visualbinary\frame\frame.c
+	"Frame.h"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+
+1397168105 source:d:\vb\visualbinary\function\function.c
+	"Function.h"
+	<stdlib.h>
+	<stdio.h>
+
+1397344474 source:d:\vb\visualbinary\glee\glee.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"GLee.h"
+	<Carbon/Carbon.h>
+
+1397335608 source:d:\vb\visualbinary\graphicobjects\graphicobjects.c
+	"GraphicObjects.h"
+	<SFML/OpenGL.h>
+
+1397168105 source:d:\vb\visualbinary\randomizer\randomizer.c
+	"Randomizer.h"
+
+1397335242 source:d:\vb\visualbinary\vertex\vertex.c
+	"Vertex.h"
+	<stdlib.h>
+	<stdio.h>
+
+1397168817 source:d:\vb\visualbinary\ztring\ztring.c
+	"Ztring.h"
+
+1397168105 source:d:\vb\visualbinary\bmpfile\bmpfile.c
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"bmpfile.h"
+
+1397168105 d:\vb\visualbinary\bmpfile\bmpfile.h
+
+1397168105 source:d:\vb\visualbinary\dbg\dbg.c
+	"dbg.h"
+	<stdarg.h>
+	<stdio.h>
+
+1397168105 source:d:\vb\visualbinary\fft\fft.c
+	"fft.h"
+
+1397396058 source:d:\vb\visualbinary\main.c
+	"AppWindow/AppWindow.h"
+	"AppState/Cube3D.h"
+	"Analyzer/Analyzer.h"
+	<time.h>
+
+1397392452 source:d:\vb\visualbinary\cloudpoints\cloudpoints.c
+	"CloudPoints.h"
+	<stdlib.h>
+	<stdint.h>
+	<string.h>
+
+1397392456 d:\vb\visualbinary\cloudpoints\cloudpoints.h
+	"../BbQueue/BbQueue.h"
+
+1374477082 d:\vb\visualbinary\include\gl\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
