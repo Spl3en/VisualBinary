@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 	AppWindow_add_input_routine(window, cube3d_input_function);
 
 	// Cube Update
-	Function *cube3d_update_function = function_new(cube3d_update, cube);
+	DrawFunction *cube3d_update_function = draw_function_new(cube3d_update, cube, view);
 	AppWindow_add_update_routine(window, cube3d_update_function);
 
 	AppWindow_main(window);

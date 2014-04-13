@@ -5,6 +5,7 @@
 #pragma once
 
 // ---------- Includes ------------
+#include <GL/glew.h>
 #include <SFML/Graphics.h>
 #include "../GraphicObjects/GraphicObjects.h"
 #include "../Function/Function.h"
@@ -77,7 +78,7 @@ void
 AppWindow_add_input_routine (AppWindow *this, Function *func);
 
 void
-AppWindow_add_update_routine (AppWindow *this, Function *func);
+AppWindow_add_update_routine (AppWindow *this, DrawFunction *func);
 
 void
 AppWindow_set_state (AppWindow *window, int state);

@@ -14,6 +14,21 @@ void draw_point (float x, float y, float z)
 	glVertex3f(x, y, z);
 }
 
+void draw_line (float srcX, float srcY, float srcZ, float destX, float destY, float destZ)
+{
+	float src[3]  = {srcX, srcY, srcZ};
+	float dest[3] = {destX, destY, destZ};
+
+	glPushMatrix ();
+	glBegin (GL_LINES);
+
+	glVertex3fv (src);
+	glVertex3fv (dest);
+
+	glEnd();
+	glPopMatrix ();
+}
+
 void draw_axes (float view[3])
 {
 	static float ORG[3] = {0,0,0};

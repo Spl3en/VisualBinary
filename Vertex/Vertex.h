@@ -3,7 +3,7 @@
 #pragma once
 
 // ---------- Includes ------------
-
+#include <math.h>
 
 // ---------- Defines -------------
 
@@ -53,6 +53,9 @@ _vertex_list_add_vertex (VertexList *this, Vertex *v);
 
 void
 vertex_list_add_vertex (VertexList *this, Vertex *v);
+
+float
+vertex_distance (Vertex *v1, Vertex *v2);
 
 // --------- Destructors ----------
 

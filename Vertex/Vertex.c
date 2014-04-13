@@ -29,6 +29,16 @@ vertex_init (Vertex *this, float x, float y, float z)
 	this->z = z;
 }
 
+float
+vertex_distance (Vertex *v1, Vertex *v2)
+{
+	return sqrt (
+		pow(v1->x - v2->x, 2)
+	+	pow(v1->y - v2->y, 2)
+	+	pow(v1->z - v2->z, 2)
+	);
+}
+
 void
 vertex_free (Vertex *vertex)
 {

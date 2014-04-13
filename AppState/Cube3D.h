@@ -7,8 +7,10 @@
 #include "../Randomizer/Randomizer.h"
 #include "../Analyzer/Analyzer.h"
 #include "../Vertex/Vertex.h"
-#include "../GLee/GLee.h"
 #include "../Sleep/Sleep.h"
+#include "../CloudPoints/CloudPoints.h"
+#include "../WrapSFML/wrap.h"
+#include <GL/glew.h>
 #include <SFML/OpenGL.h>
 #include <SFML/Graphics.h>
 
@@ -61,10 +63,12 @@ typedef struct _Cube3D
 	Analyzer *analyzer;
 
 	// Display data
-	GLuint index[CUBE3D_STATE_SIZE];
-	GLuint pbo_geometry[CUBE3D_STATE_SIZE];
-	GLuint pbo_indice[CUBE3D_STATE_SIZE];
-	VertexList *vertex_list[CUBE3D_STATE_SIZE];
+	CloudPoints *cloud[CUBE3D_STATE_SIZE];
+	GLuint vboID[CUBE3D_STATE_SIZE][2];
+	GLuint vaoID[CUBE3D_STATE_SIZE][1];
+	GLuint shaderProgram;
+	float projection_matrix[16];
+	float model_matrix[16];
 
 	// Bounds
 	float start_limit;
@@ -97,28 +101,19 @@ void
 cube3d_init (Cube3D *this, sfRenderWindow* render, Analyzer *analyzer);
 
 void
+cube3d_load_cloud (Cube3D *this, CubeState state);
+
+void
 cube3d_draw (Cube3D *this, float *view);
 
 void
-cube3d_update (Cube3D *this);
+cube3d_update (Cube3D *this, float *view);
 
-void
-cube3d_direct_draw (Cube3D *this, float *view, CubeState state);
-
-void
-cube3d_init_list (Cube3D *this);
-
-void
-cube3d_init_pbo (Cube3D *this);
-
-void
-cube3d_init_vertex_array (Cube3D *this);
+CloudPoints *
+cube3d_process_cloud (Cube3D *this, CubeState state);
 
 void
 cube3d_input (Cube3D *this);
-
-void
-cube3d_generate_cube (Cube3D *this, CubeState state);
 
 void
 cube3d_set_rot (Cube3D *this, float xrot, float yrot);
@@ -128,6 +123,9 @@ cube3D_get_state_str (Cube3D *this);
 
 void
 cube3d_enable_state (Cube3D *this, CubeState state);
+
+bool
+cube3d_view_changed (float *view);
 
 // --------- Destructors ----------
 

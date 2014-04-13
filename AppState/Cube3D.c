@@ -12,9 +12,6 @@ cube3d_new (sfRenderWindow* render, Analyzer *analyzer)
 		return NULL;
 
 	cube3d_init(this, render, analyzer);
-	//cube3d_init_vertex_array(this);
-	cube3d_init_list(this);
-	//cube3d_init_pbo(this);
 
 	return this;
 }
@@ -28,19 +25,23 @@ cube3d_alloc (void)
 void
 cube3d_init (Cube3D *this, sfRenderWindow* render, Analyzer *analyzer)
 {
+	CubeState default_state = CUBE3D_SPACE;
+
 	this->analyzer    = analyzer;
 	this->start_limit = 0.0;
 	this->end_limit   = (float) (NB_FRAMES - 1);
 	this->render      = render;
 	this->font        = sfFont_createFromFile("verdana.ttf");
-	this->state       = CUBE3D_SPACE;
+	this->state       = default_state;
 	this->rotation    = (CubeRotation) {.xrot = 0.1, .yrot = 0.0, .state = CUBE3D_ROTATE_AUTO};
 	this->cinematic   = (CubeCinematic) {.xleft = 360.0, .yleft = 360.0, .state = CUBE3D_CINEMATIC_STOP};
 
-	for (CubeState state = 0; state < CUBE3D_STATE_SIZE; state++)
-	{
-		this->vertex_list[state] = vertex_list_new(NB_FRAMES);
-	}
+	memset(this->vboID, -1, sizeof(this->vboID));
+	memset(this->vaoID, -1, sizeof(this->vaoID));
+
+	glGetFloatv(GL_PROJECTION_MATRIX, this->projection_matrix);
+
+	cube3d_load_cloud (this, default_state);
 }
 
 void
@@ -51,90 +52,99 @@ cube3d_set_rot (Cube3D *this, float xrot, float yrot)
 }
 
 void
-cube3d_init_vertex_array (Cube3D *this)
+cube3d_load_cloud (Cube3D *this, CubeState state)
 {
-	int x, y, z;
-	unsigned int value;
+	this->cloud[state] = cube3d_process_cloud(this, state);
 
-	for (CubeState state = 0; state < CUBE3D_STATE_SIZE; state++)
-	{
-		VertexList *vertex_list = this->vertex_list[state];
+	float *colors   = this->cloud[state]->colors;
+	float *vertices = this->cloud[state]->vertices;
 
-		for (z = this->start_limit; z < this->end_limit; z++)
-		{
-			for (y = 0; y < NB_FRAMES; y++)
-			{
-				for (x = 0; x < NB_FRAMES; x++)
-				{
-					switch (state)
-					{
-						case CUBE3D_TIME:
-							value = frame_get(&this->analyzer->frames_time[z], x, y);
-						break;
+	int vSize = this->cloud[state]->vSize;
+	int cSize = this->cloud[state]->cSize;
 
-						case CUBE3D_SPACE:
-							value = frame_get(&this->analyzer->frames_space[z], x, y);
-						break;
+	// Create VAO
+	glGenVertexArrays(1, this->vaoID[state]);
+	glBindVertexArray(this->vaoID[state][0]);
+	glGenBuffers(2, this->vboID[state]);
 
-						case CUBE3D_FFT:
-							value = frame_get(&this->analyzer->frames_fft[z], x, y);
-						break;
+	// Vertices
+	glBindBuffer(GL_ARRAY_BUFFER, this->vboID[state][0]);
+	glBufferData(GL_ARRAY_BUFFER, vSize * sizeof(GLfloat), vertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    glEnableVertexAttribArray(0);
 
-						default:
-						break;
-					}
+	// Colors
+	glBindBuffer(GL_ARRAY_BUFFER, this->vboID[state][1]);
+	glBufferData(GL_ARRAY_BUFFER, cSize * sizeof(GLfloat), colors, GL_STATIC_DRAW);
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, 0);
+    glEnableVertexAttribArray(1);
 
-					if (value > 0)
-					{
-						Vertex *vertex = vertex_new((float) x / NB_FRAMES - 0.5, 1.0 - (float) y / NB_FRAMES - 0.5, (float) z / NB_FRAMES - 0.5);
-						vertex_list_add_vertex(vertex_list, vertex);
-					}
-				}
-			}
-		}
-	}
+	// Read shaders
+	const GLchar *vertexSource   = file_get_contents("./shaders/cloudPoints.vert");
+    const GLchar *fragmentSource = file_get_contents("./shaders/cloudPoints.frag");
+
+	// Create and compile the vertex shader
+	GLint compiled;
+    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShader, 1, &vertexSource, NULL);
+    glCompileShader(vertexShader);
+    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &compiled);
+    if (!compiled)
+    {
+		int length;
+		glGetShaderiv(vertexShader, GL_INFO_LOG_LENGTH, &length);
+		char *vertexInfoLog = (char *)malloc(length);
+		glGetShaderInfoLog(vertexShader, length, &length, vertexInfoLog);
+		printf("vertexInfoLog = %s\n", vertexInfoLog);
+		free(vertexInfoLog);
+		return;
+    }
+
+    // Create and compile the fragment shader
+    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
+    glCompileShader(fragmentShader);
+    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &compiled);
+    if (!compiled)
+    {
+		int length;
+		glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &length);
+		char *fragmentInfoLog = (char *)malloc(length);
+		glGetShaderInfoLog(fragmentShader, length, &length, fragmentInfoLog);
+		printf("fragmentInfoLog = %s\n", fragmentInfoLog);
+		free(fragmentInfoLog);
+		return;
+    }
+
+    // Link the vertex and fragment shader into a shader program
+    GLuint shaderProgram = glCreateProgram();
+    glAttachShader(shaderProgram, vertexShader);
+    glAttachShader(shaderProgram, fragmentShader);
+    glBindAttribLocation(shaderProgram, 0, "in_Position");
+    glBindAttribLocation(shaderProgram, 1, "in_Color");
+    glLinkProgram(shaderProgram);
+    glUseProgram(shaderProgram);
+    this->shaderProgram = shaderProgram;
+
+    glBindVertexArray(0);
 }
 
 void
-cube3d_init_pbo (Cube3D *this)
+cube3d_update (Cube3D *this, float *view)
 {
-	glGenBuffersARB(CUBE3D_STATE_SIZE, this->pbo_geometry);
-
-	for (CubeState state = 0; state < CUBE3D_STATE_SIZE; state++)
+	// Update rotation
+	switch (this->rotation.state)
 	{
-		glBindBufferARB(GL_PIXEL_PACK_BUFFER_ARB, this->pbo_geometry[state]);
+		case CUBE3D_ROTATE_AUTO:
+			view[0] += this->rotation.xrot;
+			view[1] += this->rotation.yrot;
+		break;
 
-		switch (state)
-		{
-			case CUBE3D_SPACE:
-				// glBufferDataARB(GL_ARRAY_BUFFER_ARB, dataSize, vertices, GL_STATIC_DRAW_ARB);
-			break;
-
-			case CUBE3D_TIME:
-			break;
-
-			default:
-			break;
-		}
+		case CUBE3D_ROTATE_STOP:
+		break;
 	}
-}
-
-void
-cube3d_init_list (Cube3D *this)
-{
-	for (CubeState state = 0; state < CUBE3D_STATE_SIZE; state++)
-	{
-		this->index[state] = glGenLists(1);
-		glNewList(this->index[state], GL_COMPILE);
-			cube3d_direct_draw(this, (float[3]) {0.0, 0.0, -5.0}, state);
-		glEndList();
-	}
-}
 
 
-void
-cube3d_update (Cube3D *this)
-{
 	static int onChange[4] = {};
 	if (this->cinematic.state == CUBE3D_CINEMATIC_PLAY)
 	{
@@ -195,13 +205,11 @@ cube3d_input (Cube3D *this)
 {
 	float speed_select = 10.0;
 
-	// Start
 	if (sfKeyboard_isKeyPressed(sfKeyAdd))
 	{
 		this->start_limit += speed_select;
 		if (this->start_limit > 255.0)
 			this->start_limit = 255.0;
-		cube3d_generate_cube(this, this->state);
 	}
 
 	if (sfKeyboard_isKeyPressed(sfKeySubtract))
@@ -209,16 +217,15 @@ cube3d_input (Cube3D *this)
 		this->start_limit -= speed_select;
 		if (this->start_limit < 0.0)
 			this->start_limit = 0.0;
-		cube3d_generate_cube(this, this->state);
+		// cube3d_generate_cube(this, this->state);
 	}
 
-	// End
 	if (sfKeyboard_isKeyPressed(sfKeyDivide))
 	{
 		this->end_limit -= speed_select;
 		if (this->end_limit < 0.0)
 			this->end_limit = 0.0;
-		cube3d_generate_cube(this, this->state);
+		// cube3d_generate_cube(this, this->state);
 	}
 
 	if (sfKeyboard_isKeyPressed(sfKeyMultiply))
@@ -226,23 +233,29 @@ cube3d_input (Cube3D *this)
 		this->end_limit += speed_select;
 		if (this->end_limit > 255.0)
 			this->end_limit = 255.0;
-		cube3d_generate_cube(this, this->state);
+		// cube3d_generate_cube(this, this->state);
 	}
 
 	// Space
 	if (sfKeyboard_isKeyPressed(sfKeyS))
 	{
 		cube3d_enable_state(this, CUBE3D_SPACE);
+		if (this->vaoID[this->state][0] == -1)
+			cube3d_load_cloud(this, this->state);
 	}
 
 	if (sfKeyboard_isKeyPressed(sfKeyT))
 	{
 		cube3d_enable_state(this, CUBE3D_TIME);
+		if (this->vaoID[this->state][0] == -1)
+			cube3d_load_cloud(this, this->state);
 	}
 
 	if (sfKeyboard_isKeyPressed(sfKeyF))
 	{
 		cube3d_enable_state(this, CUBE3D_FFT);
+		if (this->vaoID[this->state][0] == -1)
+			cube3d_load_cloud(this, this->state);
 	}
 
 	if (sfKeyboard_isKeyPressed(sfKeyC))
@@ -264,21 +277,8 @@ cube3d_input (Cube3D *this)
 	}
 }
 
-void
-cube3d_generate_cube (Cube3D *this, CubeState state)
-{
-	if (this->index[state] != 0)
-		glDeleteLists(this->index[state], 1);
-
-	this->index[state] = glGenLists(1);
-
-	glNewList(this->index[state], GL_COMPILE);
-		cube3d_direct_draw (this, (float[3]) {0.0, 0.0, -5.0}, state);
-	glEndList();
-}
-
-void
-cube3d_direct_draw (Cube3D *this, float view[3], CubeState state)
+CloudPoints *
+cube3d_process_cloud (Cube3D *this, CubeState state)
 {
 	int x, y, z;
 	int value = 0;
@@ -286,6 +286,8 @@ cube3d_direct_draw (Cube3D *this, float view[3], CubeState state)
 	float opacity = 0.5;
 	float r, g, b;
 	int real, imag;
+
+	CloudPoints *cloud = CloudPoints_new();
 
 	// Get maxvalue of the cube
 	switch (state)
@@ -306,9 +308,7 @@ cube3d_direct_draw (Cube3D *this, float view[3], CubeState state)
 		break;
 	}
 
-	// Draw points
-	glPointSize(2.0);
-	glBegin(GL_POINTS);
+	// Process points
 	for (z = this->start_limit; z < this->end_limit; z++)
 	{
 		for (y = 0; y < NB_FRAMES; y++)
@@ -342,18 +342,21 @@ cube3d_direct_draw (Cube3D *this, float view[3], CubeState state)
 						if (value > 0)
 						{
 							if (value == 1)
-								glColor4f(0.0, 1.0, 0.0, 0.05);
+								CloudPoints_add_color(cloud, 0.0, 1.0, 0.0, 0.05);
 							else
 							{
 								r = ((float) value / (maxvalue+1)) * 8.0;
 								g = ((float) value / (maxvalue+1)) * 32.0;
 								b = ((float) value / (maxvalue+1)) * 16.0;
 
-								glColor4f(r, g, b, opacity);
+								CloudPoints_add_color(cloud, r, g, b, opacity);
 							}
 
-							draw_point((float) x / NB_FRAMES - 0.5, 1.0 - (float) y / NB_FRAMES - 0.5, (float) z / NB_FRAMES - 0.5);
-
+							CloudPoints_add_vertice (cloud,
+								(float) x / NB_FRAMES - 0.5,
+								1.0 - (float) y / NB_FRAMES - 0.5,
+								(float) z / NB_FRAMES - 0.5
+							);
 						}
 					break;
 
@@ -373,8 +376,8 @@ cube3d_direct_draw (Cube3D *this, float view[3], CubeState state)
 							if (r > 0.0 || g > 0.0 || b > 0.0)
 							{
 								#define SPACE_BETWEEN_FRAMES 2
-								glColor4f(r, g, b, opacity);
-								draw_point (
+								CloudPoints_add_color(cloud, r, g, b, opacity);
+								CloudPoints_add_vertice (cloud,
 										(float) x / NB_FRAMES - 0.5,
 										1.0 - (float) y / NB_FRAMES - 0.5,
 										(float) (SPACE_BETWEEN_FRAMES * z) / NB_FRAMES - (SPACE_BETWEEN_FRAMES * 0.5)
@@ -392,44 +395,53 @@ cube3d_direct_draw (Cube3D *this, float view[3], CubeState state)
 			}
 		}
 	}
-	glEnd();
+
+	CloudPoints_convert_queue(cloud);
+
+	return cloud;
+}
+
+bool
+cube3d_view_changed (float *view)
+{
+	static float last_view[3] = {0.0, 0.0, 0.0};
+
+	if (last_view[0] != view[0] || last_view[1] != view[1] || last_view[2] != view[2])
+	{
+		last_view[0] = view[0];
+		last_view[1] = view[1];
+		last_view[2] = view[2];
+
+		return true;
+	}
+
+	return false;
 }
 
 void
 cube3d_draw (Cube3D *this, float *view)
 {
-	glPushMatrix ();
-        switch (this->rotation.state)
-        {
-            case CUBE3D_ROTATE_AUTO:
-                view[0] += this->rotation.xrot;
-                view[1] += this->rotation.yrot;
-            break;
+	CubeState state = this->state;
 
-            case CUBE3D_ROTATE_STOP:
-            break;
-        }
+	glTranslatef (0.0, 0.0, view[2]);
+	glRotatef (view[1], 1,0,0);
+	glRotatef (view[0], 0,1,0);
 
-        glTranslatef (0.0, 0.0, view[2]);
-        glRotatef (view[1], 1,0,0);
-        glRotatef (view[0], 0,1,0);
+	glUseProgram(this->shaderProgram);
 
-        glCallList(this->index[this->state]);
-	glPopMatrix ();
+	if (cube3d_view_changed(view))
+	{
+		glGetFloatv(GL_MODELVIEW_MATRIX, this->model_matrix);
+		glUniformMatrix4fv(glGetUniformLocation(this->shaderProgram, "MVMatrix"), 1, GL_FALSE, this->model_matrix);
+		glUniformMatrix4fv(glGetUniformLocation(this->shaderProgram, "MPMatrix"), 1, GL_FALSE, this->projection_matrix);
+	}
 
-	char buffer[1024];
-	sfText *text = sfText_create();
-	sfText_setFont(text, this->font);
-	sfText_setCharacterSize(text, 20);
-	// sprintf(buffer, "Start = 0x%d - End = 0x%d", (int) (this->start_limit * (float) this->analyzer->filesize / NB_FRAMES), (int) (this->end_limit * (float) this->analyzer->filesize / NB_FRAMES));
-	sprintf(buffer, "View : %s (%s)", cube3D_get_state_str(this), this->analyzer->filename);
-	sfText_setString(text, buffer);
+	glBindVertexArray(this->vaoID[state][0]);
+	glPointSize(2.0);
+	glDrawArrays(GL_POINTS, 0, this->cloud[state]->verticeCount);
+	glBindVertexArray(0);
 
-	sfRenderWindow_pushGLStates(this->render);
-	sfRenderWindow_drawText(this->render, text, NULL);
-	sfRenderWindow_popGLStates(this->render);
-
-	sfText_destroy(text);
+	glUseProgram(0);
 }
 
 char *

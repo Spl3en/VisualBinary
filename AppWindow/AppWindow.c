@@ -13,6 +13,13 @@ AppWindow_new (char *window_name, int width, int height, bool fullscreen)
 
 	AppWindow_init(this, window_name, width, height, fullscreen);
 
+    glewExperimental = GL_TRUE;
+	if (glewInit() != GLEW_OK)
+	{
+		AppWindow_free(this);
+		return NULL;
+	}
+
 	return this;
 }
 
@@ -107,7 +114,7 @@ AppWindow_add_input_routine (AppWindow *this, Function *func)
 }
 
 void
-AppWindow_add_update_routine (AppWindow *this, Function *func)
+AppWindow_add_update_routine (AppWindow *this, DrawFunction *func)
 {
 	bb_queue_add(this->update_routines, func);
 }
@@ -223,21 +230,21 @@ AppWindow_main (AppWindow *this)
 
 		foreach_bbqueue_item (this->input_routines, Function *function)
 		{
-			function->call (function->arg);
+			function_call (function);
 		}
 	}
 
 	void AppWindow_clear ()
 	{
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clear Screen And Depth Buffer
-		sfRenderWindow_clear(SFML(this), sfBlack);
+		// Clear Screen And Depth Buffer
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 	void AppWindow_update ()
 	{
-		foreach_bbqueue_item (this->update_routines, Function *function)
+		foreach_bbqueue_item (this->update_routines, DrawFunction *function)
 		{
-			function->call (function->arg);
+			draw_function_call (function);
 		}
 	}
 
@@ -257,7 +264,9 @@ AppWindow_main (AppWindow *this)
 		AppWindow_draw();
 
 		// Display
+		sfRenderWindow_pushGLStates(SFML(this));
 		sfRenderWindow_display(SFML(this));
+		sfRenderWindow_popGLStates(SFML(this));
 	}
 }
 
