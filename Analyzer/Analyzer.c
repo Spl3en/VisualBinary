@@ -193,8 +193,7 @@ analyze_space (Analyzer *this)
 
 		if (
 			(this->maxvalue_space < value)
-		&& (pixel_pos[0] != 0 && pixel_pos[1] != 0)
-		)
+		&& (pixel_pos[0] != 0 && pixel_pos[1] != 0))
 		{
 			this->maxvalue_space = value;
 		}
@@ -259,8 +258,11 @@ static COMPLEX ** frame_to_complex (Frame *frame)
 	{
 		for (int x = 0; x < frame->size; x++)
 		{
+			//c[y][x].imag = (frame->data[y][x]) ? 1 : 0;
+			//c[y][x].imag = (double) frame->data[y][x];
 			c[y][x].imag = 0;
-			c[y][x].real = (double) frame->data[y][x];
+			c[y][x].real = (frame->data[y][x]) ? 1 : 0;
+			//c[y][x].real = (double) frame->data[y][x];
 		}
 	}
 

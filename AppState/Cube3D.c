@@ -29,7 +29,7 @@ cube3d_init (Cube3D *this, sfRenderWindow* render, Analyzer *analyzer)
 
 	this->analyzer    = analyzer;
 	this->start_limit = 0.0;
-	this->end_limit   = (float) (NB_FRAMES - 1);
+	this->end_limit   = (float) (NB_FRAMES);
 	this->render      = render;
 	this->font        = sfFont_createFromFile("verdana.ttf");
 	this->state       = default_state;
@@ -158,7 +158,6 @@ cube3d_update (Cube3D *this, float *view)
 		break;
 	}
 
-
 	static int onChange[4] = {};
 	if (this->cinematic.state == CUBE3D_CINEMATIC_PLAY)
 	{
@@ -205,6 +204,11 @@ cube3d_enable_state (Cube3D *this, CubeState state)
 		break;
 
 		case CUBE3D_FFT:
+			glEnable(GL_DEPTH_TEST);
+			glDepthFunc(GL_LEQUAL);
+		break;
+
+		case CUBE3D_FFT_FRAMES:
 			glEnable(GL_DEPTH_TEST);
 			glDepthFunc(GL_LEQUAL);
 		break;
@@ -297,17 +301,19 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 	int x, y, z;
 	int value = 0;
 	int maxvalue = 0;
-	float opacity = 0.5;
+	float opacity = 1.0;
 	float r, g, b;
 	int real, imag;
 
 	// Get maxvalue of the cube
 	switch (state)
 	{
-		case CUBE3D_TIME:  maxvalue = this->analyzer->maxvalue_time;  break;
-		case CUBE3D_SPACE: maxvalue = this->analyzer->maxvalue_space; break;
-		case CUBE3D_FFT:   maxvalue = this->analyzer->maxvalue_fft;   break;
-		default: break;
+		case CUBE3D_TIME:       maxvalue = this->analyzer->maxvalue_time;  break;
+		case CUBE3D_SPACE:      maxvalue = this->analyzer->maxvalue_space; break;
+		case CUBE3D_FFT:        maxvalue = this->analyzer->maxvalue_fft;   break;
+		case CUBE3D_FFT_FRAMES: maxvalue = this->analyzer->maxvalue_fft;   break;
+
+		case CUBE3D_STATE_SIZE:break;
 	}
 
 	// Count points
@@ -334,10 +340,14 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 						imag = abs(imag);
 					break;
 
-					default:
+					case CUBE3D_FFT_FRAMES:
+						frame_get_complex(&this->analyzer->frames_fft[z], x, y, &real, &imag);
+						real = abs(real);
+						imag = abs(imag);
 					break;
-				}
 
+					case CUBE3D_STATE_SIZE:break;
+				}
 
 				switch (state)
 				{
@@ -352,8 +362,12 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 							pointsCount++;
 					break;
 
-					default:
+					case CUBE3D_FFT_FRAMES:
+						if (real > 0 || imag > 0)
+							pointsCount++;
 					break;
+
+					case CUBE3D_STATE_SIZE:break;
 				}
 			}
 		}
@@ -385,8 +399,13 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 						imag = abs(imag);
 					break;
 
-					default:
+					case CUBE3D_FFT_FRAMES:
+						frame_get_complex(&this->analyzer->frames_fft[z], x, y, &real, &imag);
+						real = abs(real);
+						imag = abs(imag);
 					break;
+
+					case CUBE3D_STATE_SIZE:break;
 				}
 
 				switch (state)
@@ -396,12 +415,12 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 						if (value > 0)
 						{
 							if (value == 1)
-								CloudPoints_add_color(cloud, 0.0, 1.0, 0.0, 0.05);
+								CloudPoints_add_color(cloud, 0.0, 1.0, 0.0, 0.1);
 							else
 							{
-								r = ((float) value / (maxvalue+1)) * 8.0;
-								b = ((float) value / (maxvalue+1)) * 16.0;
-								g = ((float) value / (maxvalue+1)) * 32.0;
+								r = ((float) value / (maxvalue+1)) * 16.0;
+								b = ((float) value / (maxvalue+1)) * 32.0;
+								g = ((float) value / (maxvalue+1)) * 8.0;
 
 								CloudPoints_add_color(cloud, r, g, b, opacity);
 							}
@@ -415,7 +434,6 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 					break;
 
 					case CUBE3D_FFT:
-					{
 						if (real > 0 || imag > 0)
 						{
 							r = (real > 1.0) ? 1.0 : real;
@@ -423,7 +441,7 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 							g = (((real / 2.0) + (imag / 2.0)) > 1.0) ?
 								1.0 : (real / 2.0) + (imag / 2.0);
 
-							#define SPACE_BETWEEN_FRAMES 3
+							#define SPACE_BETWEEN_FRAMES 2
 							CloudPoints_add_color(cloud, r, g, b, opacity);
 							CloudPoints_add_vertice (cloud,
 									(float) x / NB_FRAMES - 0.5,
@@ -432,11 +450,12 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 							);
 							#undef SPACE_BETWEEN_FRAMES
 						}
-					}
 					break;
 
-					default:
+					case CUBE3D_FFT_FRAMES:
 					break;
+
+					case CUBE3D_STATE_SIZE: break;
 				}
 
 			}
@@ -445,10 +464,12 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 
 	switch (state)
 	{
-		case CUBE3D_TIME:  free(this->analyzer->frames_time);  this->analyzer->frames_time  = NULL; break;
-		case CUBE3D_SPACE: free(this->analyzer->frames_space); this->analyzer->frames_space = NULL; break;
-		case CUBE3D_FFT:   free(this->analyzer->frames_fft);   this->analyzer->frames_fft   = NULL; break;
-		default : break;
+		case CUBE3D_TIME:       free(this->analyzer->frames_time);  this->analyzer->frames_time  = NULL; break;
+		case CUBE3D_SPACE:      free(this->analyzer->frames_space); this->analyzer->frames_space = NULL; break;
+		case CUBE3D_FFT:        free(this->analyzer->frames_fft);   this->analyzer->frames_fft   = NULL; break;
+		case CUBE3D_FFT_FRAMES: /* shared with FFT */ break;
+
+		case CUBE3D_STATE_SIZE:break;
 	}
 
 	return cloud;
@@ -495,7 +516,7 @@ cube3d_draw (Cube3D *this, float *view)
 	}
 
 	glBindVertexArray(this->vaoID[state][0]);
-	glDrawArrays(GL_POINTS, 0, this->cloud[state]->verticeCount);
+	glDrawArrays(GL_QUADS, 0, this->cloud[state]->verticeCount);
 	glBindVertexArray(0);
 
 	glUseProgram(0);

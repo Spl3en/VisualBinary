@@ -20,6 +20,7 @@ typedef enum {
 	CUBE3D_SPACE = 0,
 	CUBE3D_TIME,
 	CUBE3D_FFT,
+	CUBE3D_FFT_FRAMES,
 
 	// Always at the end
 	CUBE3D_STATE_SIZE

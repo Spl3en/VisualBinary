@@ -79,6 +79,8 @@ AppWindow_init (AppWindow *this, char *window_name, int width, int height, bool 
 		glLoadIdentity();									// Reset The Projection Matrix
 		gluPerspective(50.0, (float) width / height, 0.1, 50.0);
 
+		// Smooth points
+		glEnable(GL_POINT_SMOOTH);
 		// Transparency
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_BLEND);
@@ -176,6 +178,10 @@ AppWindow_main (AppWindow *this)
 					this->width  = event.size.width;
 					this->height = event.size.height;
 					glViewport(0, 0, this->width, this->height);
+					glMatrixMode(GL_PROJECTION);
+					glLoadIdentity();
+					gluPerspective(50.0, (float) this->width / this->height, 0.1, 50.0);
+					glMatrixMode(GL_MODELVIEW);
 				}
 
 				case sfEvtMouseWheelMoved:
