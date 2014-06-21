@@ -20,7 +20,10 @@ typedef struct _COMPLEX
 } 	COMPLEX;
 
 
+int Powerof2(int nx, int* m, int* twopm);
 
 int FFT(int dir,int m,double *x,double *y);
 int FFT2D(COMPLEX **c,int nx,int ny,int dir);
-int Powerof2(int nx, int* m, int* twopm);
+
+int DFT(int dir,int m,double *x1,double *y1);
+int DFT2D(COMPLEX **c,int nx,int ny,int dir);

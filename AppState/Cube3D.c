@@ -303,7 +303,7 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 	int maxvalue = 0;
 	float opacity = 1.0;
 	float r, g, b;
-	int real, imag;
+	double real, imag;
 
 	// Get maxvalue of the cube
 	switch (state)
@@ -336,17 +336,18 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 
 					case CUBE3D_FFT:
 						frame_get_complex(&this->analyzer->frames_fft[z], x, y, &real, &imag);
-						real = abs(real);
-						imag = abs(imag);
+						real = fabs(real) * 100;
+						imag = fabs(imag) * 100;
 					break;
 
 					case CUBE3D_FFT_FRAMES:
 						frame_get_complex(&this->analyzer->frames_fft[z], x, y, &real, &imag);
-						real = abs(real);
-						imag = abs(imag);
+						real = fabs(real) * 100;
+						imag = fabs(imag) * 100;
 					break;
 
-					case CUBE3D_STATE_SIZE:break;
+					case CUBE3D_STATE_SIZE:
+					break;
 				}
 
 				switch (state)
@@ -358,7 +359,7 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 					break;
 
 					case CUBE3D_FFT:
-						if (real > 0 || imag > 0)
+						if (real > 1 || imag > 1)
 							pointsCount++;
 					break;
 
@@ -395,14 +396,14 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 
 					case CUBE3D_FFT:
 						frame_get_complex(&this->analyzer->frames_fft[z], x, y, &real, &imag);
-						real = abs(real);
-						imag = abs(imag);
+						real = fabs(real) * 100;
+						imag = fabs(imag) * 100;
 					break;
 
 					case CUBE3D_FFT_FRAMES:
 						frame_get_complex(&this->analyzer->frames_fft[z], x, y, &real, &imag);
-						real = abs(real);
-						imag = abs(imag);
+						real = fabs(real) * 100;
+						imag = fabs(imag) * 100;
 					break;
 
 					case CUBE3D_STATE_SIZE:break;
@@ -414,7 +415,7 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 					case CUBE3D_SPACE:
 						if (value > 0)
 						{
-							if (value == 1)
+							if (value < 5)
 								CloudPoints_add_color(cloud, 0.0, 1.0, 0.0, 0.1);
 							else
 							{
@@ -434,21 +435,20 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 					break;
 
 					case CUBE3D_FFT:
-						if (real > 0 || imag > 0)
+						if (real > 1 || imag > 1)
 						{
-							r = (real > 1.0) ? 1.0 : real;
-							b = (imag > 1.0) ? 1.0 : imag;
-							g = (((real / 2.0) + (imag / 2.0)) > 1.0) ?
-								1.0 : (real / 2.0) + (imag / 2.0);
+							r = (real > 1) ? 1 : real;
+							b = (imag > 1) ? 1 : imag;
+							g = (((real / 2) + (imag / 2)) > 1) ?
+								1 : ((real / 2) + (imag / 2));
 
-							#define SPACE_BETWEEN_FRAMES 2
 							CloudPoints_add_color(cloud, r, g, b, opacity);
+
 							CloudPoints_add_vertice (cloud,
 									(float) x / NB_FRAMES - 0.5,
 									1.0 - (float) y / NB_FRAMES - 0.5,
 									(float) (SPACE_BETWEEN_FRAMES * z) / NB_FRAMES - (SPACE_BETWEEN_FRAMES * 0.5)
 							);
-							#undef SPACE_BETWEEN_FRAMES
 						}
 					break;
 
@@ -506,6 +506,7 @@ cube3d_draw (Cube3D *this, float *view)
 	glRotatef (view[1], 1,0,0);
 	glRotatef (view[0], 0,1,0);
 
+	//! ------ Start of the program
 	glUseProgram(this->shaderProgram);
 
 	if (cube3d_view_changed(this, view))
@@ -516,10 +517,12 @@ cube3d_draw (Cube3D *this, float *view)
 	}
 
 	glBindVertexArray(this->vaoID[state][0]);
-	glDrawArrays(GL_QUADS, 0, this->cloud[state]->verticeCount);
+	glDrawArrays(GL_POINTS, 0, this->cloud[state]->verticeCount);
 	glBindVertexArray(0);
 
+	//! ------- End of the program
 	glUseProgram(0);
+
 }
 
 char *

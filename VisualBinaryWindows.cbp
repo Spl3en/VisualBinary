@@ -30,7 +30,6 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-O3" />
 			<Add option="-std=gnu99" />
 			<Add option="-Wno-pointer-to-int-cast" />
 			<Add option="-Wno-int-to-pointer-cast" />

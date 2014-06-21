@@ -15,6 +15,8 @@
 #include <SFML/Graphics.h>
 
 // ---------- Defines -------------
+#define SPACE_BETWEEN_FRAMES 1
+
 typedef enum {
 
 	CUBE3D_SPACE = 0,

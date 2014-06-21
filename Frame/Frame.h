@@ -14,8 +14,9 @@
 // ------ Class declaration -------
 typedef struct _Frame
 {
-	int **data;
-	int **data_img;
+	int **data_integer;
+	double **data_real;
+	double **data_imag;
 	int size;
 
 }	Frame;
@@ -48,10 +49,10 @@ void
 frame_reset (Frame *this);
 
 void
-frame_set_complex (Frame *this, int x, int y, int real, int img);
+frame_set_complex (Frame *this, int x, int y, double real, double img);
 
 void
-frame_get_complex (Frame *this, int x, int y, int *real, int *imag);
+frame_get_complex (Frame *this, int x, int y, double *real, double *imag);
 
 // --------- Destructors ----------
 

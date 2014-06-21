@@ -6,6 +6,7 @@
 
 static COMPLEX ** frame_to_complex (Frame *frame);
 static void complex_to_frame (COMPLEX **complex_2d, Frame *frame, int size);
+static void complex2d_free (COMPLEX **c, int size);
 
 Analyzer *
 analyzer_new (char *filename)
@@ -65,6 +66,7 @@ analyze_time (Analyzer *this)
 	}
 }
 
+/*
 void
 analyze_fft_time (Analyzer *this)
 {
@@ -104,13 +106,15 @@ analyze_fft_time (Analyzer *this)
 	}
 
 	// From time, convert with fft
-	for (int i = 1; i < NB_FRAMES; i++)
+	for (int i = 0; i < NB_FRAMES; i++)
 	{
-		COMPLEX **complex_2d = frame_to_complex(&this->frames_fft[i]);
-		FFT2D(complex_2d, this->frames_fft[i].size, this->frames_fft[i].size, 1);
-		complex_to_frame(complex_2d, &this->frames_fft[i], this->frames_fft[i].size);
+		COMPLEX **complex_2d = frame_to_complex (&this->frames_fft[i]);
+		FFT2D (complex_2d, this->frames_fft[i].size, this->frames_fft[i].size, 1);
+		complex_to_frame (complex_2d, &this->frames_fft[i], this->frames_fft[i].size);
 	}
 }
+*/
+
 
 void
 analyze_fft_space (Analyzer *this)
@@ -154,11 +158,12 @@ analyze_fft_space (Analyzer *this)
 	}
 
 	// From space, convert with fft
-	for (int i = 1; i < NB_FRAMES; i++)
+	for (int i = 0; i < NB_FRAMES; i++)
 	{
-		COMPLEX **complex_2d = frame_to_complex(&this->frames_fft[i]);
-		FFT2D(complex_2d, this->frames_fft[i].size, this->frames_fft[i].size, 1);
-		complex_to_frame(complex_2d, &this->frames_fft[i], this->frames_fft[i].size);
+		COMPLEX **complex_2d = frame_to_complex (&this->frames_fft[i]);
+		FFT2D (complex_2d, this->frames_fft[i].size, this->frames_fft[i].size, 1);
+		complex_to_frame (complex_2d, &this->frames_fft[i], this->frames_fft[i].size);
+		complex2d_free(complex_2d, this->frames_fft[i].size);
 	}
 }
 
@@ -239,43 +244,46 @@ analyzer_init (Analyzer *this, char *filename)
 void
 analyzer_free (Analyzer *analyzer)
 {
-	if (analyzer != NULL)
-	{
+	if (analyzer != NULL) {
 		free (analyzer);
 	}
+}
+
+void
+complex2d_free (COMPLEX **c, int size)
+{
+	for (int y = 0; y < size; y++) {
+		free(c[y]);
+	}
+
+	free(c);
 }
 
 static COMPLEX ** frame_to_complex (Frame *frame)
 {
 	COMPLEX **c = malloc(sizeof(COMPLEX *) * frame->size);
 
-	for (int i = 0; i < frame->size; i++)
-	{
-		c[i] = malloc (sizeof(COMPLEX) * frame->size);
-	}
-
 	for (int y = 0; y < frame->size; y++)
 	{
+		c[y] = malloc (sizeof(COMPLEX) * frame->size);
+
 		for (int x = 0; x < frame->size; x++)
 		{
-			//c[y][x].imag = (frame->data[y][x]) ? 1 : 0;
-			//c[y][x].imag = (double) frame->data[y][x];
 			c[y][x].imag = 0;
-			c[y][x].real = (frame->data[y][x]) ? 1 : 0;
-			//c[y][x].real = (double) frame->data[y][x];
+			c[y][x].real = frame->data_integer[y][x];
 		}
 	}
 
 	return c;
 }
 
-static void complex_to_frame (COMPLEX **complex_2d, Frame *frame, int size)
+static void complex_to_frame (COMPLEX **c, Frame *frame, int size)
 {
-	for (int x = 0; x < size; x++)
+	for (int y = 0; y < size; y++)
 	{
-		for (int y = 0; y < size; y++)
+		for (int x = 0; x < size; x++)
 		{
-			frame_set_complex (frame, x, y, (int) (complex_2d[y][x].real * 256.0), (int) (complex_2d[y][x].imag * 256.0));
+			frame_set_complex (frame, x, y, c[y][x].real, c[y][x].imag);
 		}
 	}
 }
