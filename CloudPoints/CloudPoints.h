@@ -3,16 +3,17 @@
 #pragma once
 
 // ---------- Includes ------------
-#include "../BbQueue/BbQueue.h"
+#include "BbQueue/BbQueue.h"
 
 // ---------- Defines -------------
-
+#define DEFAULT_POINT_SIZE 2.0
 
 // ------ Class declaration -------
 typedef struct _CloudPoints
 {
 	float *vertices;
 	float *colors;
+
 	int cSize;
 	int vSize;
 	int vIndex;

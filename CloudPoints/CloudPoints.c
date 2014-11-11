@@ -25,6 +25,7 @@ CloudPoints_init (CloudPoints *this, int pointsCount)
 	this->cSize  = pointsCount * 4;
 	this->vertices = malloc(sizeof(float) * this->vSize);
 	this->colors   = malloc(sizeof(float) * this->cSize);
+
 	this->verticeCount = pointsCount;
 }
 

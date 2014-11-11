@@ -7,8 +7,8 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin\Debug\VisualBinary" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\Debug\" />
+				<Option output="bin/Debug/VisualBinary" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -17,8 +17,8 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin\Release\VisualBinary" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\Release\" />
+				<Option output="bin/Release/VisualBinary" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -35,7 +35,7 @@
 			<Add option="-Wno-int-to-pointer-cast" />
 			<Add option="-DGLEW_STATIC" />
 			<Add option="-DSFML_STATIC" />
-			<Add directory=".\include" />
+			<Add directory="./include" />
 		</Compiler>
 		<Linker>
 			<Add library="lib\libGLEW.a" />
@@ -45,74 +45,74 @@
 			<Add library="lib\libcsfml-audio.a" />
 			<Add library="lib\libglu32.a" />
 			<Add library="lib\libopengl32.a" />
-			<Add directory=".\lib" />
+			<Add directory="./lib" />
 		</Linker>
-		<Unit filename="Analyzer\Analyzer.c">
+		<Unit filename="Analyzer/Analyzer.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="Analyzer\Analyzer.h" />
-		<Unit filename="AppState\Cube3D.c">
+		<Unit filename="Analyzer/Analyzer.h" />
+		<Unit filename="AppState/Cube3D.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="AppState\Cube3D.h" />
-		<Unit filename="AppWindow\AppWindow.c">
+		<Unit filename="AppState/Cube3D.h" />
+		<Unit filename="AppWindow/AppWindow.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="AppWindow\AppWindow.h" />
-		<Unit filename="BbQueue\BbQueue.c">
+		<Unit filename="AppWindow/AppWindow.h" />
+		<Unit filename="BbQueue/BbQueue.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="BbQueue\BbQueue.h" />
-		<Unit filename="CloudPoints\CloudPoints.c">
+		<Unit filename="BbQueue/BbQueue.h" />
+		<Unit filename="CloudPoints/CloudPoints.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="CloudPoints\CloudPoints.h" />
-		<Unit filename="Frame\Frame.c">
+		<Unit filename="CloudPoints/CloudPoints.h" />
+		<Unit filename="Frame/Frame.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="Frame\Frame.h" />
-		<Unit filename="Function\Function.c">
+		<Unit filename="Frame/Frame.h" />
+		<Unit filename="Function/Function.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="Function\Function.h" />
-		<Unit filename="GraphicObjects\GraphicObjects.c">
+		<Unit filename="Function/Function.h" />
+		<Unit filename="GraphicObjects/GraphicObjects.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="GraphicObjects\GraphicObjects.h" />
-		<Unit filename="Randomizer\Randomizer.c">
+		<Unit filename="GraphicObjects/GraphicObjects.h" />
+		<Unit filename="Randomizer/Randomizer.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="Randomizer\Randomizer.h" />
-		<Unit filename="Utils\Utils.c">
+		<Unit filename="Randomizer/Randomizer.h" />
+		<Unit filename="Utils/Utils.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="Utils\Utils.h" />
-		<Unit filename="Vertex\Vertex.c">
+		<Unit filename="Utils/Utils.h" />
+		<Unit filename="Vertex/Vertex.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="Vertex\Vertex.h" />
-		<Unit filename="WrapSFML\wrap.h" />
-		<Unit filename="Ztring\Ztring.c">
+		<Unit filename="Vertex/Vertex.h" />
+		<Unit filename="WrapSFML/wrap.h" />
+		<Unit filename="Ztring/Ztring.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="Ztring\Ztring.h" />
-		<Unit filename="bmpfile\bmpfile.c">
+		<Unit filename="Ztring/Ztring.h" />
+		<Unit filename="bmpfile/bmpfile.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="bmpfile\bmpfile.h" />
-		<Unit filename="dbg\dbg.c">
+		<Unit filename="bmpfile/bmpfile.h" />
+		<Unit filename="dbg/dbg.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="dbg\dbg.h" />
-		<Unit filename="fft\fft.c">
+		<Unit filename="dbg/dbg.h" />
+		<Unit filename="fft/fft.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="fft\fft.h" />
+		<Unit filename="fft/fft.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="shaders\cloudPoints.frag" />
-		<Unit filename="shaders\cloudPoints.vert" />
+		<Unit filename="shaders/cloudPoints.frag" />
+		<Unit filename="shaders/cloudPoints.vert" />
 		<Extensions>
 			<code_completion />
 			<debugger />

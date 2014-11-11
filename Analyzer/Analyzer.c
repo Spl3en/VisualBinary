@@ -1,8 +1,8 @@
 #include "Analyzer.h"
-#include "../Ztring/Ztring.h"
-#include "../fft/fft.h"
+#include "fft/fft.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 static COMPLEX ** frame_to_complex (Frame *frame);
 static void complex_to_frame (COMPLEX **complex_2d, Frame *frame, int size);

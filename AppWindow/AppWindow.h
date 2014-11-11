@@ -5,30 +5,23 @@
 #pragma once
 
 // ---------- Includes ------------
+#include <math.h>
 #include <GL/glew.h>
 #include <SFML/Graphics.h>
-#include "../GraphicObjects/GraphicObjects.h"
-#include "../Function/Function.h"
-#include "../WrapSFML/wrap.h"
-#include "../Utils/Utils.h"
+#include "BbQueue/BbQueue.h"
+#include "GraphicObjects/GraphicObjects.h"
+#include "Function/Function.h"
+#include "WrapSFML/wrap.h"
+#include "Utils/Utils.h"
 
 // ---------- Defines -------------
-#define X_AXIS 0
-#define Y_AXIS 1
-#define Z_AXIS 2
-
-// ---------- Debugging -------------
-#ifdef __DBG_ACTIVATED__
-#undef __DBG_ACTIVATED__
-#endif
-#define __DBG_ACTIVATED__ 		TRUE
-
-#ifdef __DEBUG_OBJECT__
-#undef __DEBUG_OBJECT__
-#endif
-#define __DEBUG_OBJECT__ "AppWindow"
-#include "../dbg/dbg.h"
-
+typedef enum {
+	X_AXIS,
+	Y_AXIS,
+	Z_AXIS,
+	N_AXIS
+} PosAxis;
+#define APP_STATE_UNDEFINED -1
 
 // ------ Class declaration -------
 typedef struct _AppWindow
@@ -38,7 +31,8 @@ typedef struct _AppWindow
 	int width, height;
 
 	// Data
-	float *view;
+	float view[3];
+	float targetView[3];
 
 	// Draw
 	BbQueue *drawing_routines;
@@ -86,6 +80,9 @@ AppWindow_set_state (AppWindow *window, int state);
 
 float *
 AppWindow_get_view (AppWindow *this);
+
+void
+AppWindow_set_view (AppWindow *this, float x, float y, float z);
 
 void
 AppWindow_view_reset (AppWindow *this);

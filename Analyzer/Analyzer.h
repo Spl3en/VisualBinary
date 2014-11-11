@@ -2,7 +2,8 @@
 #pragma once
 
 // ---------- Includes ------------
-#include "../Frame/Frame.h"
+#include "Frame/Frame.h"
+#include "Ztring/Ztring.h"
 #include <stdio.h>
 
 // ---------- Defines -------------

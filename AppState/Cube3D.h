@@ -3,13 +3,16 @@
 #pragma once
 
 // ---------- Includes ------------
-#include "../GraphicObjects/GraphicObjects.h"
-#include "../Randomizer/Randomizer.h"
-#include "../Analyzer/Analyzer.h"
-#include "../Vertex/Vertex.h"
-#include "../Sleep/Sleep.h"
-#include "../CloudPoints/CloudPoints.h"
-#include "../Utils/Utils.h"
+#include "GraphicObjects/GraphicObjects.h"
+#include "Randomizer/Randomizer.h"
+#include "Analyzer/Analyzer.h"
+#include "Sleep/Sleep.h"
+#include "CloudPoints/CloudPoints.h"
+#include "AppWindow/AppWindow.h"
+#include "Vertex/Vertex.h"
+#include "Utils/Utils.h"
+#include "Ztring/Ztring.h"
+
 #include <GL/glew.h>
 #include <SFML/OpenGL.h>
 #include <SFML/Graphics.h>
@@ -56,6 +59,7 @@ typedef struct
 	float xleft;
 	float yleft;
 	CubeCinematicState state;
+
 }	CubeCinematic;
 
 // ------ Class declaration -------

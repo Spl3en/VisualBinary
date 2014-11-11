@@ -1,6 +1,7 @@
 #include "AppWindow/AppWindow.h"
 #include "AppState/Cube3D.h"
 #include "Analyzer/Analyzer.h"
+#include "Ztring/Ztring.h"
 #include <time.h>
 
 int main(int argc, char **argv)
@@ -9,7 +10,7 @@ int main(int argc, char **argv)
 	srand(time(NULL));
 
 	if (argc < 2)
-		filename = "verdana.ttf";
+		filename = "./bin/Debug/gdb.exe";
 	else
     {
         printf("Loading %s ...\n", argv[1]);
@@ -17,12 +18,16 @@ int main(int argc, char **argv)
     }
 
 	// Analyze the file
-	Analyzer *analyzer = analyzer_new(filename);
+	Analyzer *analyzer = analyzer_new (filename);
 
 	// Get Desktop resolution and open the window
-	sfVideoMode desktop = sfVideoMode_getDesktopMode();
-	AppWindow *window = AppWindow_new("VisualBinary", desktop.width, desktop.height, false);
-	float *view = AppWindow_get_view(window);
+	sfVideoMode desktop = sfVideoMode_getDesktopMode ();
+	AppWindow *window = AppWindow_new ("VisualBinary", desktop.width, desktop.height, false);
+	if (!window) {
+		return 0;
+	}
+
+	float *view = AppWindow_get_view (window);
 
 	/* Cube Visualisation */
 	Cube3D *cube = cube3d_new(SFML(window), analyzer);

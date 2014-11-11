@@ -36,9 +36,8 @@ cube3d_init (Cube3D *this, sfRenderWindow* render, Analyzer *analyzer)
 	this->rotation    = (CubeRotation) {.xrot = 0.1, .yrot = 0.0, .state = CUBE3D_ROTATE_AUTO};
 	this->cinematic   = (CubeCinematic) {.xleft = 360.0, .yleft = 360.0, .state = CUBE3D_CINEMATIC_STOP};
 
-	memset(this->vboID, -1, sizeof(this->vboID));
-	memset(this->vaoID, -1, sizeof(this->vaoID));
-
+	memset(this->vboID, APP_STATE_UNDEFINED, sizeof(this->vboID));
+	memset(this->vaoID, APP_STATE_UNDEFINED, sizeof(this->vaoID));
 	glGetFloatv(GL_PROJECTION_MATRIX, this->projection_matrix);
 
 	cube3d_load_cloud (this, default_state);
@@ -80,8 +79,8 @@ cube3d_load_cloud (Cube3D *this, CubeState state)
     glEnableVertexAttribArray(1);
 
 	// Read shaders
-	const GLchar *vertexSource   = file_get_contents("./shaders/cloudPoints.vert");
-    const GLchar *fragmentSource = file_get_contents("./shaders/cloudPoints.frag");
+	const GLchar *vertexSource   = file_get_contents ("./shaders/cloudPoints.vert");
+    const GLchar *fragmentSource = file_get_contents ("./shaders/cloudPoints.frag");
 
 	// Create and compile the vertex shader
 	GLint compiled;
@@ -158,7 +157,7 @@ cube3d_update (Cube3D *this, float *view)
 		break;
 	}
 
-	static int onChange[4] = {};
+	static int onChange = 0;
 	if (this->cinematic.state == CUBE3D_CINEMATIC_PLAY)
 	{
 		cube3d_set_rot(this, 1.0, 0.0);
@@ -168,11 +167,11 @@ cube3d_update (Cube3D *this, float *view)
 			cube3d_enable_state(this, CUBE3D_SPACE);
 		}
 		else if (this->cinematic.xleft > -120.0) {
-			if (onChange[0] == 0)
-				onChange[0] = 1;
-			else if (onChange[0] == 1)
+			if (onChange == 0)
+				onChange = 1;
+			else if (onChange == 1)
 			{
-				onChange[0] = 2;
+				onChange = 2;
 				Sleep(1000);
 			}
 			this->cinematic.xleft -= this->rotation.xrot;
@@ -258,21 +257,21 @@ cube3d_input (Cube3D *this)
 	if (sfKeyboard_isKeyPressed(sfKeyS))
 	{
 		cube3d_enable_state(this, CUBE3D_SPACE);
-		if (this->vaoID[this->state][0] == -1)
+		if (this->vaoID[this->state][0] == APP_STATE_UNDEFINED)
 			cube3d_load_cloud(this, this->state);
 	}
 
 	if (sfKeyboard_isKeyPressed(sfKeyT))
 	{
 		cube3d_enable_state(this, CUBE3D_TIME);
-		if (this->vaoID[this->state][0] == -1)
+		if (this->vaoID[this->state][0] == APP_STATE_UNDEFINED)
 			cube3d_load_cloud(this, this->state);
 	}
 
 	if (sfKeyboard_isKeyPressed(sfKeyF))
 	{
 		cube3d_enable_state(this, CUBE3D_FFT);
-		if (this->vaoID[this->state][0] == -1)
+		if (this->vaoID[this->state][0] == APP_STATE_UNDEFINED)
 			cube3d_load_cloud(this, this->state);
 	}
 
@@ -302,6 +301,7 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 	int value = 0;
 	int maxvalue = 0;
 	float opacity = 1.0;
+	float visibility = 0.0;
 	float r, g, b;
 	double real, imag;
 
@@ -312,8 +312,7 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 		case CUBE3D_SPACE:      maxvalue = this->analyzer->maxvalue_space; break;
 		case CUBE3D_FFT:        maxvalue = this->analyzer->maxvalue_fft;   break;
 		case CUBE3D_FFT_FRAMES: maxvalue = this->analyzer->maxvalue_fft;   break;
-
-		case CUBE3D_STATE_SIZE:break;
+		case CUBE3D_STATE_SIZE: break;
 	}
 
 	// Count points
@@ -413,18 +412,14 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 				{
 					case CUBE3D_TIME:
 					case CUBE3D_SPACE:
-						if (value > 0)
+						visibility = ((float) (value) / (maxvalue+1));
+						if (visibility > 0.00)
 						{
-							if (value < 5)
-								CloudPoints_add_color(cloud, 0.0, 1.0, 0.0, 0.1);
-							else
-							{
-								r = ((float) value / (maxvalue+1)) * 16.0;
-								b = ((float) value / (maxvalue+1)) * 32.0;
-								g = ((float) value / (maxvalue+1)) * 8.0;
+							r = visibility * value * x;
+							g = visibility * value * y;
+							b = visibility * value * z;
 
-								CloudPoints_add_color(cloud, r, g, b, opacity);
-							}
+							CloudPoints_add_color (cloud, r, g, b, 0.1);
 
 							CloudPoints_add_vertice (cloud,
 								(float) x / NB_FRAMES - 0.5,
@@ -509,19 +504,18 @@ cube3d_draw (Cube3D *this, float *view)
 	//! ------ Start of the program
 	glUseProgram(this->shaderProgram);
 
-	if (cube3d_view_changed(this, view))
-	{
+	if (cube3d_view_changed(this, view)) {
 		glGetFloatv(GL_MODELVIEW_MATRIX, this->model_matrix);
 		glUniformMatrix4fv(glGetUniformLocation(this->shaderProgram, "MVMatrix"), 1, GL_FALSE, this->model_matrix);
 		glUniformMatrix4fv(glGetUniformLocation(this->shaderProgram, "MPMatrix"), 1, GL_FALSE, this->projection_matrix);
 	}
 
-	glBindVertexArray(this->vaoID[state][0]);
-	glDrawArrays(GL_POINTS, 0, this->cloud[state]->verticeCount);
-	glBindVertexArray(0);
+	glBindVertexArray (this->vaoID[state][0]);
+	glDrawArrays (GL_POINTS, 0, this->cloud[state]->verticeCount);
+	glBindVertexArray (0);
 
 	//! ------- End of the program
-	glUseProgram(0);
+	glUseProgram (0);
 
 }
 
@@ -533,6 +527,10 @@ cube3D_get_state_str (Cube3D *this)
 		[CUBE3D_TIME]  = "CUBE3D_TIME",
 		[CUBE3D_FFT]   = "CUBE3D_FFT"
 	};
+
+	if (this->state > sizeof_array(state_str)) {
+		printf ("Error : Unknown state.\n");
+	}
 
 	return state_str[this->state];
 }

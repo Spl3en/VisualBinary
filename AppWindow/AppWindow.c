@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <SFML/OpenGL.h>
 
+#define __DEBUG_OBJECT__ "AppWindow"
+#include "dbg/dbg.h"
+
 
 AppWindow *
 AppWindow_new (char *window_name, int width, int height, bool fullscreen)
@@ -14,8 +17,10 @@ AppWindow_new (char *window_name, int width, int height, bool fullscreen)
 	AppWindow_init(this, window_name, width, height, fullscreen);
 
     glewExperimental = GL_TRUE;
-	if (glewInit() != GLEW_OK)
+	if ((glewInit() != GLEW_OK)
+	|| (glGenVertexArrays == NULL))
 	{
+		printf ("GLEW hasn't been initialized correctly or isn't fully supported.\n");
 		AppWindow_free(this);
 		return NULL;
 	}
@@ -56,7 +61,7 @@ AppWindow_init (AppWindow *this, char *window_name, int width, int height, bool 
 		.minorVersion = 1,
 	};
 
-	SFML(this) = sfRenderWindow_create(
+	SFML(this) = sfRenderWindow_create (
 		video_mode,
 		window_name,
 		(fullscreen) ? sfFullscreen : sfDefaultStyle,
@@ -66,7 +71,6 @@ AppWindow_init (AppWindow *this, char *window_name, int width, int height, bool 
 	sfRenderWindow_setVerticalSyncEnabled(SFML(this), TRUE);
 
 	// OpenGL initialization
-	void appWindow_init_OpenGL ()
 	{
 		glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
 		glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				// Black Background
@@ -81,25 +85,34 @@ AppWindow_init (AppWindow *this, char *window_name, int width, int height, bool 
 
 		// Smooth points
 		glEnable(GL_POINT_SMOOTH);
+
 		// Transparency
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		glMatrixMode(GL_MODELVIEW);							// Select The Modelview Matrix
 		glLoadIdentity();									// Reset The Modelview Matrix
 	}
-	appWindow_init_OpenGL();
-
 
 	// Initialize App Window state
-	this->draw_app_state = -1;
-	this->last_draw_app_state  = -1;
+	this->draw_app_state = APP_STATE_UNDEFINED;
+	this->last_draw_app_state  = APP_STATE_UNDEFINED;
 	this->drawing_routines = bb_queue_new();
 	this->input_routines = bb_queue_new();
 	this->update_routines = bb_queue_new();
-	this->view = calloc(sizeof(float), 3);
 	AppWindow_view_reset(this);
-	this->view[0] = 45.0;
+
+	// Initialize view at X=30°
+	AppWindow_set_view(this, 30.0, this->view[Y_AXIS], this->view[Z_AXIS]);
+}
+
+void
+AppWindow_set_view (AppWindow *this, float x, float y, float z)
+{
+	this->view[X_AXIS] = x;
+	this->view[Y_AXIS] = y;
+	this->view[Z_AXIS] = z;
+	memcpy(this->targetView, this->view, sizeof(this->view));
 }
 
 int
@@ -130,9 +143,7 @@ AppWindow_set_state (AppWindow *window, int state)
 void
 AppWindow_view_reset (AppWindow *this)
 {
-	this->view[X_AXIS] = 0.0;
-	this->view[Y_AXIS] = 0.0;
-	this->view[Z_AXIS] = -2.0;
+	AppWindow_set_view (this, 0.0, 0.0, -2.0);
 }
 
 void
@@ -144,7 +155,7 @@ AppWindow_main (AppWindow *this)
 
 		// draw_axes (this->view);
 
-		if (this->draw_app_state != -1)
+		if (this->draw_app_state != APP_STATE_UNDEFINED)
 		{
 			if (this->last_draw_app_state != this->draw_app_state)
 			{
@@ -185,7 +196,7 @@ AppWindow_main (AppWindow *this)
 				}
 
 				case sfEvtMouseWheelMoved:
-					this->view[Z_AXIS] = this->view[Z_AXIS] + (event.mouseWheel.delta * 0.1);
+					this->targetView[Z_AXIS] += event.mouseWheel.delta * 0.1;
 				break;
 
 				default:
@@ -201,32 +212,32 @@ AppWindow_main (AppWindow *this)
 
 		if (sfKeyboard_isKeyPressed(sfKeyUp))
 		{
-			this->view[Y_AXIS] += 1.0;
+			this->targetView[Y_AXIS] += 1.0;
 		}
 
 		if (sfKeyboard_isKeyPressed(sfKeyDown))
 		{
-			this->view[Y_AXIS] -= 1.0;
+			this->targetView[Y_AXIS] -= 1.0;
 		}
 
 		if (sfKeyboard_isKeyPressed(sfKeyLeft))
 		{
-			this->view[X_AXIS] -= 1.0;
+			this->targetView[X_AXIS] -= 1.0;
 		}
 
 		if (sfKeyboard_isKeyPressed(sfKeyRight))
 		{
-			this->view[X_AXIS] += 1.0;
+			this->targetView[X_AXIS] += 1.0;
 		}
 
 		if (sfKeyboard_isKeyPressed(sfKeyPageUp))
 		{
-			this->view[Z_AXIS] -= 0.01;
+			this->targetView[Z_AXIS] += 0.02;
 		}
 
 		if (sfKeyboard_isKeyPressed(sfKeyPageDown))
 		{
-			this->view[Z_AXIS] += 0.01;
+			this->targetView[Z_AXIS] -= 0.02;
 		}
 
 		if (sfKeyboard_isKeyPressed(sfKeyR))
@@ -248,6 +259,24 @@ AppWindow_main (AppWindow *this)
 
 	void AppWindow_update ()
 	{
+		// Update view
+		for (PosAxis axis = X_AXIS; axis < N_AXIS; axis++) {
+			if (this->view[axis] != this->targetView[axis]) {
+				float increment = (axis != Z_AXIS) ? 1.0 : 0.03;
+				// Threshold
+				if (fabs(this->view[axis] - this->targetView[axis]) > increment) {
+					if (this->view[axis] < this->targetView[axis]) {
+						this->view[axis] += increment;
+					} else {
+						this->view[axis] -= increment;
+					}
+				} else {
+					this->view[axis] = this->targetView[axis];
+				}
+			}
+		}
+
+		// Draw items
 		foreach_bbqueue_item (this->update_routines, DrawFunction *function)
 		{
 			draw_function_call (function);

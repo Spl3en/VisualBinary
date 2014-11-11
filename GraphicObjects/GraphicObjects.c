@@ -1,6 +1,10 @@
 #include "GraphicObjects.h"
 #include <SFML/OpenGL.h>
 
+// ---------- Debugging -------------
+#define __DEBUG_OBJECT__ "GraphicObjects"
+#include "dbg/dbg.h"
+
 void draw_square (float x, float y, float z, float width, float height)
 {
 		glVertex3f (x, y, z);
@@ -31,18 +35,18 @@ void draw_line (float srcX, float srcY, float srcZ, float destX, float destY, fl
 
 void draw_axes (float view[3])
 {
-	static float ORG[3] = {0,0,0};
-	static float XP[3]  = {1,0,0},
-				 YP[3]  = {0,1,0},
-				 ZP[3]  = {0,0,1};
+	static float ORG[3] = {-0.5,-0.5,-0.5};
+	static float XP[3]  = {0.5,-0.5,-0.5},
+				 YP[3]  = {-0.5,0.5,-0.5},
+				 ZP[3]  = {-0.5,-0.5,0.5};
 
 	glPushMatrix ();
 
 	glTranslatef (0.0, 0.0, view[2]);
-	glRotatef (view[1], 1,0,0);
-	glRotatef (view[0], 0,1,0);
+	glRotatef (view[1], 0.5,0,0);
+	glRotatef (view[0], 0,0.5,0);
 
-	glLineWidth (5.0);
+	glLineWidth (1.0);
 
 	glBegin (GL_LINES);
 	glColor3f (1,0,0); // X axis is red.
