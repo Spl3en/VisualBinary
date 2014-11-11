@@ -8,7 +8,7 @@
 // ---------- Defines -------------
 #define FRAME_SIZE 256
 
-#define frame_local_init() \
+#define frame_local_init () \
 	{.data = {[0 ... (FRAME_SIZE - 1)] = {[0 ... (FRAME_SIZE - 1)] = 0}}}
 
 // ------ Class declaration -------

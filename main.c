@@ -4,7 +4,7 @@
 #include "Ztring/Ztring.h"
 #include <time.h>
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
 	char *filename = NULL;
 
@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 	    exit (0);
 	}
 	else {
-            printf("Loading %s ...\n", argv[1]);
+            printf ("Loading %s ...\n", argv[1]);
             filename = argv[1];
         }
 
@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 	float *view = AppWindow_get_view (window);
 
 	// Cube Visualisation
-	Cube3D *cube = cube3d_new (SFML(window), analyzer);
+	Cube3D *cube = cube3d_new (SFML (window), analyzer);
 	cube3d_set_rot (cube, 0.0, 0.0);
 
 	// Cube Draw

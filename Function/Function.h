@@ -5,18 +5,18 @@
 
 
 // ---------- Defines -------------
-#define FUNCTION_NO_RETURN(func) ((void *(*)())func)
+#define FUNCTION_NO_RETURN(func)( (void * (*)())func)
 
 #define function_new(function, arg) \
-	_function_new(FUNCTION_NO_RETURN(function), arg)
+	_function_new (FUNCTION_NO_RETURN (function), arg)
 
 #define draw_function_new(function, arg, view) \
-	_draw_function_new(FUNCTION_NO_RETURN(function), arg, view)
+	_draw_function_new (FUNCTION_NO_RETURN (function), arg, view)
 
 // ------ Class declaration -------
 typedef struct _Function
 {
-	void *(*call)();
+	void * (*call)();
 	void *arg;
 
 }	Function;
@@ -32,10 +32,10 @@ typedef struct _DrawFunction
 // --------- Constructors ---------
 
 Function *
-_function_new (void *(*call)(), void *arg);
+_function_new (void * (*call)(), void *arg);
 
 DrawFunction *
-_draw_function_new (void *(*call)(), void *arg, void *view);
+_draw_function_new (void * (*call)(), void *arg, void *view);
 
 Function *
 function_alloc (void);
@@ -46,10 +46,10 @@ draw_function_alloc (void);
 // ----------- Methods ------------
 
 void
-function_init (Function *function, void *(*call)(), void *arg);
+function_init (Function *function, void * (*call)(), void *arg);
 
 void
-draw_function_init (DrawFunction *this, void *(*call)(), void *arg, float *view);
+draw_function_init (DrawFunction *this, void * (*call)(), void *arg, float *view);
 
 void *
 function_call (Function *function);

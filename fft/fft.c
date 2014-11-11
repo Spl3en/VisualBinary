@@ -1,6 +1,6 @@
 #include "fft.h"
 
-int Powerof2(int nx, int* m, int* twopm)
+int Powerof2 (int nx, int* m, int* twopm)
 {
 	int pwr;
 	*m = 0;
@@ -9,7 +9,7 @@ int Powerof2(int nx, int* m, int* twopm)
 		*m = *m + 1;
 	}
 	*twopm = pwr;
-	return(TRUE);
+	return (TRUE);
 }
 
 /*-------------------------------------------------------------------------
@@ -19,55 +19,55 @@ int Powerof2(int nx, int* m, int* twopm)
    Return false if there are memory problems or
       the dimensions are not powers of 2
 */
-int FFT2D(COMPLEX **c,int nx,int ny,int dir)
+int FFT2D (COMPLEX **c,int nx,int ny,int dir)
 {
    int i,j;
    int m,twopm;
    double *real,*imag;
 
    /* Transform the rows */
-   real = (double *)malloc(nx * sizeof(double));
-   imag = (double *)malloc(nx * sizeof(double));
+   real = (double *)malloc (nx * sizeof (double));
+   imag = (double *)malloc (nx * sizeof (double));
    if (real == NULL || imag == NULL)
-      return(FALSE);
-   if (!Powerof2(nx,&m,&twopm) || twopm != nx)
-      return(FALSE);
+      return (FALSE);
+   if (!Powerof2 (nx,&m,&twopm) || twopm != nx)
+      return (FALSE);
    for (j=0;j<ny;j++) {
       for (i=0;i<nx;i++) {
          real[i] = c[i][j].real;
          imag[i] = c[i][j].imag;
       }
-      FFT(dir,m,real,imag);
+      FFT (dir,m,real,imag);
       for (i=0;i<nx;i++) {
          c[i][j].real = real[i];
          c[i][j].imag = imag[i];
       }
    }
-   free(real);
-   free(imag);
+   free (real);
+   free (imag);
 
    /* Transform the columns */
-   real = (double *)malloc(ny * sizeof(double));
-   imag = (double *)malloc(ny * sizeof(double));
+   real = (double *)malloc (ny * sizeof (double));
+   imag = (double *)malloc (ny * sizeof (double));
    if (real == NULL || imag == NULL)
-      return(FALSE);
-   if (!Powerof2(ny,&m,&twopm) || twopm != ny)
-      return(FALSE);
+      return (FALSE);
+   if (!Powerof2 (ny,&m,&twopm) || twopm != ny)
+      return (FALSE);
    for (i=0;i<nx;i++) {
       for (j=0;j<ny;j++) {
          real[j] = c[i][j].real;
          imag[j] = c[i][j].imag;
       }
-      FFT(dir,m,real,imag);
+      FFT (dir,m,real,imag);
       for (j=0;j<ny;j++) {
          c[i][j].real = real[j];
          c[i][j].imag = imag[j];
       }
    }
-   free(real);
-   free(imag);
+   free (real);
+   free (imag);
 
-   return(TRUE);
+   return (TRUE);
 }
 
 /*-------------------------------------------------------------------------
@@ -77,55 +77,55 @@ int FFT2D(COMPLEX **c,int nx,int ny,int dir)
    Return false if there are memory problems or
       the dimensions are not powers of 2
 */
-int DFT2D(COMPLEX **c,int nx,int ny,int dir)
+int DFT2D (COMPLEX **c,int nx,int ny,int dir)
 {
    int i,j;
    int m,twopm;
    double *real,*imag;
 
    /* Transform the rows */
-   real = (double *)malloc(nx * sizeof(double));
-   imag = (double *)malloc(nx * sizeof(double));
+   real = (double *)malloc (nx * sizeof (double));
+   imag = (double *)malloc (nx * sizeof (double));
    if (real == NULL || imag == NULL)
-      return(FALSE);
-   if (!Powerof2(nx,&m,&twopm) || twopm != nx)
-      return(FALSE);
+      return (FALSE);
+   if (!Powerof2 (nx,&m,&twopm) || twopm != nx)
+      return (FALSE);
    for (j=0;j<ny;j++) {
       for (i=0;i<nx;i++) {
          real[i] = c[i][j].real;
          imag[i] = c[i][j].imag;
       }
-      DFT(dir,m,real,imag);
+      DFT (dir,m,real,imag);
       for (i=0;i<nx;i++) {
          c[i][j].real = real[i];
          c[i][j].imag = imag[i];
       }
    }
-   free(real);
-   free(imag);
+   free (real);
+   free (imag);
 
    /* Transform the columns */
-   real = (double *)malloc(ny * sizeof(double));
-   imag = (double *)malloc(ny * sizeof(double));
+   real = (double *)malloc (ny * sizeof (double));
+   imag = (double *)malloc (ny * sizeof (double));
    if (real == NULL || imag == NULL)
-      return(FALSE);
-   if (!Powerof2(ny,&m,&twopm) || twopm != ny)
-      return(FALSE);
+      return (FALSE);
+   if (!Powerof2 (ny,&m,&twopm) || twopm != ny)
+      return (FALSE);
    for (i=0;i<nx;i++) {
       for (j=0;j<ny;j++) {
          real[j] = c[i][j].real;
          imag[j] = c[i][j].imag;
       }
-      DFT(dir,m,real,imag);
+      DFT (dir,m,real,imag);
       for (j=0;j<ny;j++) {
          c[i][j].real = real[j];
          c[i][j].imag = imag[j];
       }
    }
-   free(real);
-   free(imag);
+   free (real);
+   free (imag);
 
-   return(TRUE);
+   return (TRUE);
 }
 
 /*-------------------------------------------------------------------------
@@ -138,7 +138,7 @@ int DFT2D(COMPLEX **c,int nx,int ny,int dir)
                   N-1
                   ---
               1   \          - j k 2 pi n / N
-      X(n) = ---   >   x(k) e                    = forward transform
+      X (n) = ---   >   x (k) e                    = forward transform
               N   /                                n=0..N-1
                   ---
                   k=0
@@ -147,12 +147,12 @@ int DFT2D(COMPLEX **c,int nx,int ny,int dir)
                   N-1
                   ---
                   \          j k 2 pi n / N
-      X(n) =       >   x(k) e                    = forward transform
+      X (n) =       >   x (k) e                    = forward transform
                   /                                n=0..N-1
                   ---
                   k=0
 */
-int FFT(int dir,int m,double *x,double *y)
+int FFT (int dir,int m,double *x,double *y)
 {
    long nn,i,i1,j,k,i2,l,l1,l2;
    double c1,c2,tx,ty,t1,t2,u1,u2,z;
@@ -205,10 +205,10 @@ int FFT(int dir,int m,double *x,double *y)
          u2 = u1 * c2 + u2 * c1;
          u1 = z;
       }
-      c2 = sqrt((1.0 - c1) / 2.0);
+      c2 = sqrt ( (1.0 - c1) / 2.0);
       if (dir == 1)
          c2 = -c2;
-      c1 = sqrt((1.0 + c1) / 2.0);
+      c1 = sqrt ( (1.0 + c1) / 2.0);
    }
 
    /* Scaling for forward transform */
@@ -219,32 +219,32 @@ int FFT(int dir,int m,double *x,double *y)
       }
    }
 
-   return(TRUE);
+   return (TRUE);
 }
 
 
 /*
    Direct fourier transform
 */
-int DFT(int dir,int m,double *x1,double *y1)
+int DFT (int dir,int m,double *x1,double *y1)
 {
    long i,k;
    double arg;
    double cosarg,sinarg;
    double *x2=NULL,*y2=NULL;
 
-   x2 = malloc(m*sizeof(double));
-   y2 = malloc(m*sizeof(double));
+   x2 = malloc (m*sizeof (double));
+   y2 = malloc (m*sizeof (double));
    if (x2 == NULL || y2 == NULL)
-      return(FALSE);
+      return (FALSE);
 
    for (i=0;i<m;i++) {
       x2[i] = 0;
       y2[i] = 0;
       arg = - dir * 2.0 * M_PI * (double)i / (double)m;
       for (k=0;k<m;k++) {
-         cosarg = cos(k * arg);
-         sinarg = sin(k * arg);
+         cosarg = cos (k * arg);
+         sinarg = sin (k * arg);
          x2[i] += (x1[k] * cosarg - y1[k] * sinarg);
          y2[i] += (x1[k] * sinarg + y1[k] * cosarg);
       }
@@ -263,7 +263,7 @@ int DFT(int dir,int m,double *x1,double *y1)
       }
    }
 
-   free(x2);
-   free(y2);
-   return(TRUE);
+   free (x2);
+   free (y2);
+   return (TRUE);
 }

@@ -15,7 +15,7 @@ void draw_square (float x, float y, float z, float width, float height)
 
 void draw_point (float x, float y, float z)
 {
-	glVertex3f(x, y, z);
+	glVertex3f (x, y, z);
 }
 
 void draw_line (float srcX, float srcY, float srcZ, float destX, float destY, float destZ)
@@ -29,7 +29,7 @@ void draw_line (float srcX, float srcY, float srcZ, float destX, float destY, fl
 	glVertex3fv (src);
 	glVertex3fv (dest);
 
-	glEnd();
+	glEnd ();
 	glPopMatrix ();
 }
 
@@ -58,56 +58,56 @@ void draw_axes (float view[3])
 	glColor3f (0,0,1); // z axis is blue.
 	glVertex3fv (ORG);
 	glVertex3fv (ZP );
-	glEnd();
+	glEnd ();
 
 	glPopMatrix ();
 }
 
 void draw_cube (float x, float y, float z, float sizex, float sizey, float sizez)
 {
-	glPushMatrix();
+	glPushMatrix ();
 
-    glTranslatef(-x, -y, -z);
+    glTranslatef (-x, -y, -z);
 
-    glBegin(GL_QUADS);
+    glBegin (GL_QUADS);
 
     // BACK
-    glVertex3f(-sizex, -sizey, -sizez);
-    glVertex3f(-sizex, sizey, -sizez);
-    glVertex3f(sizex, sizey, -sizez);
-    glVertex3f(sizex, -sizey, -sizez);
+    glVertex3f (-sizex, -sizey, -sizez);
+    glVertex3f (-sizex, sizey, -sizez);
+    glVertex3f (sizex, sizey, -sizez);
+    glVertex3f (sizex, -sizey, -sizez);
 
     // FRONT
-    glVertex3f(-sizex, -sizey, sizez);
-    glVertex3f(sizex, -sizey, sizez);
-    glVertex3f(sizex, sizey, sizez);
-    glVertex3f(-sizex, sizey, sizez);
+    glVertex3f (-sizex, -sizey, sizez);
+    glVertex3f (sizex, -sizey, sizez);
+    glVertex3f (sizex, sizey, sizez);
+    glVertex3f (-sizex, sizey, sizez);
 
     // LEFT
-    glVertex3f(-sizex, -sizey, sizez);
-    glVertex3f(-sizex, sizey, sizez);
-    glVertex3f(-sizex, sizey, -sizez);
-    glVertex3f(-sizex, -sizey, -sizez);
+    glVertex3f (-sizex, -sizey, sizez);
+    glVertex3f (-sizex, sizey, sizez);
+    glVertex3f (-sizex, sizey, -sizez);
+    glVertex3f (-sizex, -sizey, -sizez);
 
     // RIGHT
-    glVertex3f(sizex, -sizey, -sizez);
-    glVertex3f(sizex, sizey, -sizez);
-    glVertex3f(sizex, sizey, sizez);
-    glVertex3f(sizex, -sizey, sizez);
+    glVertex3f (sizex, -sizey, -sizez);
+    glVertex3f (sizex, sizey, -sizez);
+    glVertex3f (sizex, sizey, sizez);
+    glVertex3f (sizex, -sizey, sizez);
 
     // TOP
-    glVertex3f(-sizex, sizey, sizez);
-    glVertex3f(sizex, sizey, sizez);
-    glVertex3f(sizex, sizey, -sizez);
-    glVertex3f(-sizex, sizey, -sizez);
+    glVertex3f (-sizex, sizey, sizez);
+    glVertex3f (sizex, sizey, sizez);
+    glVertex3f (sizex, sizey, -sizez);
+    glVertex3f (-sizex, sizey, -sizez);
 
     // BOTTOM
-    glVertex3f(-sizex, -sizey, sizez);
-    glVertex3f(-sizex, -sizey, -sizez);
-    glVertex3f(sizex, -sizey, -sizez);
-    glVertex3f(sizex, -sizey, sizez);
+    glVertex3f (-sizex, -sizey, sizez);
+    glVertex3f (-sizex, -sizey, -sizez);
+    glVertex3f (sizex, -sizey, -sizez);
+    glVertex3f (sizex, -sizey, sizez);
 
-    glEnd();
+    glEnd ();
 
-	glPopMatrix();
+	glPopMatrix ();
 }

@@ -8,10 +8,10 @@ CloudPoints_new (int pointsCount)
 {
 	CloudPoints *this;
 
-	if ((this = CloudPoints_alloc()) == NULL)
+	if ( (this = CloudPoints_alloc ()) == NULL)
 		return NULL;
 
-	CloudPoints_init(this, pointsCount);
+	CloudPoints_init (this, pointsCount);
 
 	return this;
 }
@@ -23,14 +23,14 @@ CloudPoints_init (CloudPoints *this, int pointsCount)
 	this->vIndex = 0;
 	this->vSize  = pointsCount * 3;
 	this->cSize  = pointsCount * 4;
-	this->vertices = malloc(sizeof(float) * this->vSize);
-	this->colors   = malloc(sizeof(float) * this->cSize);
+	this->vertices = malloc (sizeof (float) * this->vSize);
+	this->colors   = malloc (sizeof (float) * this->cSize);
 
 	this->verticeCount = pointsCount;
 }
 
 CloudPoints * CloudPoints_alloc (void) {
-	return calloc (1, sizeof(CloudPoints));
+	return calloc (1, sizeof (CloudPoints));
 }
 
 void

@@ -36,6 +36,8 @@
 			<Add option="-DGLEW_STATIC" />
 			<Add option="-DSFML_STATIC" />
 			<Add directory="./include" />
+			<Add directory="../" />
+			<Add directory="../VisualBinary" />
 		</Compiler>
 		<Linker>
 			<Add library="lib\libGLEW.a" />
@@ -47,6 +49,14 @@
 			<Add library="lib\libopengl32.a" />
 			<Add directory="./lib" />
 		</Linker>
+		<Unit filename="../BbQueue/BbQueue.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../BbQueue/BbQueue.h" />
+		<Unit filename="../Ztring/Ztring.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Ztring/Ztring.h" />
 		<Unit filename="Analyzer/Analyzer.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -59,10 +69,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="AppWindow/AppWindow.h" />
-		<Unit filename="BbQueue/BbQueue.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="BbQueue/BbQueue.h" />
 		<Unit filename="CloudPoints/CloudPoints.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -79,31 +85,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="GraphicObjects/GraphicObjects.h" />
-		<Unit filename="Randomizer/Randomizer.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Randomizer/Randomizer.h" />
-		<Unit filename="Utils/Utils.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Utils/Utils.h" />
-		<Unit filename="Vertex/Vertex.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Vertex/Vertex.h" />
 		<Unit filename="WrapSFML/wrap.h" />
-		<Unit filename="Ztring/Ztring.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Ztring/Ztring.h" />
-		<Unit filename="bmpfile/bmpfile.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="bmpfile/bmpfile.h" />
-		<Unit filename="dbg/dbg.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="dbg/dbg.h" />
 		<Unit filename="fft/fft.c">
 			<Option compilerVar="CC" />
 		</Unit>

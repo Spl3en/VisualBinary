@@ -7,10 +7,10 @@ uniform mat4 MVMatrix;
 uniform mat4 MPMatrix;
 
 out vec4 ex_Color;
-void main(void) {
+void main (void) {
 	gl_PointSize = 2.0 * (1 + -1 / MVMatrix[3][2]);
 
-	vec4 pos = vec4(in_Position, 1.0);
+	vec4 pos = vec4 (in_Position, 1.0);
     gl_Position = MPMatrix * MVMatrix * pos;
     ex_Color = in_Color;
 }

@@ -8,10 +8,10 @@ frame_new (int size, int is_complex)
 {
 	Frame *this;
 
-	if ((this = frame_alloc()) == NULL)
+	if ( (this = frame_alloc ()) == NULL)
 		return NULL;
 
-	frame_init(this, size, is_complex);
+	frame_init (this, size, is_complex);
 
 	return this;
 }
@@ -19,26 +19,26 @@ frame_new (int size, int is_complex)
 Frame *
 frame_alloc (void)
 {
-	return calloc(1, sizeof(Frame));
+	return calloc (1, sizeof (Frame));
 }
 
 void
 frame_init (Frame *this, int size, int is_complex)
 {
-	this->data_integer = calloc(sizeof(int *), size);
+	this->data_integer = calloc (sizeof (int *), size);
 
 	if (is_complex) {
-		this->data_imag = calloc(sizeof(double *), size);
-		this->data_real = calloc(sizeof(double *), size);
+		this->data_imag = calloc (sizeof (double *), size);
+		this->data_real = calloc (sizeof (double *), size);
 	}
 
 	for (int i = 0; i < size; i++)
 	{
-		this->data_integer[i] = calloc(sizeof(int), size);
+		this->data_integer[i] = calloc (sizeof (int), size);
 
 		if (is_complex) {
-			this->data_imag[i] = calloc(sizeof(double), size);
-			this->data_real[i] = calloc(sizeof(double), size);
+			this->data_imag[i] = calloc (sizeof (double), size);
+			this->data_real[i] = calloc (sizeof (double), size);
 		}
 	}
 
@@ -50,13 +50,13 @@ frame_copy (Frame *dest, Frame *src)
 {
 	if (dest->size != src->size)
 	{
-		printf("%s: Frames are not the same size\n", __FUNCTION__);
+		printf ("%s: Frames are not the same size\n", __FUNCTION__);
 		return;
 	}
 
 	for (int i = 0; i < dest->size; i++)
 	{
-		memcpy(dest->data_integer[i], src->data_integer[i], sizeof(int *) * dest->size);
+		memcpy (dest->data_integer[i], src->data_integer[i], sizeof (int *) * dest->size);
 	}
 }
 
@@ -65,9 +65,9 @@ frame_reset (Frame *this)
 {
 	for (int i = 0; i < this->size; i++)
 	{
-		memset(this->data_integer[i], 0, sizeof(int *) * this->size);
-		memset(this->data_imag[i], 0, sizeof(double *) * this->size);
-		memset(this->data_real[i], 0, sizeof(double *) * this->size);
+		memset (this->data_integer[i], 0, sizeof (int *) * this->size);
+		memset (this->data_imag[i], 0, sizeof (double *) * this->size);
+		memset (this->data_real[i], 0, sizeof (double *) * this->size);
 	}
 }
 

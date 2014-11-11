@@ -11,17 +11,17 @@ AppWindow_new (char *window_name, int width, int height, bool fullscreen)
 {
 	AppWindow *this;
 
-	if ((this = AppWindow_alloc()) == NULL)
+	if ( (this = AppWindow_alloc ()) == NULL)
 		return NULL;
 
-	AppWindow_init(this, window_name, width, height, fullscreen);
+	AppWindow_init (this, window_name, width, height, fullscreen);
 
     glewExperimental = GL_TRUE;
-	if ((glewInit() != GLEW_OK)
+	if ( (glewInit () != GLEW_OK)
 	|| (glGenVertexArrays == NULL))
 	{
 		printf ("GLEW hasn't been initialized correctly or isn't fully supported.\n");
-		AppWindow_free(this);
+		AppWindow_free (this);
 		return NULL;
 	}
 
@@ -31,7 +31,7 @@ AppWindow_new (char *window_name, int width, int height, bool fullscreen)
 AppWindow *
 AppWindow_alloc (void)
 {
-	return calloc (1, sizeof(AppWindow));
+	return calloc (1, sizeof (AppWindow));
 }
 
 float *
@@ -64,46 +64,46 @@ AppWindow_init (AppWindow *this, char *window_name, int width, int height, bool 
 	SFML(this) = sfRenderWindow_create (
 		video_mode,
 		window_name,
-		(fullscreen) ? sfFullscreen : sfDefaultStyle,
+		 (fullscreen) ? sfFullscreen : sfDefaultStyle,
 		&settings
 	);
 
-	sfRenderWindow_setVerticalSyncEnabled(SFML(this), TRUE);
+	sfRenderWindow_setVerticalSyncEnabled (SFML (this), TRUE);
 
 	// OpenGL initialization
 	{
-		glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
-		glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				// Black Background
-		glClearDepth(1.0f);									// Depth Buffer Setup
+		glShadeModel (GL_SMOOTH);							// Enable Smooth Shading
+		glClearColor (0.0f, 0.0f, 0.0f, 0.5f);				// Black Background
+		glClearDepth (1.0f);									// Depth Buffer Setup
 
-		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
-		glViewport(0, 0, width, height);					// Reset The Current Viewport
+		glHint (GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
+		glViewport (0, 0, width, height);					// Reset The Current Viewport
 
-		glMatrixMode(GL_PROJECTION);						// Select The Projection Matrix
-		glLoadIdentity();									// Reset The Projection Matrix
-		gluPerspective(50.0, (float) width / height, 0.1, 50.0);
+		glMatrixMode (GL_PROJECTION);						// Select The Projection Matrix
+		glLoadIdentity ();									// Reset The Projection Matrix
+		gluPerspective (50.0, (float) width / height, 0.1, 50.0);
 
 		// Smooth points
-		glEnable(GL_POINT_SMOOTH);
+		glEnable (GL_POINT_SMOOTH);
 
 		// Transparency
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable (GL_BLEND);
+		glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		glMatrixMode(GL_MODELVIEW);							// Select The Modelview Matrix
-		glLoadIdentity();									// Reset The Modelview Matrix
+		glMatrixMode (GL_MODELVIEW);							// Select The Modelview Matrix
+		glLoadIdentity ();									// Reset The Modelview Matrix
 	}
 
 	// Initialize App Window state
 	this->draw_app_state = APP_STATE_UNDEFINED;
 	this->last_draw_app_state  = APP_STATE_UNDEFINED;
-	this->drawing_routines = bb_queue_new();
-	this->input_routines = bb_queue_new();
-	this->update_routines = bb_queue_new();
-	AppWindow_view_reset(this);
+	this->drawing_routines = bb_queue_new ();
+	this->input_routines = bb_queue_new ();
+	this->update_routines = bb_queue_new ();
+	AppWindow_view_reset (this);
 
 	// Initialize view at X=30°
-	AppWindow_set_view(this, 30.0, this->view[Y_AXIS], this->view[Z_AXIS]);
+	AppWindow_set_view (this, 30.0, this->view[Y_AXIS], this->view[Z_AXIS]);
 }
 
 void
@@ -112,26 +112,26 @@ AppWindow_set_view (AppWindow *this, float x, float y, float z)
 	this->view[X_AXIS] = x;
 	this->view[Y_AXIS] = y;
 	this->view[Z_AXIS] = z;
-	memcpy(this->targetView, this->view, sizeof(this->view));
+	memcpy (this->targetView, this->view, sizeof (this->view));
 }
 
 int
 AppWindow_add_draw_routine (AppWindow *this, DrawFunction *func)
 {
-	bb_queue_add(this->drawing_routines, func);
-	return bb_queue_get_length(this->drawing_routines) - 1;
+	bb_queue_add (this->drawing_routines, func);
+	return bb_queue_get_length (this->drawing_routines) - 1;
 }
 
 void
 AppWindow_add_input_routine (AppWindow *this, Function *func)
 {
-	bb_queue_add(this->input_routines, func);
+	bb_queue_add (this->input_routines, func);
 }
 
 void
 AppWindow_add_update_routine (AppWindow *this, DrawFunction *func)
 {
-	bb_queue_add(this->update_routines, func);
+	bb_queue_add (this->update_routines, func);
 }
 
 void
@@ -172,14 +172,14 @@ AppWindow_main (AppWindow *this)
 	{
 		sfEvent event;
 
-		while (sfRenderWindow_pollEvent(SFML(this), &event))
+		while (sfRenderWindow_pollEvent (SFML (this), &event))
 		{
 			switch (event.type)
 			{
 				case sfEvtClosed:
 				{
 					// On exit
-					sfRenderWindow_close(SFML(this));
+					sfRenderWindow_close (SFML (this));
 				}
 				break;
 
@@ -188,11 +188,11 @@ AppWindow_main (AppWindow *this)
 					// On ajuste le viewport lorsque la fenêtre est redimensionnée
 					this->width  = event.size.width;
 					this->height = event.size.height;
-					glViewport(0, 0, this->width, this->height);
-					glMatrixMode(GL_PROJECTION);
-					glLoadIdentity();
-					gluPerspective(50.0, (float) this->width / this->height, 0.1, 50.0);
-					glMatrixMode(GL_MODELVIEW);
+					glViewport (0, 0, this->width, this->height);
+					glMatrixMode (GL_PROJECTION);
+					glLoadIdentity ();
+					gluPerspective (50.0, (float) this->width / this->height, 0.1, 50.0);
+					glMatrixMode (GL_MODELVIEW);
 				}
 
 				case sfEvtMouseWheelMoved:
@@ -205,44 +205,44 @@ AppWindow_main (AppWindow *this)
 		}
 
 		// Keyboard
-		if (sfKeyboard_isKeyPressed(sfKeyEscape))
+		if (sfKeyboard_isKeyPressed (sfKeyEscape))
 		{
-			sfRenderWindow_close(SFML(this));
+			sfRenderWindow_close (SFML (this));
 		}
 
-		if (sfKeyboard_isKeyPressed(sfKeyUp))
+		if (sfKeyboard_isKeyPressed (sfKeyUp))
 		{
 			this->targetView[Y_AXIS] += 1.0;
 		}
 
-		if (sfKeyboard_isKeyPressed(sfKeyDown))
+		if (sfKeyboard_isKeyPressed (sfKeyDown))
 		{
 			this->targetView[Y_AXIS] -= 1.0;
 		}
 
-		if (sfKeyboard_isKeyPressed(sfKeyLeft))
+		if (sfKeyboard_isKeyPressed (sfKeyLeft))
 		{
 			this->targetView[X_AXIS] -= 1.0;
 		}
 
-		if (sfKeyboard_isKeyPressed(sfKeyRight))
+		if (sfKeyboard_isKeyPressed (sfKeyRight))
 		{
 			this->targetView[X_AXIS] += 1.0;
 		}
 
-		if (sfKeyboard_isKeyPressed(sfKeyPageUp))
+		if (sfKeyboard_isKeyPressed (sfKeyPageUp))
 		{
 			this->targetView[Z_AXIS] += 0.02;
 		}
 
-		if (sfKeyboard_isKeyPressed(sfKeyPageDown))
+		if (sfKeyboard_isKeyPressed (sfKeyPageDown))
 		{
 			this->targetView[Z_AXIS] -= 0.02;
 		}
 
-		if (sfKeyboard_isKeyPressed(sfKeyR))
+		if (sfKeyboard_isKeyPressed (sfKeyR))
 		{
-			AppWindow_view_reset(this);
+			AppWindow_view_reset (this);
 		}
 
 		foreach_bbqueue_item (this->input_routines, Function *function)
@@ -254,7 +254,7 @@ AppWindow_main (AppWindow *this)
 	void AppWindow_clear ()
 	{
 		// Clear Screen And Depth Buffer
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 	void AppWindow_update ()
@@ -264,7 +264,7 @@ AppWindow_main (AppWindow *this)
 			if (this->view[axis] != this->targetView[axis]) {
 				float increment = (axis != Z_AXIS) ? 1.0 : 0.03;
 				// Threshold
-				if (fabs(this->view[axis] - this->targetView[axis]) > increment) {
+				if (fabs (this->view[axis] - this->targetView[axis]) > increment) {
 					if (this->view[axis] < this->targetView[axis]) {
 						this->view[axis] += increment;
 					} else {
@@ -284,22 +284,22 @@ AppWindow_main (AppWindow *this)
 	}
 
 	// Loop
-	while (sfRenderWindow_isOpen(SFML(this)))
+	while (sfRenderWindow_isOpen (SFML (this)))
 	{
 		// Input
-		AppWindow_input();
+		AppWindow_input ();
 
 		// Clear
-		AppWindow_clear();
+		AppWindow_clear ();
 
 		// Update
-		AppWindow_update();
+		AppWindow_update ();
 
 		// Draw
-		AppWindow_draw();
+		AppWindow_draw ();
 
 		// Display
-		sfRenderWindow_display(SFML(this));
+		sfRenderWindow_display (SFML (this));
 	}
 }
 
