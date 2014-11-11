@@ -13,6 +13,7 @@
 #include "Function/Function.h"
 #include "WrapSFML/wrap.h"
 #include "Utils/Utils.h"
+#include "Profiler/ProfilerFactory.h"
 
 // ---------- Defines -------------
 typedef enum {
@@ -45,6 +46,9 @@ typedef struct _AppWindow
 
 	// Update
 	BbQueue *update_routines;
+
+	// Profiler
+	Profiler *profiler;
 
 }	AppWindow;
 

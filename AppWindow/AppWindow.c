@@ -104,6 +104,9 @@ AppWindow_init (AppWindow *this, char *window_name, int width, int height, bool 
 
 	// Initialize view at X=30°
 	AppWindow_set_view (this, 30.0, this->view[Y_AXIS], this->view[Z_AXIS]);
+
+	// Get a profiler
+	this->profiler = ProfilerFactory_getProfiler ("SFML");
 }
 
 void
@@ -155,6 +158,12 @@ AppWindow_main (AppWindow *this)
 
 		// draw_axes (this->view);
 
+		// Draw profiler
+		if (Profiler_getTime (this->profiler) >= 1.0f) {
+			Profiler_update (this->profiler);
+			Profiler_restart (this->profiler);
+		}
+
 		if (this->draw_app_state != APP_STATE_UNDEFINED)
 		{
 			if (this->last_draw_app_state != this->draw_app_state)
@@ -166,6 +175,10 @@ AppWindow_main (AppWindow *this)
 		}
 
 		this->last_draw_app_state  = this->draw_app_state;
+
+		sfRenderWindow_pushGLStates (SFML (this));
+		sfRenderWindow_drawText (SFML (this), this->profiler->text, NULL);
+		sfRenderWindow_popGLStates (SFML (this));
 	}
 
 	void AppWindow_input ()
@@ -283,9 +296,11 @@ AppWindow_main (AppWindow *this)
 		}
 	}
 
-	// Loop
+	// Main loop
 	while (sfRenderWindow_isOpen (SFML (this)) )
 	{
+		Profiler_tick (this->profiler);
+
 		// Input
 		AppWindow_input ();
 

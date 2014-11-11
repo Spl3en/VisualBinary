@@ -25,7 +25,7 @@ int main (int argc, char **argv)
 
 	// Get Desktop resolution and open the window
 	sfVideoMode desktop = sfVideoMode_getDesktopMode ();
-	AppWindow *window = AppWindow_new ("VisualBinary", desktop.width, desktop.height, false);
+	AppWindow *window = AppWindow_new ("VisualBinary", desktop.width * 0.667, desktop.height * 0.667, false);
 	if (!window) {
 		return 0;
 	}

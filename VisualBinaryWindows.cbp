@@ -53,6 +53,14 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../BbQueue/BbQueue.h" />
+		<Unit filename="../Profiler/Profiler.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Profiler/Profiler.h" />
+		<Unit filename="../Profiler/ProfilerFactory.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Profiler/ProfilerFactory.h" />
 		<Unit filename="../Ztring/Ztring.c">
 			<Option compilerVar="CC" />
 		</Unit>
