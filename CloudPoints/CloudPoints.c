@@ -8,7 +8,7 @@ CloudPoints_new (int pointsCount)
 {
 	CloudPoints *this;
 
-	if ( (this = CloudPoints_alloc ()) == NULL)
+	if ((this = CloudPoints_alloc ()) == NULL)
 		return NULL;
 
 	CloudPoints_init (this, pointsCount);

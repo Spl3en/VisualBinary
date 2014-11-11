@@ -33,7 +33,7 @@ int main (int argc, char **argv)
 	float *view = AppWindow_get_view (window);
 
 	// Cube Visualisation
-	Cube3D *cube = cube3d_new (SFML (window), analyzer);
+	Cube3D *cube = cube3d_new (SFML (window) , analyzer);
 	cube3d_set_rot (cube, 0.0, 0.0);
 
 	// Cube Draw

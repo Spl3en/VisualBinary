@@ -11,13 +11,13 @@ AppWindow_new (char *window_name, int width, int height, bool fullscreen)
 {
 	AppWindow *this;
 
-	if ( (this = AppWindow_alloc ()) == NULL)
+	if ((this = AppWindow_alloc ()) == NULL)
 		return NULL;
 
 	AppWindow_init (this, window_name, width, height, fullscreen);
 
     glewExperimental = GL_TRUE;
-	if ( (glewInit () != GLEW_OK)
+	if ((glewInit () != GLEW_OK)
 	|| (glGenVertexArrays == NULL))
 	{
 		printf ("GLEW hasn't been initialized correctly or isn't fully supported.\n");
@@ -68,7 +68,7 @@ AppWindow_init (AppWindow *this, char *window_name, int width, int height, bool 
 		&settings
 	);
 
-	sfRenderWindow_setVerticalSyncEnabled (SFML (this), TRUE);
+	sfRenderWindow_setVerticalSyncEnabled (SFML (this) , TRUE);
 
 	// OpenGL initialization
 	{
@@ -172,7 +172,7 @@ AppWindow_main (AppWindow *this)
 	{
 		sfEvent event;
 
-		while (sfRenderWindow_pollEvent (SFML (this), &event))
+		while (sfRenderWindow_pollEvent (SFML (this) , &event))
 		{
 			switch (event.type)
 			{
@@ -284,7 +284,7 @@ AppWindow_main (AppWindow *this)
 	}
 
 	// Loop
-	while (sfRenderWindow_isOpen (SFML (this)))
+	while (sfRenderWindow_isOpen (SFML (this)) )
 	{
 		// Input
 		AppWindow_input ();

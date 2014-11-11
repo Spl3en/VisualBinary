@@ -8,7 +8,7 @@ cube3d_new (sfRenderWindow* render, Analyzer *analyzer)
 {
 	Cube3D *this;
 
-	if ( (this = cube3d_alloc ()) == NULL)
+	if ((this = cube3d_alloc ()) == NULL)
 		return NULL;
 
 	cube3d_init (this, render, analyzer);
@@ -29,7 +29,7 @@ cube3d_init (Cube3D *this, sfRenderWindow* render, Analyzer *analyzer)
 
 	this->analyzer    = analyzer;
 	this->start_limit = 0.0;
-	this->end_limit   = (float)(NB_FRAMES);
+	this->end_limit   = (float) (NB_FRAMES);
 	this->render      = render;
 	this->font        = sfFont_createFromFile ("verdana.ttf");
 	this->state       = default_state;
@@ -68,13 +68,13 @@ cube3d_load_cloud (Cube3D *this, CubeState state)
 
 	// Vertices
 	glBindBuffer (GL_ARRAY_BUFFER, this->vboID[state][0]);
-	glBufferData (GL_ARRAY_BUFFER, vSize * sizeof (float), vertices, GL_STATIC_DRAW);
+	glBufferData (GL_ARRAY_BUFFER, vSize * sizeof (float) , vertices, GL_STATIC_DRAW);
     glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray (0);
 
 	// Colors
 	glBindBuffer (GL_ARRAY_BUFFER, this->vboID[state][1]);
-	glBufferData (GL_ARRAY_BUFFER, cSize * sizeof (float), colors, GL_STATIC_DRAW);
+	glBufferData (GL_ARRAY_BUFFER, cSize * sizeof (float) , colors, GL_STATIC_DRAW);
     glVertexAttribPointer (1, 4, GL_FLOAT, GL_FALSE, 0, 0);
     glEnableVertexAttribArray (1);
 
@@ -92,7 +92,7 @@ cube3d_load_cloud (Cube3D *this, CubeState state)
     {
 		int length;
 		glGetShaderiv (vertexShader, GL_INFO_LOG_LENGTH, &length);
-		char *vertexInfoLog = (char *)malloc (length);
+		char *vertexInfoLog = (char *) malloc (length);
 		glGetShaderInfoLog (vertexShader, length, &length, vertexInfoLog);
 		printf ("Error : vertexInfoLog = %s\n", vertexInfoLog);
 		free (vertexInfoLog);
@@ -108,7 +108,7 @@ cube3d_load_cloud (Cube3D *this, CubeState state)
     {
 		int length;
 		glGetShaderiv (fragmentShader, GL_INFO_LOG_LENGTH, &length);
-		char *fragmentInfoLog = (char *)malloc (length);
+		char *fragmentInfoLog = (char *) malloc (length);
 		glGetShaderInfoLog (fragmentShader, length, &length, fragmentInfoLog);
 		printf ("Error : fragmentInfoLog = %s\n", fragmentInfoLog);
 		free (fragmentInfoLog);
@@ -123,12 +123,12 @@ cube3d_load_cloud (Cube3D *this, CubeState state)
     glBindAttribLocation (shaderProgram, 1, "in_Color");
     glLinkProgram (shaderProgram);
 
-    glGetProgramiv (shaderProgram, GL_LINK_STATUS, (int *)&compiled);
+    glGetProgramiv (shaderProgram, GL_LINK_STATUS, (int *) &compiled);
     if (!compiled)
     {
 		int length;
 		glGetProgramiv (shaderProgram, GL_INFO_LOG_LENGTH, &length);
-		char *shaderProgramInfoLog = (char *)malloc (length);
+		char *shaderProgramInfoLog = (char *) malloc (length);
 		glGetProgramInfoLog (shaderProgram, length, &length, shaderProgramInfoLog);
 		printf ("Error : shaderProgramInfoLog = %s\n", shaderProgramInfoLog);
 		free (shaderProgramInfoLog);
@@ -412,7 +412,7 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 				{
 					case CUBE3D_TIME:
 					case CUBE3D_SPACE:
-						visibility = ( (float)(value) / (maxvalue+1));
+						visibility = ((float) (value) / (maxvalue+1));
 						if (visibility > 0.00)
 						{
 							r = visibility * value * x;
@@ -434,15 +434,15 @@ cube3d_compute_cloud (Cube3D *this, CubeState state)
 						{
 							r = (real > 1) ? 1 : real;
 							b = (imag > 1) ? 1 : imag;
-							g = ( ( (real / 2) + (imag / 2)) > 1) ?
-								1 : ( (real / 2) + (imag / 2));
+							g = (( (real / 2) + (imag / 2)) > 1) ?
+								1 : ((real / 2) + (imag / 2));
 
 							CloudPoints_add_color (cloud, r, g, b, opacity);
 
 							CloudPoints_add_vertice (cloud,
 									 (float) x / NB_FRAMES - 0.5,
 									1.0 - (float) y / NB_FRAMES - 0.5,
-									 (float)(SPACE_BETWEEN_FRAMES * z) / NB_FRAMES - (SPACE_BETWEEN_FRAMES * 0.5)
+									 (float) (SPACE_BETWEEN_FRAMES * z) / NB_FRAMES - (SPACE_BETWEEN_FRAMES * 0.5)
 							);
 						}
 					break;
@@ -506,8 +506,8 @@ cube3d_draw (Cube3D *this, float *view)
 
 	if (cube3d_view_changed (this, view)) {
 		glGetFloatv (GL_MODELVIEW_MATRIX, this->model_matrix);
-		glUniformMatrix4fv (glGetUniformLocation (this->shaderProgram, "MVMatrix"), 1, GL_FALSE, this->model_matrix);
-		glUniformMatrix4fv (glGetUniformLocation (this->shaderProgram, "MPMatrix"), 1, GL_FALSE, this->projection_matrix);
+		glUniformMatrix4fv (glGetUniformLocation (this->shaderProgram, "MVMatrix") , 1, GL_FALSE, this->model_matrix);
+		glUniformMatrix4fv (glGetUniformLocation (this->shaderProgram, "MPMatrix") , 1, GL_FALSE, this->projection_matrix);
 	}
 
 	glBindVertexArray (this->vaoID[state][0]);

@@ -26,8 +26,8 @@ int FFT2D (COMPLEX **c,int nx,int ny,int dir)
    double *real,*imag;
 
    /* Transform the rows */
-   real = (double *)malloc (nx * sizeof (double));
-   imag = (double *)malloc (nx * sizeof (double));
+   real = (double *) malloc (nx * sizeof (double));
+   imag = (double *) malloc (nx * sizeof (double));
    if (real == NULL || imag == NULL)
       return (FALSE);
    if (!Powerof2 (nx,&m,&twopm) || twopm != nx)
@@ -47,8 +47,8 @@ int FFT2D (COMPLEX **c,int nx,int ny,int dir)
    free (imag);
 
    /* Transform the columns */
-   real = (double *)malloc (ny * sizeof (double));
-   imag = (double *)malloc (ny * sizeof (double));
+   real = (double *) malloc (ny * sizeof (double));
+   imag = (double *) malloc (ny * sizeof (double));
    if (real == NULL || imag == NULL)
       return (FALSE);
    if (!Powerof2 (ny,&m,&twopm) || twopm != ny)
@@ -84,8 +84,8 @@ int DFT2D (COMPLEX **c,int nx,int ny,int dir)
    double *real,*imag;
 
    /* Transform the rows */
-   real = (double *)malloc (nx * sizeof (double));
-   imag = (double *)malloc (nx * sizeof (double));
+   real = (double *) malloc (nx * sizeof (double));
+   imag = (double *) malloc (nx * sizeof (double));
    if (real == NULL || imag == NULL)
       return (FALSE);
    if (!Powerof2 (nx,&m,&twopm) || twopm != nx)
@@ -105,8 +105,8 @@ int DFT2D (COMPLEX **c,int nx,int ny,int dir)
    free (imag);
 
    /* Transform the columns */
-   real = (double *)malloc (ny * sizeof (double));
-   imag = (double *)malloc (ny * sizeof (double));
+   real = (double *) malloc (ny * sizeof (double));
+   imag = (double *) malloc (ny * sizeof (double));
    if (real == NULL || imag == NULL)
       return (FALSE);
    if (!Powerof2 (ny,&m,&twopm) || twopm != ny)
@@ -205,17 +205,17 @@ int FFT (int dir,int m,double *x,double *y)
          u2 = u1 * c2 + u2 * c1;
          u1 = z;
       }
-      c2 = sqrt ( (1.0 - c1) / 2.0);
+      c2 = sqrt ((1.0 - c1) / 2.0);
       if (dir == 1)
          c2 = -c2;
-      c1 = sqrt ( (1.0 + c1) / 2.0);
+      c1 = sqrt ((1.0 + c1) / 2.0);
    }
 
    /* Scaling for forward transform */
    if (dir == 1) {
       for (i=0;i<nn;i++) {
-         x[i] /= (double)nn;
-         y[i] /= (double)nn;
+         x[i] /= (double) nn;
+         y[i] /= (double) nn;
       }
    }
 
@@ -241,7 +241,7 @@ int DFT (int dir,int m,double *x1,double *y1)
    for (i=0;i<m;i++) {
       x2[i] = 0;
       y2[i] = 0;
-      arg = - dir * 2.0 * M_PI * (double)i / (double)m;
+      arg = - dir * 2.0 * M_PI * (double) i / (double) m;
       for (k=0;k<m;k++) {
          cosarg = cos (k * arg);
          sinarg = sin (k * arg);
@@ -253,8 +253,8 @@ int DFT (int dir,int m,double *x1,double *y1)
    /* Copy the data back */
    if (dir == 1) {
       for (i=0;i<m;i++) {
-         x1[i] = x2[i] / (double)m;
-         y1[i] = y2[i] / (double)m;
+         x1[i] = x2[i] / (double) m;
+         y1[i] = y2[i] / (double) m;
       }
    } else {
       for (i=0;i<m;i++) {

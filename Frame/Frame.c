@@ -8,7 +8,7 @@ frame_new (int size, int is_complex)
 {
 	Frame *this;
 
-	if ( (this = frame_alloc ()) == NULL)
+	if ((this = frame_alloc ()) == NULL)
 		return NULL;
 
 	frame_init (this, size, is_complex);
@@ -25,20 +25,20 @@ frame_alloc (void)
 void
 frame_init (Frame *this, int size, int is_complex)
 {
-	this->data_integer = calloc (sizeof (int *), size);
+	this->data_integer = calloc (sizeof (int *) , size);
 
 	if (is_complex) {
-		this->data_imag = calloc (sizeof (double *), size);
-		this->data_real = calloc (sizeof (double *), size);
+		this->data_imag = calloc (sizeof (double *) , size);
+		this->data_real = calloc (sizeof (double *) , size);
 	}
 
 	for (int i = 0; i < size; i++)
 	{
-		this->data_integer[i] = calloc (sizeof (int), size);
+		this->data_integer[i] = calloc (sizeof (int) , size);
 
 		if (is_complex) {
-			this->data_imag[i] = calloc (sizeof (double), size);
-			this->data_real[i] = calloc (sizeof (double), size);
+			this->data_imag[i] = calloc (sizeof (double) , size);
+			this->data_real[i] = calloc (sizeof (double) , size);
 		}
 	}
 
