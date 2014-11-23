@@ -16,6 +16,7 @@ AppWindow_new (char *window_name, int width, int height, bool fullscreen)
 
 	AppWindow_init (this, window_name, width, height, fullscreen);
 
+	printf("OpenGL %s, GLSL %s\n", glGetString(GL_VERSION),glGetString(GL_SHADING_LANGUAGE_VERSION));
     glewExperimental = GL_TRUE;
 	if ((glewInit () != GLEW_OK)
 	|| (glGenVertexArrays == NULL))
