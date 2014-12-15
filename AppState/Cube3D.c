@@ -79,8 +79,21 @@ cube3d_load_cloud (Cube3D *this, CubeState state)
     glEnableVertexAttribArray (1);
 
 	// Read shaders
-	const GLchar *vertexSource   = file_get_contents ("./shaders/cloudPoints.vert");
-    const GLchar *fragmentSource = file_get_contents ("./shaders/cloudPoints.frag");
+	// Get path
+	char *vert_path = strdup ("./shaders/cloudPoints.vert");
+	char *frag_path = strdup ("./shaders/cloudPoints.frag");
+	#ifdef WIN32
+		char exePath [MAX_PATH];
+		GetModuleFileName (NULL, exePath, sizeof(exePath));
+
+		char * lastSlash = strrchr (exePath, '\\');
+		char * exeName = (lastSlash != NULL) ? &lastSlash[1] : exePath;
+		exeName [0] = '\0';
+		vert_path = str_dup_printf ("%s/%s", exePath, vert_path);
+		frag_path = str_dup_printf ("%s/%s", exePath, frag_path);
+	#endif // WIN32
+	const GLchar *vertexSource   = file_get_contents (vert_path);
+    const GLchar *fragmentSource = file_get_contents (frag_path);
 
 	// Create and compile the vertex shader
 	GLint compiled;

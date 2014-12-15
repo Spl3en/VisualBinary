@@ -13,9 +13,9 @@ int main (int argc, char **argv)
 	    exit (0);
 	}
 	else {
-            printf ("Loading %s ...\n", argv[1]);
-            filename = argv[1];
-        }
+		printf ("Loading %s ...\n", argv[1]);
+		filename = argv[1];
+	}
 
 	// Initialize the seed from the time
 	srand (time (NULL));
