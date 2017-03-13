@@ -3,6 +3,7 @@ VisualBinary
 
 VisualBinary is a study project for 3D binary visualization
 
+![VisualBinary on itself](https://i.imgur.com/f3Rqrs6.png)
 
 Hotkeys
 ----
